@@ -1,0 +1,15 @@
+#### yarn create vite
+
+#### yarn add package.json
+
+#### yarn add tailwindcss postcss autoprefixer
+
+#### npx tailwindcss init -p
+
+#### yarn add -D sass
+
+#### yarn add react-router-dom
+
+# yarn add mobx mobx-devtools mobx-react-lite
+
+#### yarn add graphql @apollo/client @types/apollo-upload-client

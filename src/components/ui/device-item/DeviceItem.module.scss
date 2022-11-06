@@ -1,0 +1,34 @@
+.item {
+
+  @apply border-4 border-indigo-500 mb-2 flex;
+
+
+  .image {
+    @apply block h-40 flex-1 basis-1/2 flex items-center;
+    img{
+      @apply max-h-[10rem];
+    }
+  }
+
+  .description{
+
+    @apply mx-2 flex-initial basis-1/2;
+
+    .heading {
+      @apply text-lg uppercase mb-2 font-bold text-red-400;
+    }
+
+    .price {
+      @apply text-lg;
+    }
+
+    .rate{
+      @apply w-10 h-10 flex items-center mt-5;
+      > div{
+        @apply ml-3;
+      }
+    }
+  }
+
+
+}
