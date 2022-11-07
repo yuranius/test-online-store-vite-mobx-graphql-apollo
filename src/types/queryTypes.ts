@@ -7,3 +7,8 @@ export interface IDevice {
 	rating: string,
 	price: string,
 }
+
+export interface IRegistration {
+	email: string
+	password: string
+}

@@ -1,16 +1,16 @@
 .container{
-  @apply flex flex-wrap min-h-screen w-full content-center justify-center bg-gray-200 py-10;
+  @apply flex flex-wrap min-h-screen w-full content-center justify-center bg-gray-200 py-10 dark:bg-gray-700;
   .component{
     @apply flex shadow-md;
     .form{
-      @apply flex flex-wrap content-center justify-center rounded-l-md bg-white w-[24rem] h-[32rem];
+      @apply flex flex-wrap content-center justify-center rounded-l-md bg-white w-[24rem] h-[32rem] dark:bg-gray-800;
       .title{
-        @apply text-xl font-semibold;
+        @apply text-xl font-semibold dark:text-white;
       }
       .inputForm{
         @apply mb-3;
         > label{
-          @apply mb-2 block text-xs font-semibold;
+          @apply mb-2 block text-xs font-semibold dark:text-white;
         }
         > input {
           @apply block w-full rounded-md border border-gray-300 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-700 py-1 px-1.5 text-gray-500;

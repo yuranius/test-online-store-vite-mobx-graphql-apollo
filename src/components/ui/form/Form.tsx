@@ -1,12 +1,12 @@
 import React, {FC} from 'react';
 import styled from './Form.module.scss'
-import banner from "../../../image/auth-page-banner.jpg";
+import banner from "../../../image/auth-page-banner-dark.jpg";
 import {IAuth} from '../../../types/propsTypes';
 import {Link} from "react-router-dom";
-import {DANGER, LOGIN_ROUTE, REGISTRATION_ROUTE, SUCCESS, WARNING} from "../../../utils/consts";
-import Toasts from "../toasts/Toasts";
+import {LOGIN_ROUTE, REGISTRATION_ROUTE} from "../../../utils/consts";
 
-const Form: FC<IAuth> = ({isLoginPage}) => {
+
+const Form: FC<IAuth> = ({isLoginPage,email, setEmail,password,setPassword,handleButton}) => {
 	return (
 			<div className={styled.container}>
 				<div className={styled.component}>
@@ -22,7 +22,9 @@ const Form: FC<IAuth> = ({isLoginPage}) => {
 							<form className="mt-4">
 								<div className={styled.inputForm}>
 									<label>Email</label>
-									<input type="email" placeholder="Введите Вашу почту"/>
+									<input type="email" placeholder="Введите Вашу почту"
+									       value={email} onChange={(e) => setEmail(e.target.value)}
+									/>
 								</div>
 
 								<div className={styled.inputForm}>
@@ -32,7 +34,7 @@ const Form: FC<IAuth> = ({isLoginPage}) => {
 
 
 								<div className={styled.inputForm}>
-									<button>{isLoginPage ? 'Войти' : 'Регистрация'}</button>
+									<button onClick={(e) => handleButton(e)}>{isLoginPage ? 'Войти' : 'Регистрация'}</button>
 								</div>
 							</form>
 

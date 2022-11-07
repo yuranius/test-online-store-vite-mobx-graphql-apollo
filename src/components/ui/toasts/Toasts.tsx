@@ -3,7 +3,7 @@ import {IToasts} from "../../../types/propsTypes";
 import {DANGER, SUCCESS, WARNING} from "../../../utils/consts";
 import styled from './Toasts.module.scss'
 
-const Toasts: FC<IToasts> = ({typeIcon,text}) => {
+const Toasts: FC<IToasts> = ({typeIcon,text, onClose}) => {
 	return (
 			<div className={styled.wrapper}>
 				<div className={typeIcon === SUCCESS ? styled.blockIconGreen : typeIcon === WARNING ? styled.blockIconRed : styled.blockIconOrange} >
@@ -26,7 +26,7 @@ const Toasts: FC<IToasts> = ({typeIcon,text}) => {
 					<span className="sr-only">Иконка</span>
 				</div>
 				<div className={styled.text}>{text}</div>
-				<button type="button" className={styled.button} data-dismiss-target="#toast-success" aria-label="Close">
+				<button type="button" className={styled.button} data-dismiss-target="#toast-success" aria-label="Close" onClick={onClose}>
 					<span className="sr-only">Закрыть</span>
 					<svg aria-hidden="true" className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
 					     xmlns="http://www.w3.org/2000/svg">

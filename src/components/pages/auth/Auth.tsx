@@ -1,49 +1,53 @@
-import React, {FC, useState} from 'react';
+import React, {FC, useContext, useState} from 'react';
 import Form from "../../ui/form/Form";
 import {useLocation} from "react-router-dom";
-import {LOGIN_ROUTE, SUCCESS} from "../../../utils/consts";
-import Toasts from "../../ui/toasts/Toasts";
-import {CSSTransition} from 'react-transition-group'
+import {LOGIN_ROUTE} from "../../../utils/consts";
 import './alert.css'
-
-import styled from './Alert.module.scss'
+import {handleButton} from "../../../types/propsTypes";
+import {useRegistration} from "../../../hooks/useRegistration";
+import {useShowToasts} from "../../../hooks/useShowToasts";
+import {Context} from "../../../App";
 
 
 const Auth:FC = () => {
 	const location = useLocation()
 	const isLoginPage = location.pathname === LOGIN_ROUTE
 
-	const [show, setShow] = useState(false)
+	const [email, setEmail] = useState('')
+	const [password, setPassword] = useState('')
+
+	const {showToasts} = useContext(Context)
+
+	const {registration, loading, error} = useRegistration()
 
 
+	const handleButton = (e:handleButton) => {
+		e.preventDefault()
+
+		console.log( '📌:',email,'🌴 🏁')
+		
+
+		// registration({email, password})
+	}
 
 
+	if(error) {
 
-
-
-
-
-
-
-
-
+	}
+	
 
 
 	return (
 			<>
-
-
-				<button onClick={() => setShow(!show)} className='w-32 p-2 rounded-lg bg-yellow-400 absolute left-[50%] top-32'>{show ? 'Скрыть' : 'Показать'}</button>
-				{/*{show && <Toasts typeIcon={SUCCESS} text={'Это Важное сообщение'}/>}*/}
-
-
-					<CSSTransition in={show} classNames='alert' timeout={500} unmountOnExit>
-						<Toasts typeIcon={SUCCESS} text={'Это Важное сообщение'}/>
-					</CSSTransition>
-
-
-
-				<Form isLoginPage={isLoginPage} />
+				<button className='w-32 p-3 rounded bg-orange-400 absolute' onClick={handleButton}>test</button>
+				<Form
+						isLoginPage={isLoginPage}
+						email={email}
+						setEmail={setEmail}
+						password={password}
+						setPassword={setPassword}
+						handleButton={handleButton}
+				/>
 			</>
 
 	);
