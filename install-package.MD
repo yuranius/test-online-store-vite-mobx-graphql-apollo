@@ -13,3 +13,5 @@
 # yarn add mobx mobx-devtools mobx-react-lite
 
 #### yarn add graphql @apollo/client @types/apollo-upload-client
+
+#### yarn add react-transition-group (для анимации)

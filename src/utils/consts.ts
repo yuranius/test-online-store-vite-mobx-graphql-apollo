@@ -4,3 +4,8 @@ export const REGISTRATION_ROUTE = '/registration'
 export const SHOP_ROUTE = '/'
 export const BASKET_ROUTE = '/basket'
 export const DEVICE_ROUTE = '/device'
+
+export const SUCCESS = 'success'
+export const DANGER = 'danger'
+export const WARNING = 'warning'
+

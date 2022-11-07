@@ -1,4 +1,4 @@
-import {ADMIN_ROUTE, BASKET_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE} from "./consts";
+import {ADMIN_ROUTE, BASKET_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE} from "../../utils/consts";
 import Admin from "../pages/admin/Admin";
 import Basket from "../pages/basket/Basket";
 import Auth from "../pages/auth/Auth";

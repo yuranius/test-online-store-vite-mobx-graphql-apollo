@@ -3,7 +3,8 @@ import styled from './Form.module.scss'
 import banner from "../../../image/auth-page-banner.jpg";
 import {IAuth} from '../../../types/propsTypes';
 import {Link} from "react-router-dom";
-import {LOGIN_ROUTE, REGISTRATION_ROUTE} from "../../router/consts";
+import {DANGER, LOGIN_ROUTE, REGISTRATION_ROUTE, SUCCESS, WARNING} from "../../../utils/consts";
+import Toasts from "../toasts/Toasts";
 
 const Form: FC<IAuth> = ({isLoginPage}) => {
 	return (
@@ -51,6 +52,10 @@ const Form: FC<IAuth> = ({isLoginPage}) => {
 						<img src={banner}/>
 					</div>
 				</div>
+
+
+
+
 			</div>
 	);
 };
