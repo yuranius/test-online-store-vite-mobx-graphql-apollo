@@ -4,7 +4,7 @@ import {IRegistration} from "../types/queryTypes";
 
 export const useRegistration = () => {
 	const [regUser, {data: user, loading: loadingReg, error: errorReg}] = useMutation(REGISTRATION)
-	const [createBasket, {loading: loadingBasket, error: errorBasket}] = useMutation(CREATE_BASKET)
+	const [createBasket, {data: basket, loading: loadingBasket, error: errorBasket}] = useMutation(CREATE_BASKET)
 
 	const registration = ({email, password}:IRegistration) => {
 		regUser({
@@ -20,10 +20,10 @@ export const useRegistration = () => {
 			}
 		}))
 	}
-
+	
 	let loading = loadingReg || loadingBasket
-	let error = errorReg || errorBasket
+	let error = errorReg?.message || errorBasket?.message
 
-	return {registration, loading, error, user}
+	return {registration, loading, basket, error}
 
 }

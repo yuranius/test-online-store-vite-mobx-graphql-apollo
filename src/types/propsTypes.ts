@@ -1,13 +1,14 @@
 import {DANGER, SUCCESS, WARNING} from "../utils/consts";
 import React, {Dispatch, SetStateAction} from "react";
 
-export interface IAuth {
+export interface IForm {
 	isLoginPage: boolean
 	setEmail: Dispatch<SetStateAction<string>>
 	email:string
 	setPassword:Dispatch<SetStateAction<string>>
 	password:string
 	handleButton: (e:handleButton) => void
+	loading: boolean
 }
 
 export type handleButton = {

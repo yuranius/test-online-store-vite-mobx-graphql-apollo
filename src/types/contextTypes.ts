@@ -1,9 +1,7 @@
 import {TypeIcon} from "./propsTypes";
 
-export interface IContext {
-	showToasts: () => void
-}
 
-export type Toasts = {
+
+export interface IShowToasts {
 	text: string, typeIcon: TypeIcon
 }

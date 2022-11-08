@@ -1,15 +1,19 @@
 .alert-enter {
-    @apply bottom-0 opacity-0;
+    @apply bottom-0 opacity-0 filter blur-none;
 }
 
 .alert-enter-active {
-    @apply bottom-20 opacity-100 transition-all duration-300 ease-in;
+    @apply bottom-20 opacity-100 filter blur transition-all duration-300 ease-in;
 }
 
 .alert-exit {
-    @apply opacity-100
+    @apply opacity-100 bottom-20 filter blur;
 }
 
 .alert-exit-active {
-    @apply opacity-0 transition-all duration-300 ease-in;
+    @apply opacity-0 bottom-0 filter blur-none transition-all duration-300 ease-in;
+}
+
+.alert-enter-done{
+    @apply bottom-20;
 }

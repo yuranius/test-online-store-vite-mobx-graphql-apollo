@@ -1,45 +1,43 @@
-import React, {FC, useContext, useState} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import Form from "../../ui/form/Form";
 import {useLocation} from "react-router-dom";
-import {LOGIN_ROUTE} from "../../../utils/consts";
+import {DANGER, LOGIN_ROUTE, SUCCESS, WARNING} from "../../../utils/consts";
 import './alert.css'
 import {handleButton} from "../../../types/propsTypes";
 import {useRegistration} from "../../../hooks/useRegistration";
+import {CSSTransition} from "react-transition-group";
+import Toasts from "../../ui/toasts/Toasts";
 import {useShowToasts} from "../../../hooks/useShowToasts";
-import {Context} from "../../../App";
 
 
-const Auth:FC = () => {
+const Auth: FC = () => {
 	const location = useLocation()
 	const isLoginPage = location.pathname === LOGIN_ROUTE
 
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
 
-	const {showToasts} = useContext(Context)
+	const {registration, loading, error, basket} = useRegistration()
+	const {showToasts, text, show, onClose, typeIcon} = useShowToasts()
 
-	const {registration, loading, error} = useRegistration()
 
 
-	const handleButton = (e:handleButton) => {
+	const handleButton = (e: handleButton) => {
 		e.preventDefault()
-
-		console.log( '📌:',email,'🌴 🏁')
-		
-
-		// registration({email, password})
+		registration({email, password})
 	}
 
-
-	if(error) {
-
-	}
-	
+	useEffect( () => {
+		if (!!basket) {
+			showToasts({text: 'Пользователь зарегестрирован', typeIcon: SUCCESS})
+		} else if (error) {
+			showToasts({text: JSON.stringify(error), typeIcon: WARNING})
+		}
+	}, [basket, error])
 
 
 	return (
 			<>
-				<button className='w-32 p-3 rounded bg-orange-400 absolute' onClick={handleButton}>test</button>
 				<Form
 						isLoginPage={isLoginPage}
 						email={email}
@@ -47,7 +45,11 @@ const Auth:FC = () => {
 						password={password}
 						setPassword={setPassword}
 						handleButton={handleButton}
+						loading={loading}
 				/>
+				<CSSTransition in={show} classNames='alert' timeout={300} unmountOnExit>
+					<Toasts typeIcon={typeIcon} text={text} onClose={onClose}/>
+				</CSSTransition>
 			</>
 
 	);

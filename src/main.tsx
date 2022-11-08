@@ -1,9 +1,11 @@
-import React from 'react'
+import React, {useState} from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App'
 import './index.css'
 import {createUploadLink} from "apollo-upload-client";
 import {ApolloClient, ApolloProvider, InMemoryCache} from "@apollo/client";
+import {CSSTransition} from "react-transition-group";
+import Toasts from "./components/ui/toasts/Toasts";
 
 
 
@@ -19,6 +21,8 @@ const client  = new ApolloClient({
 	link,
 	cache: new InMemoryCache(),
 })
+
+
 
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
