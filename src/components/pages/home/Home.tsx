@@ -15,6 +15,7 @@ const Home: FC = () => {
 		fetchDevice({limit: 8, skip: 0})
 	}, [])
 
+
 	console.log('📌:', loading, devices, count, '🌴 🏁')
 
 
