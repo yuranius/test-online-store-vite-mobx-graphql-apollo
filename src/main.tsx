@@ -1,15 +1,12 @@
-import React, {useState} from 'react'
+import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App'
 import './index.css'
 import {createUploadLink} from "apollo-upload-client";
 import {ApolloClient, ApolloProvider, InMemoryCache} from "@apollo/client";
-import {CSSTransition} from "react-transition-group";
-import Toasts from "./components/ui/toasts/Toasts";
 
 
-
-const link = createUploadLink ({
+const link = createUploadLink({
 	uri: 'https://parseapi.back4app.com/graphql',
 	headers: {
 		"X-Parse-Application-Id": "kkWwjLM6jwGw4cW1VeN7NoLuuAWWCcQOT3nwfcZD",
@@ -17,16 +14,14 @@ const link = createUploadLink ({
 	},
 })
 
-const client  = new ApolloClient({
+const client = new ApolloClient({
 	link,
 	cache: new InMemoryCache(),
 })
 
 
-
-
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-	<ApolloProvider client={client}>
-		<App />
-	</ApolloProvider>
+		<ApolloProvider client={client}>
+			<App/>
+		</ApolloProvider>
 )

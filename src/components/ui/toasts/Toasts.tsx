@@ -1,11 +1,52 @@
-import React, {FC} from 'react';
+import React, {FC, forwardRef, useImperativeHandle, useState} from 'react';
 import {IToasts} from "../../../types/propsTypes";
 import {SUCCESS, WARNING} from "../../../utils/consts";
 import styled from './Toasts.module.scss'
+import {CSSTransition} from "react-transition-group";
+import { IShowMessage } from '../../../types/contextTypes';
+import './alert.css'
 
 
-const Toasts: FC<IToasts> = ({typeIcon, text, onClose}) => {
+
+
+const Toasts: FC<IToasts> = forwardRef(({}, ref) => {
+
+
+	const [show, setShow] = useState(false)
+	const [typeIcon, setTypeIcon] = useState(SUCCESS)
+	const [text, setText] = useState('')
+
+	let timeout:number;
+
+	useImperativeHandle(ref, () => ({
+		showMessage({typeIcon, text}:IShowMessage) {
+			setTypeIcon(typeIcon)
+			setText(text)
+			if (show) {
+				setShow(false)
+				clearTimeout(timeout)
+				setShow(true)
+			} else {
+				setShow(true)
+			}
+		}
+	}))
+
+	const onClose = () => {
+		setShow(false)
+	}
+
+
+	if (show) {
+		timeout = setTimeout( () => {
+			setShow(false)
+		}, 5000)
+	}
+
+
+
 	return (
+			<CSSTransition in={show} classNames='alert' timeout={300} unmountOnExit>
 				<div className={styled.wrapper}>
 					<div
 							className={typeIcon === SUCCESS ? styled.blockIconGreen : typeIcon === WARNING ? styled.blockIconRed : styled.blockIconOrange}>
@@ -41,7 +82,8 @@ const Toasts: FC<IToasts> = ({typeIcon, text, onClose}) => {
 						</svg>
 					</button>
 				</div>
+			</CSSTransition>
 	);
-};
+})
 
 export default Toasts;

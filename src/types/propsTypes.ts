@@ -1,5 +1,5 @@
 import {DANGER, SUCCESS, WARNING} from "../utils/consts";
-import React, {Dispatch, SetStateAction} from "react";
+import React, {Dispatch, MutableRefObject, SetStateAction} from "react";
 
 export interface IForm {
 	isLoginPage: boolean
@@ -16,9 +16,21 @@ export type handleButton = {
 }
 
 export interface IToasts {
-	typeIcon: TypeIcon
-	text: string
-	onClose: () => void
+	ref?: React.ForwardedRef<unknown>
 }
 
 export type TypeIcon = 	typeof SUCCESS | typeof DANGER | typeof WARNING
+
+
+export interface IToastPortal {
+	autoClose: boolean
+	autoCloseTime: number
+	ref?: React.ForwardedRef<unknown>
+}
+
+
+export interface IToast {
+	mode: string
+	onClose: () => void
+	message: string
+}
