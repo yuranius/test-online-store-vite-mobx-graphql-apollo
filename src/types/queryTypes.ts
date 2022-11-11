@@ -1,4 +1,4 @@
-export interface IDevice {
+export interface IDevices {
 	id: string
 	name: string
 	brandId: string,
@@ -6,6 +6,7 @@ export interface IDevice {
 	img: string,
 	rating: string,
 	price: string,
+	info?: []
 }
 
 export interface IRegistration {

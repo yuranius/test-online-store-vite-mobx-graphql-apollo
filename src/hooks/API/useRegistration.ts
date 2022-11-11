@@ -1,6 +1,6 @@
 import {useMutation} from "@apollo/client";
-import {CREATE_BASKET, REGISTRATION} from "../query/authAPI";
-import {IRegistration} from "../types/queryTypes";
+import {CREATE_BASKET, REGISTRATION} from "../../query/authAPI";
+import {IRegistration} from "../../types/queryTypes";
 
 export const useRegistration = () => {
 	const [regUser, {data: user, loading: loadingReg, error: errorReg}] = useMutation(REGISTRATION)
@@ -21,9 +21,9 @@ export const useRegistration = () => {
 		}))
 	}
 	
-	let loading = loadingReg || loadingBasket
-	let error = errorReg?.message || errorBasket?.message
+	let loadingRegistration = loadingReg || loadingBasket
+	let errorRegistration = errorReg?.message || errorBasket?.message
 
-	return {registration, loading, basket, error}
+	return {registration, loadingRegistration, basket, errorRegistration}
 
 }

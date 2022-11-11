@@ -1,6 +1,6 @@
 import React, {FC, useEffect} from 'react';
 import Layout from "../../ui/layout/Layout";
-import {useGetDevices} from "../../../hooks/useGetDevice";
+import {useGetDevices} from "../../../hooks/API/useGetDevices";
 import DeviceItem from "../../ui/device-item/DeviceItem";
 import {IDevice} from "../../../types/queryTypes";
 import styled from './Home.module.scss'
@@ -14,9 +14,6 @@ const Home: FC = () => {
 	useEffect(() => {
 		fetchDevice({limit: 8, skip: 0})
 	}, [])
-
-
-	console.log('📌:', loading, devices, count, '🌴 🏁')
 
 
 	return (

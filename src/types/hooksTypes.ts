@@ -13,3 +13,8 @@ export type ToastElement = {
 	onClose: () => void
 	message: string
 }
+
+
+export type GetDevice = {
+	id?: string
+}

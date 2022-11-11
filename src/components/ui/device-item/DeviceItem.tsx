@@ -2,19 +2,15 @@ import React, {FC} from 'react';
 import {IDevice} from "../../../types/queryTypes";
 import styled from './DeviceItem.module.scss'
 import star from './../../../image/bigstar.png'
+import { format } from '../../../utils/formatter';
+import {Link} from "react-router-dom";
 
 const DeviceItem:FC<{device: IDevice}> = ({device}) => {
 
-	let format = (price:number):string => {
-		return new Intl.NumberFormat('ru-RU', {
-			style: 'currency',
-			currency: 'RUB',
-			maximumFractionDigits: 0
-		}).format(price)
-	}
+
 
 	return (
-			<div className={styled.item}>
+			<Link to={'./device/'+ device.id}  className={styled.item}>
 				<div className={styled.image}>
 					<img src={device.img} alt={device.name}/>
 				</div>
@@ -27,7 +23,7 @@ const DeviceItem:FC<{device: IDevice}> = ({device}) => {
 						<div>{device.rating}</div>
 					</div>
 				</div>
-			</div>
+			</Link>
 	);
 };
 

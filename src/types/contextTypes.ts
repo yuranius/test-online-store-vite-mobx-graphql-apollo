@@ -1,9 +1,17 @@
-import {MutableRefObject, RefObject} from "react";
+import {Dispatch, MutableRefObject, RefObject, SetStateAction} from "react";
 import {TypeIcon} from "./propsTypes";
+import {ToastElement} from "./hooksTypes";
 
 // export type IApp =	MutableRefObject<HTMLInputElement> | null
 
-export type IApp =	RefObject<HTMLElement | IRef > | null
+export type IApp =	{
+	ref: IRef | null
+	isAuth: boolean | null
+	setIsAuth: Dispatch<SetStateAction<boolean>>
+}
+
+//RefObject<HTMLElement | IRef > | null
+
 
 export interface IRef {
 	current: showMessage

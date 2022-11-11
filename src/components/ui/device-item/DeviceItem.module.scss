@@ -1,7 +1,10 @@
 .item {
 
-  @apply border-4 border-indigo-500 mb-2 flex;
+  @apply border-4 border-indigo-500 mb-2 flex shadow cursor-pointer;
 
+  &:hover{
+    @apply drop-shadow-2xl;
+  }
 
   .image {
     @apply block h-40 flex-1 basis-1/2 flex items-center;

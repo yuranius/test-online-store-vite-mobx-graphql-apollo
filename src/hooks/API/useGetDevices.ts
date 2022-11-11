@@ -4,9 +4,9 @@ import {
 	FETCH_DEVICES_WHEN_BRAND,
 	FETCH_DEVICES_WHEN_BRAND_AND_TYPE,
 	FETCH_DEVICES_WHEN_TYPE
-} from "../query/deviceAPI";
+} from "../../query/deviceAPI";
 import {useState} from "react";
-import {IDevice} from "../types/queryTypes";
+import {IDevices} from "../../types/queryTypes";
 
 
 export const useGetDevices = () => {
@@ -90,16 +90,16 @@ export const useGetDevices = () => {
 						limit: limit,
 					}
 				}).then(res => {
-							setCount(res.data.devices.count)
-							setDevices(res.data.devices.edges.map ( ({node}:Node):IDevice => ({
-								id: node.objectId,
-								name: node.name,
-								brandId: node.brandId.objectId,
-								typeId: node.typeId.objectId,
-								img: node.img,
-								rating: node.rating,
-								price: node.price,
-							})))
+					setCount(res.data.devices.count)
+					setDevices(res.data.devices.edges.map(({node}: Node): IDevices => ({
+						id: node.objectId,
+						name: node.name,
+						brandId: node.brandId.objectId,
+						typeId: node.typeId.objectId,
+						img: node.img,
+						rating: node.rating,
+						price: node.price,
+					})))
 						}
 				)
 				break

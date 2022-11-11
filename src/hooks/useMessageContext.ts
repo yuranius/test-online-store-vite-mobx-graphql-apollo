@@ -6,7 +6,7 @@ import {Context} from "../App";
 
 
 export const useMessageContext = () => {
-	const ref: IRef | null = useContext(Context)
+	const {ref} = useContext(Context)
 
 	const showMessage = ({ text, typeIcon}: IShowMessage) => {
 		ref?.current.showMessage({text:text, typeIcon: typeIcon})
