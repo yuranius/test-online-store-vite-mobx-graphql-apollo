@@ -3,7 +3,7 @@ import Admin from "../pages/admin/Admin";
 import Basket from "../pages/basket/Basket";
 import Auth from "../pages/auth/Auth";
 import {IRoute} from "../../types/routerTypes";
-import Home from "../pages/home/Home";
+import Shop from "../pages/home/Shop";
 import Device from "../pages/device/Device";
 
 
@@ -32,7 +32,7 @@ export const publicRoutes:IRoute[] = [
 	},
 	{
 		path:SHOP_ROUTE,
-		Page: Home
+		Page: Shop
 	},
 	{
 		path: DEVICE_ROUTE + '/:id',

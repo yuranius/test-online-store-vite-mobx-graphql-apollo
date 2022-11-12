@@ -1,29 +1,36 @@
-import {Dispatch, MutableRefObject, RefObject, SetStateAction} from "react";
 import {TypeIcon} from "./propsTypes";
-import {ToastElement} from "./hooksTypes";
+import {MutableRefObject} from "react";
 
-// export type IApp =	MutableRefObject<HTMLInputElement> | null
 
-export type IApp =	{
-	ref: IRef | null
-	isAuth: boolean | null
-	setIsAuth: Dispatch<SetStateAction<boolean>>
+export type IContext = {
+	user: {
+		ref: any;
+		isAuth: boolean;
+		user: {
+			objectId: string;
+			username: string;
+			role: string;
+		}
+		currentPage: number;
+		setIsAuth(bool: boolean): void;
+		setUser(param: { role: string; objectId: string; username: string }): void;
+		setRef(param: any):void;
+		setCurrentPage(param: number):void;
+	}
 }
 
-//RefObject<HTMLElement | IRef > | null
 
-
-export interface IRef {
-	current: showMessage
-}
-
-type showMessage = {
-	showMessage: (arg0: DataMessage) => void
-}
-
-type DataMessage = IShowMessage
-
-
+// export interface IRef {
+// 	current: showMessage
+// }
+//
+// type showMessage = {
+// 	showMessage: (arg0: DataMessage) => void
+// }
+//
+// type DataMessage = IShowMessage
+//
+//
 export interface IShowMessage {
 	typeIcon: TypeIcon
 	text: string

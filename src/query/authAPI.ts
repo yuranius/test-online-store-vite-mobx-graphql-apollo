@@ -71,5 +71,14 @@ export const GET_LOGGED_USER = gql`
     }
 `
 
+export const LOGOUT_USER = gql`
+    mutation ( $id: String ){
+        logOut(input: {clientMutationId: $id}){
+            clientMutationId
+            ok
+        }
+    }
+`
+
 
 

@@ -1,0 +1,19 @@
+.modal-enter {
+    @apply fixed top-0 left-0 w-full h-full outline-none overflow-x-hidden overflow-y-auto opacity-0 bg-opacity-0 bg-gray-100;
+}
+
+.modal-enter-active {
+    @apply fixed top-0 left-0 w-full h-full outline-none overflow-x-hidden overflow-y-auto opacity-100 bg-gray-700 bg-opacity-50 transition-all duration-300 ease-in;
+}
+
+.modal-exit {
+    @apply fixed top-0 left-0 w-full h-full outline-none overflow-x-hidden overflow-y-auto opacity-100 bg-gray-700 bg-opacity-50 transition-all duration-300 ease-in;
+}
+
+.modal-exit-active {
+    @apply fixed top-0 left-0 w-full h-full outline-none overflow-x-hidden overflow-y-auto opacity-0 bg-gray-100 bg-opacity-0;
+}
+
+.modal-enter-done{
+    @apply fixed top-0 left-0 w-full h-full outline-none overflow-x-hidden overflow-y-auto bg-gray-700 bg-opacity-50;
+}

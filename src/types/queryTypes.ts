@@ -4,9 +4,19 @@ export interface IDevices {
 	brandId: string,
 	typeId: string,
 	img: string,
-	rating: string,
-	price: string,
-	info?: []
+	rating: number,
+	price: number,
+	info?: Array<INode>
+}
+
+export interface INode {
+	node: IInfo
+}
+
+export interface IInfo {
+	objectId: string
+	title: string
+	description: string
 }
 
 export interface IRegistration {

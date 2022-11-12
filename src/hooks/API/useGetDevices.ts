@@ -39,8 +39,8 @@ export const useGetDevices = () => {
 				objectId: string
 			},
 			img: string,
-			rating: string,
-			price: string,
+			rating: number,
+			price: number,
 		}
 	}
 
@@ -90,8 +90,8 @@ export const useGetDevices = () => {
 						limit: limit,
 					}
 				}).then(res => {
-					setCount(res.data.devices.count)
-					setDevices(res.data.devices.edges.map(({node}: Node): IDevices => ({
+					setCount(res.data?.devices.count)
+					setDevices(res.data?.devices.edges.map(({node}: Node): IDevices => ({
 						id: node.objectId,
 						name: node.name,
 						brandId: node.brandId.objectId,

@@ -10,8 +10,10 @@
 
 #### yarn add react-router-dom
 
-# yarn add mobx mobx-devtools mobx-react-lite
+#### yarn add mobx mobx-devtools mobx-react-lite
 
 #### yarn add graphql @apollo/client @types/apollo-upload-client
 
-#### yarn add react-transition-group (для анимации)
+#### yarn add react-transition-group (для анимации появления и иcчезновения toasts)
+
+#### yarn add @types/classnames

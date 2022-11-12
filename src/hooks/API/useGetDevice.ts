@@ -20,14 +20,14 @@ export const useGetDevice = () => {
 			}
 		}).then(({data}) => {
 			setDevice({
-				id: data?.device.objectId,
-				info: data?.device_infos.edges || [],
-				img: data?.device.img,
-				name: data?.device.name,
-				price: data?.device.price,
-				rating: data?.device.rating,
-				brandId: data?.device.brandId.objectId,
-				typeId: data?.device.typeId.objectId,
+				id: data.device.objectId,
+				info: data.device_infos.edges || [],
+				img: data.device.img,
+				name: data.device.name,
+				price: data.device.price,
+				rating: data.device.rating,
+				brandId: data.device.brandId.objectId,
+				typeId: data.device.typeId.objectId,
 			})
 		})
 	}

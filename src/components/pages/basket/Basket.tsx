@@ -1,10 +1,11 @@
 import React, {FC} from 'react';
+import Layout from "../../ui/layout/Layout";
 
 const Basket:FC = () => {
 	return (
-			<div>
-
-			</div>
+			<Layout>
+					gfdgf
+			</Layout>
 	);
 };
 

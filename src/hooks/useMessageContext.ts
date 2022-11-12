@@ -1,15 +1,16 @@
-import {IRef, IShowMessage} from "../types/contextTypes";
 import {useContext} from "react";
-import {Context} from "../App";
+import { Context } from "../main";
+import {IShowMessage} from "../types/contextTypes";
+
 
 
 
 
 export const useMessageContext = () => {
-	const {ref} = useContext(Context)
+	const {user} = useContext(Context)
 
 	const showMessage = ({ text, typeIcon}: IShowMessage) => {
-		ref?.current.showMessage({text:text, typeIcon: typeIcon})
+		user.ref.current?.showMessage({text:text, typeIcon: typeIcon})
 	};
 
 	return showMessage;

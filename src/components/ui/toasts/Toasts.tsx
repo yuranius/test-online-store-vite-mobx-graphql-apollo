@@ -16,7 +16,7 @@ const Toasts: FC<IToasts> = forwardRef(({}, ref) => {
 	const [typeIcon, setTypeIcon] = useState(SUCCESS)
 	const [text, setText] = useState('')
 
-	let timeout:number;
+	let timeout:NodeJS.Timeout;
 
 	useImperativeHandle(ref, () => ({
 		showMessage({typeIcon, text}:IShowMessage) {

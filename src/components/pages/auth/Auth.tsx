@@ -1,30 +1,28 @@
 import React, {FC, useContext, useEffect, useState} from 'react';
 import Form from "../../ui/form/Form";
-import {redirect, useLocation, useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import {LOGIN_ROUTE, SHOP_ROUTE, SUCCESS, WARNING} from "../../../utils/consts";
 import {handleButton} from "../../../types/propsTypes";
 import {useRegistration} from "../../../hooks/API/useRegistration";
 import {useMessageContext} from "../../../hooks/useMessageContext";
-import {Context} from "../../../App";
 import {useLogin} from "../../../hooks/API/useLogin";
-
+import {Context} from "../../../main";
 
 
 const Auth: FC = () => {
 
-
-	const showMessage = useMessageContext()
-
 	const location = useLocation()
-	const isLoginPage = location.pathname === LOGIN_ROUTE
 	const navigate = useNavigate()
 
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
+	const {user} = useContext(Context)
 
-	const {registration, loadingRegistration , errorRegistration, basket} = useRegistration()
-	const {login, loadingLogin, errorLogin, user} = useLogin()
+	const {registration, loadingRegistration, errorRegistration, basket} = useRegistration()
+	const {login, loadingLogin, errorLogin, data} = useLogin()
+	const showMessage = useMessageContext()
 
+	const isLoginPage = location.pathname === LOGIN_ROUTE
 
 	const handleButton = (e: handleButton) => {
 		e.preventDefault()
@@ -46,18 +44,14 @@ const Auth: FC = () => {
 	}, [errorRegistration, basket])
 
 
-	useEffect( () => {
+	useEffect(() => {
 		if (errorLogin) {
-			showMessage({text:'Ошибка...', typeIcon: WARNING})
-		} else if (user) {
-			showMessage({text: 'Удачно', typeIcon: SUCCESS})
+			showMessage({text: 'Ошибка...', typeIcon: WARNING})
+		} else if (data) {
+			showMessage({text: `Удачных покупок ${user.user.username}`, typeIcon: SUCCESS})
 			navigate(SHOP_ROUTE)
 		}
-
-		console.log( '📌:',user,'🌴 🏁')
-
-	}, [errorLogin, user])
-
+	}, [errorLogin, data])
 
 	let loading = loadingLogin || loadingRegistration
 

@@ -1,0 +1,55 @@
+.wrapper {
+  @apply mt-5 h-full border-2 shadow-3xl rounded;
+
+  .container{
+    @apply border-b-2 w-[90%] m-auto flex justify-between flex-col tablet:flex-row;
+
+    .image{
+      @apply basis-1/2  px-3 py-1 tablet:px-5 tablet:py-3;
+      > img{
+        @apply w-full h-full rounded;
+      }
+    }
+    .discription{
+      @apply basis-1/2 w-full px-3 py-1 tablet:px-5 tablet:py-3;
+
+      .title{
+        @apply flex justify-between;
+        .name{
+          @apply text-[#6366f1] font-bold text-2xl;
+        }
+        .price{
+          @apply text-red-500 font-bold text-xl;
+        }
+      }
+      .rate{
+        @apply mt-3 border p-3 border-blue-600 rounded flex justify-between;
+        > div {
+          @apply text-xl font-semibold ml-2;
+        }
+      }
+
+      .info{
+        @apply mt-4;
+        > h1{
+          @apply text-xl font-semibold py-3;
+        }
+        .infoOne{
+          @apply bg-gray-200 p-1;
+        }
+        .infoTwo{
+          @apply p-1;
+        }
+      }
+
+    }
+  }
+  .button{
+    @apply my-3 flex items-center justify-center;
+
+    > button{
+      @apply p-2 bg-[#6366f1]  rounded-lg border text-white hover:bg-blue-300;
+    }
+  }
+
+}

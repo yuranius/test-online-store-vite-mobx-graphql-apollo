@@ -1,4 +1,4 @@
-export let format = (price:number):string => {
+export let format = (price: number):string => {
 	return new Intl.NumberFormat('ru-RU', {
 		style: 'currency',
 		currency: 'RUB',

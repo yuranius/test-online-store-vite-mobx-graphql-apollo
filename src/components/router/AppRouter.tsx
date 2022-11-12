@@ -1,19 +1,28 @@
-import React, {FC, FunctionComponent} from 'react';
-import {publicRoutes} from "./routes";
+import React, {FC, useContext} from 'react';
+import {adminRoutes, authRoutes, publicRoutes} from "./routes";
 import {Route, Routes} from "react-router-dom";
-import {IRoute} from "../../types/routerTypes";
+import {Context} from "../../main";
+import {observer} from "mobx-react-lite";
 
 
-const AppRouter:FC = () => {
-
-
+const AppRouter: FC = observer(() => {
+	const {user} = useContext(Context)
 	return (
 			<Routes>
-				{publicRoutes.map( ({path, Page}:IRoute) =>
-					<Route key={path} path={path} element={<Page />}/>
+				{/*Роуты на компоненты для авторизированных пользователей*/}
+				{user.isAuth && authRoutes.map(({path, Page}) =>
+						<Route key={path} path={path} element={<Page/>}/>
+				)}
+				{/*Роуты на компоненты для пользователей с ролью администратор*/}
+				{user.user.role === 'ADMIN' && adminRoutes.map(({path, Page}) =>
+						<Route key={path} path={path} element={<Page/>}/>
+				)}
+				{/*Роут на компоненты для пользователей*/}
+				{publicRoutes.map(({path, Page}) =>
+						<Route key={path} path={path} element={<Page/>}/>
 				)}
 			</Routes>
 	);
-};
+});
 
 export default AppRouter;

@@ -22,15 +22,22 @@ export interface IToasts {
 export type TypeIcon = 	typeof SUCCESS | typeof DANGER | typeof WARNING
 
 
-export interface IToastPortal {
-	autoClose: boolean
-	autoCloseTime: number
-	ref?: React.ForwardedRef<unknown>
-}
 
 
-export interface IToast {
-	mode: string
-	onClose: () => void
-	message: string
+export interface IStarRatingComponent {
+	rate: number | undefined
+	changeRating: (newRate: number) => void
 }
+
+export interface IPagination {
+	total: number
+	limit: number
+}
+
+export interface IPagination {
+	total: number
+	limit: number
+	currentPage: number
+	changePage: (page:number) => void
+}
+
