@@ -2,6 +2,8 @@ import React, {FC, useState} from 'react';
 import Layout from "../../ui/layout/Layout";
 import CreateBrand from "../../ui/modals/CreateBrand/CreateBrand";
 import {CSSTransition} from "react-transition-group";
+import styled from './Admin.module.scss'
+
 
 const Admin: FC = () => {
 	const [brandVisible, setBrandVisible] = useState(false)
@@ -17,14 +19,21 @@ const Admin: FC = () => {
 
 	const onHide = () => {
 		setShow(false)
-		setTimeout (() => {
+		setTimeout(() => {
 			setBrandVisible(false)
 		}, 300)
 	}
 
 	return (
 			<Layout>
-				<button onClick={onShow}>Добавить бренд</button>
+
+				<div className={styled.wrapper}>
+					<button onClick={onShow}>Добавить бренд</button>
+					<button onClick={onShow}>Добавить тип</button>
+					<button onClick={onShow}>Добавить устройство</button>
+				</div>
+
+
 				<CSSTransition in={show} classNames='modal' timeout={300}>
 					<CreateBrand show={brandVisible} onHide={onHide}/>
 				</CSSTransition>

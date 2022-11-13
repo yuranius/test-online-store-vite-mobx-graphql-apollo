@@ -37,5 +37,5 @@ export const publicRoutes:IRoute[] = [
 	{
 		path: DEVICE_ROUTE + '/:id',
 		Page: Device
-	}
+	},
 ]

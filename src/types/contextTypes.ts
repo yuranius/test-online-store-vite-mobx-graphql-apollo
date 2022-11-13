@@ -1,5 +1,5 @@
 import {TypeIcon} from "./propsTypes";
-import {MutableRefObject} from "react";
+
 
 
 export type IContext = {
@@ -19,18 +19,6 @@ export type IContext = {
 	}
 }
 
-
-// export interface IRef {
-// 	current: showMessage
-// }
-//
-// type showMessage = {
-// 	showMessage: (arg0: DataMessage) => void
-// }
-//
-// type DataMessage = IShowMessage
-//
-//
 export interface IShowMessage {
 	typeIcon: TypeIcon
 	text: string

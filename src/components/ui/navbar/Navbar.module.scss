@@ -10,14 +10,26 @@
   }
 
   .menu{
-    @apply hidden md:block h-full;
+    @apply hidden md:flex h-full md:items-center;
+    .username{
+      @apply mr-5 font-bold cursor-context-menu;
+    }
   }
 
   .list{
     @apply flex mr-0 items-center h-full;
+    > li {
+      @apply mx-4;
+    }
   }
   .link{
-    @apply mx-3 hover:font-bold;
+    @apply hover:font-bold relative;
+    .icon{
+      @apply w-10 h-10 bg-indigo-700 block rounded-full shadow-lg cursor-pointer text-white flex items-center justify-center hover:bg-indigo-600 ;
+    }
+    .basket{
+      @apply w-6 h-6 bg-indigo-100 rounded-full absolute text-gray-700 flex items-center justify-center top-0 -left-5;
+    }
   }
 }
 

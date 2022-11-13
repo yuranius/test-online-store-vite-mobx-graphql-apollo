@@ -6,7 +6,10 @@ import {observer} from "mobx-react-lite";
 
 
 const AppRouter: FC = observer(() => {
-	const {user} = useContext(Context)
+	//const {user} = useContext(Context)
+
+	const user = {isAuth: true, user: {role: 'ADMIN'}}
+
 	return (
 			<Routes>
 				{/*Роуты на компоненты для авторизированных пользователей*/}

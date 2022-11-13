@@ -5,10 +5,15 @@ import Toasts from "./components/ui/toasts/Toasts";
 import {useQuery} from "@apollo/client";
 import {GET_LOGGED_USER} from "./query/authAPI";
 import {Context} from "./main";
+import Loader from "./components/ui/loader/Loader";
+import useDarkMode from "./hooks/useDarkMode";
+
 
 const App: FC = () => {
 
-	const {data} = useQuery(GET_LOGGED_USER)
+	useDarkMode()
+
+	const {data, loading} = useQuery(GET_LOGGED_USER)
 
 	const {user} = useContext(Context)
 
@@ -33,7 +38,9 @@ const App: FC = () => {
 
 	return (
 			<Router>
-				<AppRouter isAuth={user.isAuth} role={user.user.role}/>
+				{loading ? <Loader />
+						: <AppRouter />
+				}
 				<Toasts ref={ref}/>
 			</Router>
 

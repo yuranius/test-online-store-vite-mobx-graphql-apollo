@@ -1,0 +1,7 @@
+.wrapper {
+  @apply w-full h-screen flex justify-center border items-center;
+  .spinner {
+    @apply inline w-16 h-16 text-gray-200 animate-spin fill-[#6366f1];
+  }
+}
+

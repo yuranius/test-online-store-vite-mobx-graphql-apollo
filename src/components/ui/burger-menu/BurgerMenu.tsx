@@ -5,7 +5,7 @@ import styled from './BurgerMenu.module.scss'
 
 const BurgerMenu:FC = () => {
 	return (
-			<div id="outer-container" className='md:hidden'>
+			<div id="outer-container" className='md:hidden md:absolute'>
 				<Menu right styles={styles} pageWrapId={ "pushRotate" } outerContainerId={ "outer-container" } >
 					<main id="pushRotate">
 						<a id="home" className={styled.item} href="/">Панель администратора</a>
