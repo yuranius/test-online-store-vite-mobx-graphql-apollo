@@ -3,6 +3,7 @@ import Layout from "../../ui/layout/Layout";
 import CreateBrand from "../../ui/modals/CreateBrand/CreateBrand";
 import {CSSTransition} from "react-transition-group";
 import styled from './Admin.module.scss'
+import cn from "classnames";
 
 
 const Admin: FC = () => {
@@ -24,13 +25,17 @@ const Admin: FC = () => {
 		}, 300)
 	}
 
+
+	const buttonStyle ='bg-gray-300 dark:bg-gray-500 text-gray-700 dark:text-gray-200';
+
+
 	return (
 			<Layout>
 
-				<div className={styled.wrapper}>
-					<button onClick={onShow}>Добавить бренд</button>
-					<button onClick={onShow}>Добавить тип</button>
-					<button onClick={onShow}>Добавить устройство</button>
+				<div className={cn(styled.wrapper, 'bg-white dark:bg-gray-800')}>
+					<button className={buttonStyle} onClick={onShow}>Добавить бренд</button>
+					<button className={buttonStyle} onClick={onShow}>Добавить тип</button>
+					<button className={buttonStyle} onClick={onShow}>Добавить устройство</button>
 				</div>
 
 

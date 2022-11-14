@@ -4,18 +4,19 @@ import star from './../../../image/bigstar.png'
 import { format } from '../../../utils/formatter';
 import {Link} from "react-router-dom";
 import {IDevices} from "../../../types/queryTypes";
+import cn from "classnames";
 
 const DeviceItem:FC<{device: IDevices}> = ({device}) => {
 	return (
-			<Link to={'./device/'+ device.id}  className={styled.item}>
+			<Link to={'./device/'+ device.id}  className={cn(styled.item, 'dark:border-indigo-100 ')}>
 				<div className={styled.image}>
 					<img src={device.img} alt={device.name}/>
 				</div>
 
 				<div className={styled.description}>
-					<div className={styled.heading}>{device.name}</div>
-					<div className={styled.price}>{format(Number(device.price))}</div>
-					<div className={styled.rate}>
+					<div className={cn(styled.heading, 'dark:text-blue-100')}>{device.name}</div>
+					<div className={cn(styled.price, 'dark:text-blue-100')}>{format(Number(device.price))}</div>
+					<div className={cn(styled.rate, 'dark:text-blue-100')}>
 						<img src={star} alt={`Star ${device.rating}`}/>
 						<div>{device.rating}</div>
 					</div>

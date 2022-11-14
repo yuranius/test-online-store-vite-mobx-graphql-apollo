@@ -8,7 +8,7 @@ import UserStore from "./store/UserStore";
 import {IContext} from "./types/contextTypes";
 
 
-let token = localStorage.length ? localStorage.getItem('token') : ''
+let token = !!localStorage?.token ? localStorage.getItem('token') : ''
 
 const link = createUploadLink({
 	uri: 'https://parseapi.back4app.com/graphql',
@@ -23,6 +23,7 @@ const client = new ApolloClient({
 	link,
 	cache: new InMemoryCache(),
 })
+
 
 
 // @ts-ignore

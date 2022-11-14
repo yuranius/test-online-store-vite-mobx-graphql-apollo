@@ -4,31 +4,32 @@ import banner from "../../../image/auth-page-banner-dark.jpg";
 import {IForm} from '../../../types/propsTypes';
 import {Link} from "react-router-dom";
 import {LOGIN_ROUTE, REGISTRATION_ROUTE} from "../../../utils/consts";
+import cn from "classnames";
 
 
 const Form: FC<IForm> = ({isLoginPage, email, setEmail, password, setPassword, handleButton, loading}) => {
 	return (
-			<div className={styled.container}>
+			<div className={cn(styled.container, 'bg-gray-200 dark:bg-gray-700')}>
 				<div className={styled.component}>
 					{/*Login form*/}
-					<div className={styled.form}>
+					<div className={cn(styled.form, 'bg-white dark:bg-gray-800')}>
 						<div className="w-72">
 							{/*Heading*/}
-							<h1 className={styled.title}>Добро пожаловать!</h1>
+							<h1 className={cn(styled.title, 'dark:text-white')}>Добро пожаловать!</h1>
 							<small className="text-gray-400">Введите свои данные для авторизации</small>
 
 
 							{/*Form*/}
 							<form className="mt-4">
 								<div className={styled.inputForm}>
-									<label>Email</label>
+									<label className='dark:text-white'>Email</label>
 									<input disabled={loading} type="email" placeholder="Введите Вашу почту"
 									       value={email} onChange={(e) => setEmail(e.target.value)}
 									/>
 								</div>
 
 								<div className={styled.inputForm}>
-									<label>Password</label>
+									<label className='dark:text-white'>Password</label>
 									<input disabled={loading} type="password" placeholder="******"
 									       value={password} onChange={(e) => setPassword(e.target.value)}/>
 								</div>

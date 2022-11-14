@@ -1,6 +1,6 @@
 .item {
 
-  @apply border-4 border-indigo-500 mb-2 flex shadow cursor-pointer;
+  @apply border-2 rounded-xl border-indigo-500 mb-2 flex shadow cursor-pointer;
 
   &:hover{
     @apply drop-shadow-2xl;
@@ -22,11 +22,11 @@
     }
 
     .price {
-      @apply text-lg dark:text-blue-50;
+      @apply text-lg;
     }
 
     .rate{
-      @apply w-10 h-10 flex items-center mt-5;
+      @apply w-10 h-10 flex items-center mt-5 text-3xl;
       > div{
         @apply ml-3;
       }
@@ -35,3 +35,4 @@
 
 
 }
+

@@ -7,6 +7,7 @@ import {INode} from "../../../types/queryTypes";
 import Layout from "../../ui/layout/Layout";
 import {format} from "../../../utils/formatter";
 import {Context} from "../../../main";
+import cn from "classnames";
 
 
 
@@ -32,12 +33,12 @@ const Device: FC = () => {
 						<div className={styled.image}>
 							<img src={device?.img} alt={device?.name}/>
 						</div>
-						<div className={styled.discription}>
+						<div className={cn(styled.discription, 'dark:text-blue-100 text-[#6366f1]')}>
 							<div className={styled.title}>
 								<div className={styled.name}>{device?.name}</div>
 								<div className={styled.price}>{ format(device?.price!)}</div>
 							</div>
-							<div className={styled.rate}>
+							<div className={cn(styled.rate, 'dark:text-white')}>
 								<StarRating rate={device?.rating} changeRating={changeRating}/>
 								<div>{device?.rating}</div>
 							</div>
@@ -45,7 +46,7 @@ const Device: FC = () => {
 							<div className={styled.info}>
 								<h1>Характеристики:</h1>
 								{device?.info?.map((info:INode, index) =>
-										<div key={info.node.objectId} className={index % 2 === 0 ? styled.infoOne : styled.infoTwo}>
+										<div key={info.node.objectId} className={index % 2 === 0 ? cn(styled.infoOne, 'bg-gray-200 dark:bg-gray-600') : styled.infoTwo}>
 											{info.node.title} - {info.node.description}
 										</div>
 								)}

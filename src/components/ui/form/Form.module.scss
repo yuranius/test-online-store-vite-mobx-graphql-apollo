@@ -1,16 +1,16 @@
 .container{
-  @apply flex flex-wrap min-h-screen w-full content-center justify-center bg-gray-200 py-10 dark:bg-gray-700;
+  @apply flex flex-wrap min-h-screen w-full content-center justify-center py-10;
   .component{
-    @apply flex shadow-md;
+    @apply flex w-full justify-center;
     .form{
-      @apply flex flex-wrap content-center justify-center rounded-l-md bg-white w-[24rem] h-[32rem] dark:bg-gray-800;
+      @apply flex flex-wrap content-center justify-center rounded-l-md  h-[32rem] w-full tablet:w-[24rem] mx-5 px-5 tablet:mx-0 tablet:px-0;
       .title{
-        @apply text-xl font-semibold dark:text-white;
+        @apply text-xl font-semibold;
       }
       .inputForm{
         @apply mb-3;
         > label{
-          @apply mb-2 block text-xs font-semibold dark:text-white;
+          @apply mb-2 block text-xs font-semibold;
         }
         > input {
           @apply block w-full rounded-md border border-gray-300 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-700 py-1 px-1.5 text-gray-500;

@@ -1,7 +1,8 @@
 .wrapper {
-  @apply mt-2 border-2 h-[60vh] flex rounded-[20px] shadow-3xl bg-gray-200 border-gray-300 justify-start items-center pt-32 flex-col dark:bg-neutral-600 dark:border-gray-900;
+  @apply mt-2 border-2 h-[60vh] flex rounded-[20px] shadow-3xl bg-gray-200
+  border-gray-300 justify-start items-center pt-32 flex-col;
   > button {
-    @apply border-gray-500 w-3/6 mt-3 border px-3 py-2 text-xl rounded-xl bg-gray-300
-    hover:bg-[#6366f1] hover:text-white text-gray-700 dark:bg-gray-500;
+    @apply border-gray-500  w-11/12 tablet:w-3/6  mt-3 border px-3 py-2 text-xl rounded-xl
+    hover:bg-[#6366f1] hover:text-white;
   }
 }
