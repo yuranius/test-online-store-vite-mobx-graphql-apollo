@@ -27,7 +27,7 @@ const client = new ApolloClient({
 
 
 // @ts-ignore
-export const Context = createContext<IContext>()
+export const Context = createContext<IContext>({})
 
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(

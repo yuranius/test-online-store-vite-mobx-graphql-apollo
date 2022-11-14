@@ -1,6 +1,6 @@
 .wrapper{
   @apply text-xl mr-2;
   > span {
-    @apply w-10 h-10 bg-indigo-700 block rounded-full shadow-lg cursor-pointer text-white flex items-center justify-center;
+    @apply w-10 h-10 bg-indigo-700 block rounded-full shadow-lg cursor-pointer text-white flex items-center justify-center hover:bg-indigo-600;
   }
 }

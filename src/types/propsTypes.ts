@@ -1,5 +1,6 @@
 import {DANGER, SUCCESS, WARNING} from "../utils/consts";
 import React, {Dispatch, MutableRefObject, SetStateAction} from "react";
+import {ToastElement} from "./hooksTypes";
 
 export interface IForm {
 	isLoginPage: boolean
@@ -39,5 +40,15 @@ export interface IPagination {
 	limit: number
 	currentPage: number
 	changePage: (page:number) => void
+}
+
+export interface IModal {
+	id: number
+	show: boolean
+	onHide: () => void
+	title: string
+	onSave: (id: number) => void
+	value: string
+	setValue: Dispatch<SetStateAction<string>>
 }
 

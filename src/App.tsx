@@ -10,7 +10,6 @@ import useDarkMode from "./hooks/useDarkMode";
 
 
 const App: FC = () => {
-
 	useDarkMode()
 
 	const {data, loading} = useQuery(GET_LOGGED_USER)
