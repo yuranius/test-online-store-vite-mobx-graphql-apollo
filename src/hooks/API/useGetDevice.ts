@@ -1,7 +1,7 @@
 import {useLazyQuery} from "@apollo/client";
 import {GET_DEVICE} from "../../query/deviceAPI";
 import {useState} from "react";
-import {IDevices} from "../../types/queryTypes";
+import {IDevice} from "../../types/queryTypes";
 import {GetDevice} from "../../types/hooksTypes";
 
 
@@ -11,7 +11,7 @@ export const useGetDevice = () => {
 
 	const [data] = useLazyQuery(GET_DEVICE)
 
-	const [device, setDevice] = useState<IDevices>()
+	const [device, setDevice] = useState<IDevice>()
 
 	const getDevice = ({id}:GetDevice) => {
 		data({

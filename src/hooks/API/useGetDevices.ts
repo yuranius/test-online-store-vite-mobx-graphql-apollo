@@ -6,7 +6,7 @@ import {
 	FETCH_DEVICES_WHEN_TYPE
 } from "../../query/deviceAPI";
 import {useState} from "react";
-import {IDevices} from "../../types/queryTypes";
+import {FetchDevice, IDevice, INodeDevice} from "../../types/queryTypes";
 
 
 export const useGetDevices = () => {
@@ -21,28 +21,6 @@ export const useGetDevices = () => {
 
 	let loading = loadingAll || loadingType || loadingBrand || loadingBrandAndType
 
-	type FetchDevice = {
-		limit: number
-		skip: number
-		typeId?: string
-		brandId?: string
-	}
-
-	type Node = {
-		node:{
-			objectId: string,
-			name: string,
-			brandId: {
-				objectId: string
-			},
-			typeId: {
-				objectId: string
-			},
-			img: string,
-			rating: number,
-			price: number,
-		}
-	}
 
 
 
@@ -91,7 +69,7 @@ export const useGetDevices = () => {
 					}
 				}).then(res => {
 					setCount(res.data?.devices.count)
-					setDevices(res.data?.devices.edges.map(({node}: Node): IDevices => ({
+					setDevices(res.data?.devices.edges.map(({node}: INodeDevice): IDevice => ({
 						id: node.objectId,
 						name: node.name,
 						brandId: node.brandId.objectId,

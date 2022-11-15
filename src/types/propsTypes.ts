@@ -1,6 +1,7 @@
 import {DANGER, SUCCESS, WARNING} from "../utils/consts";
-import React, {Dispatch, MutableRefObject, SetStateAction} from "react";
-import {ToastElement} from "./hooksTypes";
+import React, {Dispatch, SetStateAction} from "react";
+import {IDeviceContext} from "./contextTypes";
+
 
 export interface IForm {
 	isLoginPage: boolean
@@ -51,4 +52,29 @@ export interface IModal {
 	value: string
 	setValue: Dispatch<SetStateAction<string>>
 }
+
+
+export interface ITitle {
+	onHide: () => void
+	title: string
+}
+
+export interface IFooter {
+	onHide: () => void
+	onSave: (id: number) => void
+	id: number
+}
+
+export interface IFormCreateDevice {
+	device: IDeviceContext
+	types: Array<Selected>
+	brands: Array<Selected>
+}
+
+export type Selected = {
+	id: string
+	name: string
+}
+
+
 
