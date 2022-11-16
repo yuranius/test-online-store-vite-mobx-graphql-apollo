@@ -3,10 +3,10 @@ import styled from './DeviceItem.module.scss'
 import star from './../../../image/bigstar.png'
 import { format } from '../../../utils/formatter';
 import {Link} from "react-router-dom";
-import {IDevices} from "../../../types/queryTypes";
 import cn from "classnames";
+import {IDevice} from "../../../types/queryTypes";
 
-const DeviceItem:FC<{device: IDevices}> = ({device}) => {
+const DeviceItem:FC<{device: IDevice}> = ({device}) => {
 	return (
 			<Link to={'./device/'+ device.id}  className={cn(styled.item, 'dark:border-indigo-100 ')}>
 				<div className={styled.image}>

@@ -26,7 +26,9 @@
     "react": "^18.2.0",
     "react-burger-menu": "^3.0.8",
     "react-dom": "^18.2.0",
+    "react-hook-form": "^7.39.4",
     "react-router-dom": "^6.4.3",
+    "react-select": "^5.6.1",
     "react-star-ratings": "^2.3.0",
     "react-transition-group": "^4.4.5",
     "tailwindcss": "^3.2.2"

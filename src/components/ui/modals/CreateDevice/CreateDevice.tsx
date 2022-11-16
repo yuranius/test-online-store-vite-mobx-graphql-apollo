@@ -7,6 +7,7 @@ import {useGetTypesBrands} from "../../../../hooks/API/useGetTypesBrands";
 import {Context} from "../../../../main";
 import Title from "./Title/Title";
 import Footer from "./Footer/Footer";
+import NewForm from "./newForm/NewForm";
 
 const CreateDevice: FC<IModal> = memo((props) => {
 	const {show, onHide, id, title, onSave, value, setValue} = props
@@ -20,7 +21,8 @@ const CreateDevice: FC<IModal> = memo((props) => {
 				<div className={styled.container}>
 					<div className={cn(styled.cart, 'bg-white dark:bg-gray-600')}>
 						<Title onHide={onHide} title={title}/>
-						{(types && brands) && <Form device={device} types={types} brands={brands}/>}
+						{/*{(types && brands) && <Form device={device} types={types} brands={brands}/>}*/}
+						<NewForm />
 						<Footer onHide={onHide} onSave={onSave} id={id}/>
 					</div>
 				</div>

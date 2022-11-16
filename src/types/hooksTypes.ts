@@ -1,4 +1,5 @@
 import {Dispatch, SetStateAction} from "react";
+import {Selected} from "./propsTypes";
 
 export interface IUseToastAutoClose {
 	toasts: Array<ToastElement>
@@ -17,4 +18,27 @@ export type ToastElement = {
 
 export type GetDevice = {
 	id?: string
+}
+
+export interface IUseAddDevice {
+	name:  string
+	price: number
+	file: FormDataEntryValue | null
+	device: {
+		selectedType: Selected
+		selectedBrand: Selected
+	}
+	info: Array<IInfoAddDevice>
+}
+
+export type IInfoAddDevice = {
+	number: string
+	title: string
+	description: string
+}
+
+export type IInfoCreateInfo = {
+	title: string
+	description: string
+	objectid: string
 }

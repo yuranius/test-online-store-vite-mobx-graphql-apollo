@@ -13,8 +13,7 @@ export const useMessageContext = () => {
 		user.ref.current?.showMessage({text:text, typeIcon: typeIcon})
 	};
 
-	return showMessage;
-
+	return {showMessage};
 }
 
 
