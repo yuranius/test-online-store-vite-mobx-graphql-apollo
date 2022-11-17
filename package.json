@@ -17,6 +17,7 @@
     "@types/react-transition-group": "^4.4.5",
     "apollo-upload-client": "^17.0.0",
     "autoprefixer": "^10.4.13",
+    "formik": "^2.2.9",
     "graphql": "^16.6.0",
     "mobx": "^6.6.2",
     "mobx-devtools": "^0.9.27",

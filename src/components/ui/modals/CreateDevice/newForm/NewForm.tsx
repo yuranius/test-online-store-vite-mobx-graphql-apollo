@@ -27,17 +27,15 @@ const options:IOption[] = [{
 }
 ]
 
-const getValue = (value: { }):void => {
-	console.log( '📌:',value,'🌴 🏁')
-	
-	value ? options.find((option) => option.name === value) : ''
-}
+
 
 const NewForm: FC<IFormCreateDevice> = (props) => {
 
 	const {register, handleSubmit, formState: {errors}, reset, control} = useForm<IShippingFields>({mode: 'onSubmit'})
 
 	const {device, types, brands} = props
+
+
 
 	const {showMessage} = useMessageContext()
 
@@ -46,6 +44,25 @@ const NewForm: FC<IFormCreateDevice> = (props) => {
 		showMessage({text: `${data.name}, ${data.email}, ${{data}}`, typeIcon: SUCCESS})
 		reset()
 	}
+
+	const getValue = (value: { }):void => {
+		console.log( '📌:',value,'🌴 🏁')
+		
+		value ? options.find((option) => option.value === value) : ''
+	}
+
+	let test: any;
+
+	if (types) {
+		test = types.map( ({id, name}) => ({value: id, label: name}))
+	}
+
+
+
+
+
+
+
 
 
 	// if (!!errors.name) {
