@@ -4,10 +4,15 @@ import {IShippingFields} from "./interface";
 import {useMessageContext} from "../../../../../hooks/useMessageContext";
 import {DANGER, SUCCESS} from "../../../../../utils/consts";
 import ReactSelect from 'react-select'
-import {values} from "mobx";
+import {IFormCreateDevice} from "../../../../../types/propsTypes";
+
+interface IOption {
+	value: string
+	label:string
+}
 
 
-const options = [{
+const options:IOption[] = [{
 	value: 'russia',
 	label: 'Russia'
 }, {
@@ -22,29 +27,36 @@ const options = [{
 }
 ]
 
-const getValue = (value: string) => {
-	value ? options.find((option) => option.value === value) : ''
+const getValue = (value: { }):void => {
+	console.log( '📌:',value,'🌴 🏁')
+	
+	value ? options.find((option) => option.name === value) : ''
 }
 
-const NewForm: FC = () => {
+const NewForm: FC<IFormCreateDevice> = (props) => {
 
 	const {register, handleSubmit, formState: {errors}, reset, control} = useForm<IShippingFields>({mode: 'onSubmit'})
+
+	const {device, types, brands} = props
 
 	const {showMessage} = useMessageContext()
 
 	const onSubmit: SubmitHandler<IShippingFields> = (data) => {
 		alert(`Your name ${data.name}`)
-		showMessage({text: `${data.name}, ${data.email}`, typeIcon: SUCCESS})
+		showMessage({text: `${data.name}, ${data.email}, ${{data}}`, typeIcon: SUCCESS})
 		reset()
 	}
 
 
-	if (!!errors.name) {
-		showMessage({text: `${errors.name?.message}`, typeIcon: DANGER})
+	// if (!!errors.name) {
+	// 	showMessage({text: `${errors.name?.message}`, typeIcon: DANGER})
+	//
+	// } else if (!!errors.email) {
+	// 	showMessage({text: `${errors.email?.message}`, typeIcon: DANGER})
+	// }
+	
 
-	} else if (!!errors.email) {
-		showMessage({text: `${errors.email?.message}`, typeIcon: DANGER})
-	}
+	
 
 	return (
 			<div>
@@ -62,12 +74,12 @@ const NewForm: FC = () => {
 							render={({ field: {onChange, value}, fieldState:{error}, formState }) =>
 							<>
 								<ReactSelect
-										options={options}
+										options={types}
 										placeholder='Countries'
 										value={getValue(value)}
 										onChange={(newValue) => onChange(newValue)}
 								/>
-								{error && showMessage({text: error.message, typeIcon: DANGER})}
+								{error && showMessage({text: `${error.message}`, typeIcon: DANGER})}
 							</>
 
 					}

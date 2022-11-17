@@ -3,9 +3,6 @@ import { Context } from "../main";
 import {IShowMessage} from "../types/contextTypes";
 
 
-
-
-
 export const useMessageContext = () => {
 	const {user} = useContext(Context)
 

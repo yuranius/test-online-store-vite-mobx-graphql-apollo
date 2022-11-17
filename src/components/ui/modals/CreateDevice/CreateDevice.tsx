@@ -22,7 +22,7 @@ const CreateDevice: FC<IModal> = memo((props) => {
 					<div className={cn(styled.cart, 'bg-white dark:bg-gray-600')}>
 						<Title onHide={onHide} title={title}/>
 						{/*{(types && brands) && <Form device={device} types={types} brands={brands}/>}*/}
-						<NewForm />
+						<NewForm device={device} types={types} brands={brands} />
 						<Footer onHide={onHide} onSave={onSave} id={id}/>
 					</div>
 				</div>
