@@ -16,7 +16,7 @@ const Navbar: FC = () => {
 	// const locate = useLocation()
 	// const navigate = useNavigate()
 
-	const showMessage = useMessageContext()
+	const {showMessage} = useMessageContext()
 	const [logoutUser, {error}] = useMutation(LOGOUT_USER, {
 		variables: {
 			//id: user.user.objectId

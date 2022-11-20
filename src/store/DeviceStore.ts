@@ -1,23 +1,24 @@
 import {makeAutoObservable} from "mobx";
+import {Selected} from "../types/propsTypes";
 
 
 class DeviceStore {
-	private _selectedType: object
-	private _selectedBrand: object
+	private _selectedType: Selected
+	private _selectedBrand: Selected
 
 	constructor() {
 
-		this._selectedType = {}
-		this._selectedBrand = {}
+		this._selectedType = {id: '' , name: ''}
+		this._selectedBrand = {id: '' , name: ''}
 
 		makeAutoObservable(this)
 	}
 
-	setSelectedType (type: object) {
+	setSelectedType (type: Selected) {
 		this._selectedType = type
 	}
 
-	setSelectedBrand (type: object) {
+	setSelectedBrand (type: Selected) {
 		this._selectedBrand = type
 	}
 

@@ -1,14 +1,31 @@
 import React, {FC, useState} from 'react';
-import styled from './CreateBrand.module.scss'
+import styled from './CreateTypeBrand.module.scss'
 import cn from 'classnames'
 import './style.css'
 import {IModal} from "../../../../types/propsTypes";
+import {useAddTypeBrand} from "../../../../hooks/API/useAddTypeBrand";
 
 
-const CreateBrand: FC<IModal> = (props) => {
-	const {show, onHide, id,title, onSave, value, setValue} = props
+const CreateTypeBrand:FC<IModal> = (props) => {
+	const {showModal, onHide, id, title} = props
+	const [value, setValue] = useState('')
+
+	const {addType} = useAddTypeBrand()
+
+	const onSave = () => {
+		console.log( '📌:',id, value,'🌴 🏁')
+
+		addType(value)
+
+		onHide()
+		setTimeout( () => {
+			setValue('')
+		}, 300)
+	}
+
+
 	return (
-			<div className={cn(styled.wrapper, !show && 'hidden')}>
+			<div className={cn(styled.wrapper, !showModal && 'hidden')}>
 				<div className={styled.container}>
 					<div className={cn(styled.cart, 'bg-white dark:bg-gray-600')}>
 						<div className={styled.title}>
@@ -25,11 +42,8 @@ const CreateBrand: FC<IModal> = (props) => {
 							</button>
 						</div>
 						<div className={styled.body}>
-							<input type="text" className='
-							bg-white dark:bg-blue-800
-							focus:bg-white dark:focus:bg-blue-900
-							text-gray-700 dark:text-violet-300
-							'
+							<input type="text"
+							       className={cn(styled.inputText, 'focus:border-[#6366f1] text-gray-500 dark:focus:border-white dark:bg-inherit dark:text-indigo-100')}
 							       value={value}
 							       onChange={(event) => setValue(event.target.value)}
 							/>
@@ -39,8 +53,9 @@ const CreateBrand: FC<IModal> = (props) => {
 							<button type="button"
 							        className={styled.closeButton}
 							        onClick={onHide}
-							>Закрыть</button>
-							<button type="button" className={styled.saveButton} onClick={() => onSave(id)}>Сохранить</button>
+							>Закрыть
+							</button>
+							<button type="button" className={styled.saveButton} onClick={onSave}>Сохранить</button>
 						</div>
 					</div>
 				</div>
@@ -48,4 +63,4 @@ const CreateBrand: FC<IModal> = (props) => {
 	);
 };
 
-export default CreateBrand;
+export default CreateTypeBrand;

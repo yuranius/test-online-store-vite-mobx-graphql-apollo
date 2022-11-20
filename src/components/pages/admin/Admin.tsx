@@ -1,45 +1,32 @@
 import React, {FC, useState} from 'react';
 import Layout from "../../ui/layout/Layout";
-import CreateBrand from "../../ui/modals/CreateBrand/CreateBrand";
 import {CSSTransition, TransitionGroup} from "react-transition-group";
 import styled from './Admin.module.scss'
 import cn from "classnames";
 import CreateDevice from "../../ui/modals/CreateDevice/CreateDevice";
+import CreateTypeBrand from '../../ui/modals/CreateTypeBrand/CreateTypeBrand';
 
 
 const Admin: FC = () => {
-	const [brandVisible, setBrandVisible] = useState(false)
-	const [typeVisible, setTypeVisible] = useState(false)
-	const [deviceVisible, setDeviceVisible] = useState(false)
-	const [show, setShow] = useState<boolean>(false)
+	const [showModal, setShowModal] = useState(false)
+	const [showTransition, setShowTransition] = useState<boolean>(false)
 	const [title, setTitle] = useState<string>('')
 	const [id, setId] = useState<number>(0)
-	const [value, setValue] = useState('')
 
 
 	const onShow = ({id, title}: { id: number, title: string }) => {
 		setId(id)
 		setTitle(title)
-		setBrandVisible(true)
-		setShow(true)
+		setShowModal(true)
+		setShowTransition(true)
 	}
 
 	const onHide = () => {
-		setShow(false)
+		setShowTransition(false)
 		setTimeout(() => {
-			setBrandVisible(false)
-			setValue('')
+			setShowModal(false)
 		}, 300)
 	}
-
-	let onSave = (id: number) => {
-		console.log('📌:', id, value, '🌴 🏁')
-
-		onHide()
-	}
-
-
-	const buttonStyle = '';
 
 	const buttons = [
 		{id: 1, title: 'Добавить бренд'},
@@ -59,27 +46,22 @@ const Admin: FC = () => {
 				</div>
 
 				{id !== 3 ?
-						<CSSTransition in={show} classNames='modal' timeout={300}>
-							<CreateBrand
+						<CSSTransition in={showTransition} classNames='modal' timeout={300}>
+							<CreateTypeBrand
 									id={id}
-									show={brandVisible}
+									showModal={showModal}
 									title={title}
 									onHide={onHide}
-									onSave={onSave}
-									value={value}
-									setValue={setValue}
 							/>
 						</CSSTransition>
 						:
-						<CSSTransition in={show} classNames='modal' timeout={300}>
+						<CSSTransition in={showTransition} classNames='modal' timeout={300}>
 							<CreateDevice
 									id={id}
-									show={brandVisible}
+									showModal={showModal}
 									title={title}
 									onHide={onHide}
-									onSave={onSave}
-									value={value}
-									setValue={setValue}/>
+							/>
 						</CSSTransition>
 				}
 

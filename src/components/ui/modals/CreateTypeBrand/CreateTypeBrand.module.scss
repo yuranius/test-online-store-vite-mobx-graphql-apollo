@@ -1,6 +1,6 @@
 .wrapper{
   .container {
-    @apply border rounded-md shadow-3xl w-11/12 tablet:w-7/12 pointer-events-none absolute left-1/2 -translate-x-1/2 top-1/4;
+    @apply border rounded-md shadow-3xl max-w-[700px] w-11/12 tablet:w-7/12 pointer-events-none absolute left-1/2 -translate-x-1/2 top-32;
     .cart{
       @apply border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-clip-padding rounded-md outline-none text-current;
       .title{
@@ -16,11 +16,6 @@
       }
       .body{
         @apply relative p-4 w-11/12 m-auto;
-        > input{
-          @apply block w-full px-4 py-2 text-xl font-normal bg-clip-padding
-          border border-solid border-gray-300 rounded transition ease-in-out m-0
-          focus:border-blue-600 focus:outline-none;
-        }
       }
       .footer{
         @apply flex flex-shrink-0 w-11/12 m-auto flex-wrap items-center justify-end p-4 border-t border-gray-200 rounded-b-md;
@@ -44,6 +39,7 @@
   }
 }
 
-.hidden{
-
+.inputText{
+  @apply rounded-lg p-2 w-full border border-[#cccccc] hover:border-[#b3b3b3] focus:outline-none focus:border-2;
 }
+

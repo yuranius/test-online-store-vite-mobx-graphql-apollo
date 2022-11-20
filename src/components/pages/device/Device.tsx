@@ -3,12 +3,11 @@ import styled from './Device.module.scss'
 import {useGetDevice} from "../../../hooks/API/useGetDevice";
 import {useParams} from "react-router-dom";
 import StarRating from "../../ui/StarRating/StarRating";
-import {INode} from "../../../types/queryTypes";
 import Layout from "../../ui/layout/Layout";
 import {format} from "../../../utils/formatter";
 import {Context} from "../../../main";
 import cn from "classnames";
-
+import {INodeInfo} from "../../../types/queryTypes";
 
 
 const Device: FC = () => {
@@ -36,7 +35,7 @@ const Device: FC = () => {
 						<div className={cn(styled.discription, 'dark:text-blue-100 text-[#6366f1]')}>
 							<div className={styled.title}>
 								<div className={styled.name}>{device?.name}</div>
-								<div className={styled.price}>{ format(device?.price!)}</div>
+								<div className={styled.price}>{format(device?.price!)}</div>
 							</div>
 							<div className={cn(styled.rate, 'dark:text-white')}>
 								<StarRating rate={device?.rating} changeRating={changeRating}/>
@@ -45,8 +44,9 @@ const Device: FC = () => {
 
 							<div className={styled.info}>
 								<h1>Характеристики:</h1>
-								{device?.info?.map((info:INode, index) =>
-										<div key={info.node.objectId} className={index % 2 === 0 ? cn(styled.infoOne, 'bg-gray-200 dark:bg-gray-600') : styled.infoTwo}>
+								{device?.info?.map((info: INodeInfo, index) =>
+										<div key={info.node.objectId}
+										     className={index % 2 === 0 ? cn(styled.infoOne, 'bg-gray-200 dark:bg-gray-600') : styled.infoTwo}>
 											{info.node.title} - {info.node.description}
 										</div>
 								)}

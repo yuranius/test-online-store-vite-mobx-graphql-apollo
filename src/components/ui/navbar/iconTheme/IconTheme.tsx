@@ -1,11 +1,10 @@
-import {Dispatch, FC, SetStateAction} from 'react';
+import {FC} from 'react';
 import styled from './IconTheme.module.scss'
 import useDarkMode from "../../../../hooks/useDarkMode";
 
 const IconTheme: FC = () => {
 
 	const {colorTheme, setTheme} = useDarkMode()
-
 
 	return (
 			<div className={styled.wrapper}>

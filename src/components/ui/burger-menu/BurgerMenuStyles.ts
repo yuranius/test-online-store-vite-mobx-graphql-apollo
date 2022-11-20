@@ -45,6 +45,6 @@ export const styles = {
 		marginTop:'10px',
 	},
 	bmOverlay: {
-		background: 'rgba(0, 0, 0, 0.3)'
+		background: 'rgba(0, 0, 0, 0.3)',
 	}
 }

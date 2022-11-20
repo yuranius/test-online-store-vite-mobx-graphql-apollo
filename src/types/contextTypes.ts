@@ -18,7 +18,6 @@ export type IContext = {
 	}
 
 	device: IDeviceContext
-
 }
 
 export interface IShowMessage {
@@ -26,7 +25,7 @@ export interface IShowMessage {
 	text: string
 }
 
-export type IDeviceContext = {
+export interface IDeviceContext {
 	selectedType: Selected
 	selectedBrand: Selected
 	setSelectedType(param: Selected): void

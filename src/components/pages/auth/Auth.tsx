@@ -20,7 +20,7 @@ const Auth: FC = () => {
 
 	const {registration, loadingRegistration, errorRegistration, basket} = useRegistration()
 	const {login, loadingLogin, errorLogin, data} = useLogin()
-	const showMessage = useMessageContext()
+	const {showMessage} = useMessageContext()
 
 	const isLoginPage = location.pathname === LOGIN_ROUTE
 

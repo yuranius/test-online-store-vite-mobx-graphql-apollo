@@ -7,13 +7,13 @@
       @apply relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 focus:shadow-none;
     }
     .item {
-      @apply relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none;
+      @apply relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-300 rounded hover:bg-gray-200 focus:shadow-none;
     }
     .itemActive{
-      @apply relative block py-1.5 px-3 rounded border-0 bg-blue-600 outline-none transition-all duration-300 rounded text-white hover:text-white hover:bg-blue-600 shadow-md focus:shadow-md;
+      @apply relative block py-1.5 px-3 rounded border-0 bg-blue-600 outline-none transition-all text-white hover:text-gray-100 duration-300 rounded hover:bg-blue-600 shadow-md focus:shadow-md;
     }
     .arrow{
-      @apply relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none;
+      @apply relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-300 rounded hover:bg-gray-200 focus:shadow-none;
     }
   }
 }

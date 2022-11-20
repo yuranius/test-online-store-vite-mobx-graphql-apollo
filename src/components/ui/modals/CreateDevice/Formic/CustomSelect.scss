@@ -1,0 +1,116 @@
+$blue-color: rgb(99 102 241);
+$indigo-color: rgb(224 231 255);
+$grey600-color: rgb(75 85 99);
+$grey-color: hsl(0, 0%, 80%);
+
+//------------------------------------------------
+
+[class*='__option']:first-child {
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+}
+
+[class*='__option']:last-child {
+  border-bottom: 0;
+  border-bottom-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+}
+
+[class*='__option']{
+  max-width: 95%;
+  margin: auto;
+}
+
+[class*='__menu']{
+  border-radius: 0.5rem !important;
+}
+
+[class*='__control']{
+  border-radius: 0.5rem !important;
+}
+
+// ------------------------------------------------
+
+.custom-select-light {
+  &__control {
+    background-color: inherit !important;
+  }
+
+  &__control--is-focused {
+    border: 1px solid $blue-color !important;
+    box-shadow: 0 0 0 1px $blue-color!important;
+  }
+
+  &__single-value {
+    color: $grey600-color !important;
+  }
+
+  &__menu {
+    background-color: white !important;
+    color: $grey600-color;
+    border: 1px solid white;
+  }
+
+  &__menu-list {
+
+  }
+
+  &__option {
+    border-bottom: 1px solid white;
+  }
+
+
+  &__option--is-focused {
+    background-color: palevioletred !important;
+    color:white!important;
+  }
+
+  &__option--is-selected {
+    background-color: $blue-color !important;
+  }
+}
+
+// -----------------------------------------------
+
+.custom-select-dark {
+  &__control {
+    background-color: inherit !important;
+  }
+
+  &__control--is-focused {
+    border: 1px solid white !important;
+    box-shadow: 0 0 0 1px white !important;
+  }
+
+  &__single-value {
+    color: $indigo-color !important;
+  }
+
+  &__menu {
+    background-color: $grey600-color !important;
+    color: $indigo-color;
+    border: 1px solid white;
+  }
+
+  &__menu-list {
+
+  }
+
+  &__option {
+    border-bottom: 1px solid white;
+  }
+
+
+  &__option:hover {
+    background-color: cornflowerblue !important;
+  }
+
+
+  &__option--is-focused {
+    background-color: cornflowerblue !important;
+  }
+
+  &__option--is-selected {
+    background-color: $blue-color !important;
+  }
+}
