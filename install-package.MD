@@ -17,3 +17,13 @@
 #### yarn add react-transition-group (для анимации появления и иcчезновения toasts)
 
 #### yarn add @types/classnames
+
+#### yarn add react-burger-menu
+
+#### yarn add react-star-ratings
+
+#### yarn add react-select
+
+#### yarn add formik
+
+

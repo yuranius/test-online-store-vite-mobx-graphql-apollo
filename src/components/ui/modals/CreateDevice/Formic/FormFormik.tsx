@@ -1,4 +1,4 @@
-import React, {FC, useEffect} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import {useFormik} from "formik";
 import {IFormCreateDevice, Selected} from "../../../../../types/propsTypes";
 import SelectField from "./SelectField";
@@ -7,7 +7,7 @@ import styled from './FormFormik.module.scss'
 import {useMessageContext} from "../../../../../hooks/useMessageContext";
 import {WARNING} from "../../../../../utils/consts";
 import {getError, validate} from "../../../../../utils/formik";
-
+import {IInfoComponent} from "../../../../../types/overTypes";
 
 
 interface IOption {
@@ -16,15 +16,24 @@ interface IOption {
 }
 
 
-
-
 const FormFormik: FC<IFormCreateDevice> = (props) => {
 
+	const [info, setInfo] = useState<IInfoComponent[]>([])
 
 	const {types, brands, showModal, onHide} = props
 
 	const {showMessage} = useMessageContext()
 
+	const addInfo = () => {
+		setInfo([...info, {title: '', description: '', number: Date.now()}])
+	}
+	const deleteInfo = (number: number) => {
+		setInfo(info.filter(i => i.number !== number))
+	}
+
+	const changeInfo = (key: string, value: string, number: number) => {
+		setInfo(info.map(i => i.number === number ? {...i, [key]: value} : i))
+	}
 
 	// const onSubmit = (value: any) => {
 	// 	device.setSelectedType(types.find((type: Selected) => type.name === value.label)!)
@@ -60,7 +69,6 @@ const FormFormik: FC<IFormCreateDevice> = (props) => {
 	const error = getError(formik)
 
 
-
 	useEffect(() => {
 		if (error) {
 			showMessage({text: 'Ошибка заполнения формы', typeIcon: WARNING})
@@ -71,7 +79,6 @@ const FormFormik: FC<IFormCreateDevice> = (props) => {
 	// 	return formik.errors
 	// }
 
-	
 
 	return (
 			<div className='w-11/12 m-auto'>
@@ -146,9 +153,45 @@ const FormFormik: FC<IFormCreateDevice> = (props) => {
 					</div>
 					{formik.errors.file && formik.touched.file && <div className='text-red-300'>{formik.errors.file}</div>}
 
+					<hr className='my-4'/>
+					<button onClick={addInfo} type='button' className={cn(styled.addButton, 'bg-teal-600')}>Добавить свойство
+					</button>
+					{info.map(i =>
+							<div key={i.number} className={styled.blockInfo}>
+
+								<input
+										type="text"
+										placeholder='Название характристики'
+										value={i.title}
+										onChange={(e) => changeInfo('title', e.target.value, i.number)}
+										className={cn(styled.input, 'focus:border-[#6366f1] dark:focus:border-white dark:bg-inherit dark:text-indigo-100')}
+								/>
+
+								<input
+										type="text"
+										placeholder='Описание характристики'
+										value={i.description}
+										onChange={(e) => changeInfo('description', e.target.value, i.number)}
+										className={cn(styled.input, 'focus:border-[#6366f1] dark:focus:border-white dark:bg-inherit dark:text-indigo-100')}
+
+								/>
+								<button
+										onClick={() => deleteInfo(i.number)}
+										type='button'
+										className={styled.deleteButton}
+								>
+									<svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+									     xmlns="http://www.w3.org/2000/svg">
+										<path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+										      d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+									</svg>
+								</button>
+							</div>
+					)}
+
 					<div className={styled.footer}>
 						<button type='button' className={styled.closeButton} onClick={onHide}>Закрыть</button>
-						<button type='submit' className={styled.saveButton} >Сохранить</button>
+						<button type='submit' className={styled.saveButton}>Сохранить</button>
 					</div>
 				</form>
 

@@ -14,7 +14,7 @@ export const validate = (values: { name: string, type: {}, brand: {}, price: str
 	}
 
 	if (!values.price) {
-		errors.price = 'Тип должен быть выбран'
+		errors.price = 'Заполните цену'
 	}
 
 	if (isNaN(+values.price)) {

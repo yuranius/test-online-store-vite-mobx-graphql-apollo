@@ -28,16 +28,14 @@ export interface IStarRatingComponent {
 	changeRating: (newRate: number) => void
 }
 
-export interface IPagination {
-	total: number
-	limit: number
-}
+
 
 export interface IPagination {
 	total: number
 	limit: number
 	currentPage: number
 	changePage: (page: number) => void
+	portionSize: number
 }
 
 export interface IModal {
@@ -51,12 +49,6 @@ export interface IModal {
 export interface ITitle {
 	onHide: () => void
 	title: string
-}
-
-export interface IFooter {
-	onHide: () => void
-	onSave: (id: number) => void
-	id: number
 }
 
 export interface IFormCreateDevice {

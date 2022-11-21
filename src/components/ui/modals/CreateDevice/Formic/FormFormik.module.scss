@@ -32,3 +32,22 @@
   }
 }
 
+.addButton{
+  @apply max-w-[250px] px-6 py-2.5 text-white bg-teal-700
+  font-medium text-xs uppercase rounded shadow-md hover:bg-purple-700 hover:shadow-lg
+  focus:bg-purple-700 focus:shadow-lg focus:outline-none
+  focus:ring-0 active:bg-purple-800
+  active:shadow-lg transition duration-150 ease-in-out;
+ }
+
+
+
+.blockInfo{
+  @apply flex gap-4 mt-2;
+  > input {
+    @apply flex-auto;
+  }
+  .deleteButton{
+    @apply bg-rose-400 block w-10 h-10 rounded-full text-white flex-none flex justify-center items-center;
+  }
+}

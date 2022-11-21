@@ -12,6 +12,7 @@ const Shop: FC = observer(() => {
 
 	const {user} = useContext(Context)
 	const limit = 2;
+	const portionSize = 5
 
 	const {fetchDevice, devices, loading, count} = useGetDevices()
 
@@ -28,6 +29,10 @@ const Shop: FC = observer(() => {
 		user.setCurrentPage(page)
 	}
 
+	console.log( '📌:',user.currentPage,'🌴 🏁')
+	
+	
+	
 	return (
 			<Layout>
 				<div className='text-sky-500 mt-5'>
@@ -41,7 +46,7 @@ const Shop: FC = observer(() => {
 									: <div className='text-red-400'>Товары не найдены!</div>
 					}
 				</div>
-				<Pagination total={count} limit={limit} currentPage={user.currentPage} changePage={changePage}/>
+				<Pagination total={count} limit={limit} currentPage={user.currentPage} changePage={changePage} portionSize={portionSize} />
 			</Layout>
 	);
 });

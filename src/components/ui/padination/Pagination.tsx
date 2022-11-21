@@ -1,10 +1,10 @@
-import React, {FC, useState} from 'react';
+import React, {ChangeEvent, FC, MouseEventHandler, useState} from 'react';
 import styled from './Pagination.module.scss'
 import {IPagination} from '../../../types/propsTypes';
 import cn from "classnames";
 
 
-const Pagination: FC<IPagination> = ({total, limit, changePage, currentPage}) => {
+const Pagination: FC<IPagination> = ({total, limit, changePage, currentPage, portionSize}) => {
 
 	const pages = []
 
@@ -15,14 +15,22 @@ const Pagination: FC<IPagination> = ({total, limit, changePage, currentPage}) =>
 	}
 
 
-	let portionCount = Math.ceil(pageCount / 5)
-	let [portionNumber, setPortionNumber] = useState(2);
+	let portionCount = Math.ceil(pageCount / portionSize)
+	let [portionNumber, setPortionNumber] = useState(1);
 
-	let leftPortionPageNamber = (portionNumber - 1) * 5 + 1;
-	let rightPortionPageNamber = portionNumber * 5;
-	
+	let leftPortionPageNamber = (portionNumber - 1) * portionSize + 1;
+	let rightPortionPageNamber = portionNumber * portionSize;
 
-	
+	const changePortionNamber = (e: React.MouseEvent<HTMLButtonElement>) => {
+		// @ts-ignore
+		const id = e.target.id
+		if(id === 'down'){
+			setPortionNumber(--portionNumber)
+		} else {
+			setPortionNumber(++portionNumber)
+		}
+		changePage((portionNumber - 1) * portionSize + 1)
+	}
 
 
 	return (
@@ -30,8 +38,11 @@ const Pagination: FC<IPagination> = ({total, limit, changePage, currentPage}) =>
 				<nav aria-label="Page navigation example">
 					<ul className={styled.list}>
 						<li>
-							<button className={styled.arrowDisabled} disabled={portionNumber <= 1} onClick={()=> { setPortionNumber(portionNumber - 1) }}>
-								<span aria-hidden="true" className='dark:text-gray-100'>&laquo;</span>
+							<button className={cn(portionNumber <= 1 ? styled.arrowDisabled : styled.arrow, 'dark:text-gray-100 dark:hover:text-gray-800')}
+							        disabled={portionNumber <= 1}
+							        id='down'
+							        onClick={(e) => changePortionNamber(e)}>
+								<span className='pointer-events-none'>&laquo;</span>
 							</button>
 						</li>
 						{pages
@@ -46,10 +57,11 @@ const Pagination: FC<IPagination> = ({total, limit, changePage, currentPage}) =>
 						)}
 						<li>
 							<button
-									className={cn(styled.arrow, 'dark:text-gray-100 dark:hover:text-gray-800')}
+									className={cn(portionNumber >= portionCount ? styled.arrowDisabled : styled.arrow, 'dark:text-gray-100 dark:hover:text-gray-800')}
 									disabled={portionNumber >= portionCount}
-									onClick={()=> { setPortionNumber(portionNumber + 1) }}>
-								<span aria-hidden="true">&raquo;</span>
+									id='up'
+									onClick={(e) => changePortionNamber(e)}>
+								<span className='pointer-events-none'>&raquo;</span>
 							</button>
 						</li>
 					</ul>
