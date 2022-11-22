@@ -4,30 +4,63 @@ import cn from 'classnames'
 import './style.css'
 import {IModal} from "../../../../types/propsTypes";
 import {useAddTypeBrand} from "../../../../hooks/API/useAddTypeBrand";
+import {useMessageContext} from "../../../../hooks/useMessageContext";
+import {DANGER, SUCCESS, WARNING} from "../../../../utils/consts";
+import {useGetTypesBrands} from "../../../../hooks/API/useGetTypesBrands";
 
 
-const CreateTypeBrand:FC<IModal> = (props) => {
+const CreateTypeBrand: FC<IModal> = (props) => {
 	const {showModal, onHide, id, title} = props
 	const [value, setValue] = useState('')
 
-	const {addType} = useAddTypeBrand()
+	const {addType, addBrand, loading, error} = useAddTypeBrand()
+	const {showMessage} = useMessageContext()
+	
+	const {types} = useGetTypesBrands()
+	
+	console.log( '📌:',types,'🌴 🏁')
+	
 
-	const onSave = () => {
-		console.log( '📌:',id, value,'🌴 🏁')
 
-		addType(value)
+	const onSave = async () => {
+		if (value) {
+			switch (id) {
+				case 1: {
+					const brand = await addBrand(value)
+					onHide()
+					setTimeout(() => {
+						setValue('')
+					}, 300)
+					showMessage({text: `Бренд ${brand.name} добавлен`, typeIcon: SUCCESS})
+					break;
+				}
+				case 2: {
+					const type = await addType(value)
+					onHide()
+					setTimeout(() => {
+						setValue('')
+					}, 300)
+					showMessage({text: `Тип ${type.name} добавлен`, typeIcon: SUCCESS})
+					break;
+				}
+				default: {
+					showMessage({text: 'Непредвиденная ошибка...(((', typeIcon: SUCCESS})
+				}
+			}
+		} else {
+			showMessage({text: 'Заполните поле', typeIcon: DANGER})
+		}
+	}
 
-		onHide()
-		setTimeout( () => {
-			setValue('')
-		}, 300)
+	if (error) {
+		showMessage({text: error.message, typeIcon: WARNING})
 	}
 
 
 	return (
 			<div className={cn(styled.wrapper, !showModal && 'hidden')}>
 				<div className={styled.container}>
-					<div className={cn(styled.cart, 'bg-white dark:bg-gray-600')}>
+					<div className={cn(styled.cart, 'bg-white dark:bg-gray-600', loading && 'dark:bg-gray-400')}>
 						<div className={styled.title}>
 							<h5 className='text-gray-500 dark:text-indigo-100'>{title}</h5>
 							<button type="button"
@@ -51,11 +84,14 @@ const CreateTypeBrand:FC<IModal> = (props) => {
 						<div
 								className={styled.footer}>
 							<button type="button"
-							        className={styled.closeButton}
+							        disabled={loading}
+							        className={cn(styled.closeButton, loading && 'opacity-30')}
 							        onClick={onHide}
 							>Закрыть
 							</button>
-							<button type="button" className={styled.saveButton} onClick={onSave}>Сохранить</button>
+							<button type="button" disabled={loading} className={cn(styled.saveButton, loading && 'opacity-30')}
+							        onClick={onSave}>Сохранить
+							</button>
 						</div>
 					</div>
 				</div>

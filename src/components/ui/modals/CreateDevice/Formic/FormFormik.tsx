@@ -146,7 +146,7 @@ const FormFormik: FC<IFormCreateDevice> = (props) => {
 								type="file"
 								name='file'
 								onChange={(e) => formik.setFieldValue('file', e?.target.files![0])}
-								className={cn(styled.input, 'focus:border-[#6366f1] dark:focus:border-white dark:bg-inherit dark:text-indigo-100',
+								className={cn(styled.input, 'focusFileDrop:border-[#6366f1] dark:focus:border-white dark:bg-inherit dark:text-indigo-100',
 										formik.errors.file && formik.touched.file && 'rounded-xl border-4 border-red-700')}
 						/>
 						{formik.errors.file && formik.touched.file && <span className={styled.after}>!</span>}

@@ -34,8 +34,7 @@ const Admin: FC = () => {
 		{id: 3, title: 'Добавить устройство'}
 	]
 
-	console.log( '📌:',id,'🌴 🏁')
-	
+
 	
 	return (
 			<Layout>
