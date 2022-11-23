@@ -1,4 +1,4 @@
-import React, {FC, useState} from 'react';
+import React, {FC, memo, useState} from 'react';
 import styled from './CreateTypeBrand.module.scss'
 import cn from 'classnames'
 import './style.css'
@@ -15,10 +15,11 @@ const CreateTypeBrand: FC<IModal> = (props) => {
 
 	const {addType, addBrand, loading, error} = useAddTypeBrand()
 	const {showMessage} = useMessageContext()
-	
-	const {types} = useGetTypesBrands()
-	
-	console.log( '📌:',types,'🌴 🏁')
+
+	const closeModal = () => {
+		setValue('')
+		onHide()
+	}
 	
 
 
@@ -86,7 +87,7 @@ const CreateTypeBrand: FC<IModal> = (props) => {
 							<button type="button"
 							        disabled={loading}
 							        className={cn(styled.closeButton, loading && 'opacity-30')}
-							        onClick={onHide}
+							        onClick={closeModal}
 							>Закрыть
 							</button>
 							<button type="button" disabled={loading} className={cn(styled.saveButton, loading && 'opacity-30')}

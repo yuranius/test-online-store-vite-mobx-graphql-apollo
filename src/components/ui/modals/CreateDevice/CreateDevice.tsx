@@ -9,11 +9,9 @@ import FormFormik from "./Formic/FormFormik";
 
 const CreateDevice: FC<IModal> = memo((props) => {
 	const {showModal, onHide, id, title} = props
-	const [value, setValue] = useState('')
 
 	const {types, brands} = useGetTypesBrands()
 
-	const {device} = useContext(Context)
 
 
 	return (

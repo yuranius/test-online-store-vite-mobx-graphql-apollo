@@ -10,10 +10,6 @@ import {getError, validate} from "../../../../../utils/formik";
 import {IInfoComponent} from "../../../../../types/overTypes";
 
 
-interface IOption {
-	label: string
-	value: string
-}
 
 
 const FormFormik: FC<IFormCreateDevice> = (props) => {
@@ -52,7 +48,7 @@ const FormFormik: FC<IFormCreateDevice> = (props) => {
 			price: '',
 			file: null
 		},
-		onSubmit: (values, formikHelpers) => {
+		onSubmit: (values) => {
 			console.log('📌:Submit', values, '🌴 🏁')
 		},
 		validate,

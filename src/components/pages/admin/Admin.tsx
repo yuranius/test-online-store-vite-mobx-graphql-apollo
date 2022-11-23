@@ -5,6 +5,7 @@ import styled from './Admin.module.scss'
 import cn from "classnames";
 import CreateDevice from "../../ui/modals/CreateDevice/CreateDevice";
 import CreateTypeBrand from '../../ui/modals/CreateTypeBrand/CreateTypeBrand';
+import {useGetTypesBrands} from "../../../hooks/API/useGetTypesBrands";
 
 
 const Admin: FC = () => {
@@ -12,7 +13,6 @@ const Admin: FC = () => {
 	const [showTransition, setShowTransition] = useState<boolean>(false)
 	const [title, setTitle] = useState<string>('')
 	const [id, setId] = useState<number>(0)
-
 
 	const onShow = ({id, title}: { id: number, title: string }) => {
 		setId(id)
@@ -35,7 +35,6 @@ const Admin: FC = () => {
 	]
 
 
-	
 	return (
 			<Layout>
 				<div className={cn(styled.wrapper, 'bg-white dark:bg-gray-800')}>
