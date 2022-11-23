@@ -24,11 +24,9 @@ export interface IUseAddDevice {
 	name:  string
 	price: number
 	file: FormDataEntryValue | null
-	device: {
-		selectedType: Selected
-		selectedBrand: Selected
-	}
-	info: Array<IInfoAddDevice>
+	brandId: string
+	typeId: string
+	info: Array<IInfoCreateInfo>
 }
 
 export type IInfoAddDevice = {

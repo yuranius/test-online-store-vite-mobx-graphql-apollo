@@ -1,16 +1,16 @@
 import {useMutation} from "@apollo/client";
 import {CREATE_DEVICE, CREATE_FILE, CREATE_INFO} from "../../query/deviceAPI";
-import {IInfoAddDevice, IUseAddDevice} from "../../types/hooksTypes";
+import {IInfoComponent} from "../../types/overTypes";
 
 export const useAddDevice = () => {
-	const [createFile] = useMutation(CREATE_FILE)
-	const [createDevice] = useMutation(CREATE_DEVICE)
-	const [createInfo] = useMutation(CREATE_INFO)
+	const [createFile, {loading: loadingFile, error: errorFile}] = useMutation(CREATE_FILE)
+	const [createInfo, {loading: loadingInfo, error: errorInfo}] = useMutation(CREATE_INFO)
+	const [createDevice, {loading: loadingDevice, error: errorDevice}] = useMutation(CREATE_DEVICE)
 
 
-	const addDevice = async (props: IUseAddDevice) => {
+	const addDevice = async (props: { file: any; price: number; brandId: any; name: any; typeId: any; info: IInfoComponent[] }) => {
 
-		const {file, name, price, device, info} = props
+		const {file, name, price, brandId, typeId, info} = props
 
 		let linkFile = await createFile({
 			variables: {
@@ -21,10 +21,10 @@ export const useAddDevice = () => {
 		let createdDevice = await createDevice({
 			variables: {
 				name: name,
-				price: price,
+				price: +price,
 				img: linkFile,
-				brandId: device.selectedBrand.id,
-				typeId: device.selectedType.id,
+				brandId: brandId,
+				typeId: typeId,
 				rating: 0
 			}
 		}).then((data) => {
@@ -33,7 +33,7 @@ export const useAddDevice = () => {
 
 
 		{
-			info && info.map((el: IInfoAddDevice) => {
+			info && info.map((el: IInfoComponent) => {
 				createInfo({
 					variables: {
 						title: el.title,
@@ -41,10 +41,13 @@ export const useAddDevice = () => {
 						deviceId: createdDevice.objectId
 					}
 				})
-				return createdDevice
 			})
 		}
-
+		return createdDevice
 	}
-	return {addDevice}
+	return {
+		addDevice,
+		loadingAddDevice: loadingDevice || loadingFile || loadingInfo,
+		errorAddDevice: errorDevice || errorFile || errorInfo,
+	}
 }

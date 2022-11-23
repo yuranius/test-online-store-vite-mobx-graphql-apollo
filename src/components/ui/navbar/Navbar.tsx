@@ -1,20 +1,22 @@
-import React, {FC} from 'react';
+import React, {FC, useContext} from 'react';
 import styled from './Navbar.module.scss'
 import BurgerMenu from "../burger-menu/BurgerMenu";
 import logo from './../../../image/logo_shop_new.png'
-import {Link} from "react-router-dom";
-import {ADMIN_ROUTE, BASKET_ROUTE, LOGIN_ROUTE, WARNING} from "../../../utils/consts";
+import {Link, useLocation, useNavigate} from "react-router-dom";
+import {ADMIN_ROUTE, BASKET_ROUTE, LOGIN_ROUTE, SHOP_ROUTE, WARNING} from "../../../utils/consts";
 import {useMutation} from "@apollo/client";
 import {LOGOUT_USER} from "../../../query/authAPI";
 import {useMessageContext} from "../../../hooks/useMessageContext";
-import IconTheme from "./iconTheme/IconTheme";
+import IconTheme from "./IconTheme/IconTheme";
+import FilterDevices from "./FilterDevices/FilterDevices";
+import {Context} from "../../../main";
 
 
 const Navbar: FC = () => {
 
-	// const {user} = useContext(Context)
-	// const locate = useLocation()
-	// const navigate = useNavigate()
+	//const {user} = useContext(Context)
+	const locate = useLocation()
+	const navigate = useNavigate()
 
 	const {showMessage} = useMessageContext()
 	const [logoutUser, {error}] = useMutation(LOGOUT_USER, {
@@ -39,6 +41,9 @@ const Navbar: FC = () => {
 	if (error) {
 		showMessage({text: error.message, typeIcon: WARNING})
 	}
+	
+	console.log( '📌:',locate,'🌴 🏁')
+	
 
 	let user = {user: {username: 'test', role: 'ADMIN'}, isAuth: true,}
 
@@ -53,18 +58,20 @@ const Navbar: FC = () => {
 
 					<nav className={styled.menu}>
 						<div className={styled.username}>{user.user.username}</div>
-						<IconTheme/>
-						{user.isAuth ?
-								<ul className={styled.list}>
+
+						<ul className={styled.list}>
+							<IconTheme/>
+							{locate.pathname === SHOP_ROUTE && <FilterDevices />}
+							{user.isAuth ?
+									<>
 									{user.user.role === 'ADMIN' &&
 											<li>
 												<Link to={ADMIN_ROUTE} className={styled.link}>
 													<span className={styled.icon}>
-														<svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-														     xmlns="http://www.w3.org/2000/svg">
-															<path strokeLinecap="round" strokeLinejoin="round"
-															      strokeWidth="2"
-															      d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+														<svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+															<path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+															      d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+															<path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
 													</span>
 												</Link>
 											</li>
@@ -94,9 +101,9 @@ const Navbar: FC = () => {
 											</span>
 										</button>
 									</li>
-								</ul>
+									</>
 								:
-								<ul className={styled.list}>
+
 									<li>
 										<Link to={LOGIN_ROUTE} className={styled.link}>
 											<span className={styled.icon}>
@@ -109,9 +116,9 @@ const Navbar: FC = () => {
 										</span>
 										</Link>
 									</li>
-								</ul>
-						}
 
+						}
+						</ul>
 					</nav>
 				</div>
 			</div>

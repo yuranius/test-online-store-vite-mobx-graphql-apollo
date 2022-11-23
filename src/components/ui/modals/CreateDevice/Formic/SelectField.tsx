@@ -1,17 +1,9 @@
 import Select from 'react-select'
 import {FC} from "react";
 import './CustomSelect.scss'
-
-import React from 'react';
 import cn from "classnames";
+import {ISelectField} from "../../../../../types/propsTypes";
 
-
-interface ISelectField {
-	options: any
-	value: any
-	className: any
-	onChange: (value: () => void) => void
-}
 
 const SelectField:FC<ISelectField> = ({onChange, options, value, className  }) => {
 

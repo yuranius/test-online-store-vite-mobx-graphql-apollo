@@ -3,21 +3,24 @@ import {useFormik} from "formik";
 import {IFormCreateDevice, Selected} from "../../../../../types/propsTypes";
 import SelectField from "./SelectField";
 import cn from "classnames";
-import styled from './FormFormik.module.scss'
+import styled from './Form.module.scss'
 import {useMessageContext} from "../../../../../hooks/useMessageContext";
-import {WARNING} from "../../../../../utils/consts";
+import {SUCCESS, WARNING} from "../../../../../utils/consts";
 import {getError, validate} from "../../../../../utils/formik";
 import {IInfoComponent} from "../../../../../types/overTypes";
+import {useGetTypesBrands} from "../../../../../hooks/API/useGetTypesBrands";
+import {useAddDevice} from "../../../../../hooks/API/useAddDevice";
 
 
 
 
-const FormFormik: FC<IFormCreateDevice> = (props) => {
+const Form: FC<IFormCreateDevice> = (props) => {
+	const {showModal, onHide} = props
 
 	const [info, setInfo] = useState<IInfoComponent[]>([])
 
-	const {types, brands, showModal, onHide} = props
-
+	const {types, brands} = useGetTypesBrands()
+	const {addDevice, loadingAddDevice, errorAddDevice} = useAddDevice()
 	const {showMessage} = useMessageContext()
 
 	const addInfo = () => {
@@ -48,8 +51,18 @@ const FormFormik: FC<IFormCreateDevice> = (props) => {
 			price: '',
 			file: null
 		},
-		onSubmit: (values) => {
-			console.log('📌:Submit', values, '🌴 🏁')
+		onSubmit: async (values) => {
+			const device = await addDevice({
+				name: values.name,
+				price: +values.price,
+				typeId: values.type,
+				brandId: values.brand,
+				file: values.file,
+				info: info
+			}).then( data => data	)
+			onHide()
+			showMessage({text: `Устройство ${device.name} добавлено`, typeIcon: SUCCESS})
+			formik.resetForm()
 		},
 		validate,
 	})
@@ -150,8 +163,15 @@ const FormFormik: FC<IFormCreateDevice> = (props) => {
 					{formik.errors.file && formik.touched.file && <div className='text-red-300'>{formik.errors.file}</div>}
 
 					<hr className='my-4'/>
-					<button onClick={addInfo} type='button' className={cn(styled.addButton, 'bg-teal-600')}>Добавить свойство
-					</button>
+					<div className={styled.addProperty}>
+						<button
+								onClick={addInfo}
+								type='button'
+								disabled={loadingAddDevice}
+								className={styled.addButton}
+						>Добавить свойство
+						</button>
+					</div>
 					{info.map(i =>
 							<div key={i.number} className={styled.blockInfo}>
 
@@ -175,6 +195,7 @@ const FormFormik: FC<IFormCreateDevice> = (props) => {
 										onClick={() => deleteInfo(i.number)}
 										type='button'
 										className={styled.deleteButton}
+										disabled={loadingAddDevice}
 								>
 									<svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
 									     xmlns="http://www.w3.org/2000/svg">
@@ -186,8 +207,8 @@ const FormFormik: FC<IFormCreateDevice> = (props) => {
 					)}
 
 					<div className={styled.footer}>
-						<button type='button' className={styled.closeButton} onClick={onHide}>Закрыть</button>
-						<button type='submit' className={styled.saveButton}>Сохранить</button>
+						<button type='button' disabled={loadingAddDevice} className={styled.closeButton} onClick={onHide}>Закрыть</button>
+						<button type='submit' disabled={loadingAddDevice} className={styled.saveButton}>Сохранить</button>
 					</div>
 				</form>
 
@@ -196,4 +217,4 @@ const FormFormik: FC<IFormCreateDevice> = (props) => {
 	);
 };
 
-export default FormFormik;
+export default Form;

@@ -13,6 +13,7 @@ import {INodeInfo} from "../../../types/queryTypes";
 const Device: FC = () => {
 	const {id} = useParams()
 	const {device, getDevice} = useGetDevice()
+
 	useEffect(() => {
 		getDevice({id})
 	}, [])

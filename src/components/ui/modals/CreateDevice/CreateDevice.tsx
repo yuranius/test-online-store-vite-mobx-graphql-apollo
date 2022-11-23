@@ -5,21 +5,16 @@ import {IModal} from "../../../../types/propsTypes";
 import {useGetTypesBrands} from "../../../../hooks/API/useGetTypesBrands";
 import {Context} from "../../../../main";
 import Title from "./Title/Title";
-import FormFormik from "./Formic/FormFormik";
+import Form from "./Formic/Form";
 
 const CreateDevice: FC<IModal> = memo((props) => {
-	const {showModal, onHide, id, title} = props
-
-	const {types, brands} = useGetTypesBrands()
-
-
-
-	return (
+	const {showModal, onHide, title} = props
+		return (
 			<div className={cn(styled.wrapper, !showModal && 'hidden')}>
 				<div className={styled.container}>
 					<div className={cn(styled.cart, 'bg-white dark:bg-gray-600')}>
 						<Title onHide={onHide} title={title}/>
-						<FormFormik types={types} brands={brands} showModal={showModal} onHide={onHide}  />
+						<Form showModal={showModal} onHide={onHide}  />
 					</div>
 				</div>
 			</div>

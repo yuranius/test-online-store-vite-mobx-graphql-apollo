@@ -11,8 +11,8 @@ import {IDevice} from "../../../types/queryTypes";
 const Shop: FC = observer(() => {
 
 	const {user} = useContext(Context)
-	const limit = 2;
-	const portionSize = 5
+	const limit = 9;
+	const portionSize = 5;
 
 	const {fetchDevice, devices, loading, count} = useGetDevices()
 
@@ -24,14 +24,10 @@ const Shop: FC = observer(() => {
 		fetchDevice({limit: limit, skip: user.currentPage * limit - limit})
 	}, [user.currentPage])
 
-
 	let changePage = (page: number) => {
 		user.setCurrentPage(page)
 	}
 
-	console.log( '📌:',user.currentPage,'🌴 🏁')
-	
-	
 	
 	return (
 			<Layout>

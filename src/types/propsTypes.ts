@@ -52,8 +52,6 @@ export interface ITitle {
 }
 
 export interface IFormCreateDevice {
-	types: Array<Selected>
-	brands: Array<Selected>
 	showModal: boolean
 	onHide: () => void
 }
@@ -63,5 +61,11 @@ export type Selected = {
 	name: string
 }
 
+export interface ISelectField {
+	options: any
+	value: any
+	className: any
+	onChange: (value: () => void) => void
+}
 
 

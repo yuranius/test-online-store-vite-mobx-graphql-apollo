@@ -1,11 +1,10 @@
 import React, {FC, useState} from 'react';
 import Layout from "../../ui/layout/Layout";
-import {CSSTransition, TransitionGroup} from "react-transition-group";
+import {CSSTransition} from "react-transition-group";
 import styled from './Admin.module.scss'
 import cn from "classnames";
 import CreateDevice from "../../ui/modals/CreateDevice/CreateDevice";
 import CreateTypeBrand from '../../ui/modals/CreateTypeBrand/CreateTypeBrand';
-import {useGetTypesBrands} from "../../../hooks/API/useGetTypesBrands";
 
 
 const Admin: FC = () => {
