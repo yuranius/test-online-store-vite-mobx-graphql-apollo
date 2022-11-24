@@ -1,4 +1,4 @@
-import React, {FC, useContext, useEffect, useState} from 'react';
+import React, {FC, useContext, useState} from 'react';
 import styled from './Filter.module.scss'
 import SelectField from "../CreateDevice/Formic/SelectField";
 import {IFilter, Selected} from "../../../../types/propsTypes";
@@ -9,48 +9,67 @@ import '../../navbar/FilterDevices/style.css'
 import cn from "classnames";
 
 
-const Filter: FC<IFilter> = observer(({showModal, onShow}) => {
-
-
-	const {types, brands} = useGetTypesBrands()
-	const {device} = useContext(Context)
-
-	const [type, setType] = useState<Selected>()
-	const [brand, setBrand] = useState<Selected>()
-
-
-const  handleButton = () => {
-		if(type){
-			device.setSelectedType(type)
-		}
-		if(brand){
-			device.setSelectedBrand(brand)
-		}
-	onShow()
+interface IOptions {
+	value: string
+	label: string
 }
 
+const Filter: FC<IFilter> = observer(({showModal, onShow}) => {
 
 	let selectedOption = (option: Selected[]) => {
 		return option?.map(({id, name}) => ({value: id, label: name}))
 	}
 
-	let changeType = (el: any) => {
-		setType(types.find((type: Selected) => type.name === el.label)!)
+	const {types, brands} = useGetTypesBrands()
+	const {device,user} = useContext(Context)
+
+	const [type, setType] = useState<IOptions>({value: device.selectedType.id, label: device.selectedType.name})
+	const [brand, setBrand] = useState<{value: string, label: string}>()
+
+
+	const handleSubmit = () => {
+		if (type?.value) {
+			device.setSelectedType(types.find((t: Selected) => t.name === type.label)!)
+		}
+		if (brand) {
+			device.setSelectedBrand(brands.find((b: Selected) => b.name === brand.label)!)
+		}
+		user.setCurrentPage(1)
+		onShow()
+	}
+	const handleReset = () => {
+		setTimeout(() => {
+			setType({value: '', label: ''})
+			setBrand({value: '', label: ''})
+			device.setSelectedBrand({id: '', name: ''})
+			device.setSelectedType({id: '', name: ''})
+		}, 300)
+		onShow()
 	}
 
-	let changeBrand = (el: any) => {
-		setBrand(brands.find((brand: Selected) => brand.name === el.label)!)
+
+	console.log( '📌:type',type,'🌴 🏁')
+
+
+
+	let changeType = (value: any) => {
+		setType(value)
+	}
+
+	let changeBrand = (value: any) => {
+		setBrand(value)
 	}
 
 	return (
 			<div className={cn(styled.wrapper, !showModal && 'hidden')}>
 				<div className={styled.container}>
-					<SelectField options={selectedOption(types)} value={device} className={'bg-rose-300'} onChange={changeType}/>
-					<SelectField options={selectedOption(brands)} value={device} className={'bg-sky-400 mt-3'}
+					<SelectField options={selectedOption(types)} value={type.value} className={'bg-rose-300'}
+					             onChange={changeType}/>
+					<SelectField options={selectedOption(brands)} value={brand} className={'bg-sky-400 mt-3'}
 					             onChange={changeBrand}/>
 					<div className={styled.button}>
-						<button onClick={() => onShow()	}>Отмена</button>
-						<button onClick={handleButton}>Применить</button>
+						<button onClick={handleReset}>Сброс</button>
+						<button onClick={handleSubmit}>Применить</button>
 					</div>
 				</div>
 			</div>

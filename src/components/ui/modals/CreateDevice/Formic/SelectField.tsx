@@ -10,9 +10,13 @@ const SelectField:FC<ISelectField> = ({onChange, options, value, className  }) =
 	let theme = localStorage.getItem('theme')
 
 	const defaultValue = (options:any, value:any) => {
-		return (options && value) ? options.find ( (option:any) => option.value === value) : {label: 'Выберите...'}
+		return (options && value) ? options.find ( (option:any) => option.value == value) : {label: 'Выберите...', value: ''}
 	}
 
+
+	console.log( '📌:defaultValue',defaultValue(options, value),'🌴 🏁')
+	
+	
 	return (
 			<Select
 					value={defaultValue(options, value)}
