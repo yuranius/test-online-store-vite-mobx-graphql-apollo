@@ -68,4 +68,9 @@ export interface ISelectField {
 	onChange: (value: () => void) => void
 }
 
+export interface IFilter {
+	showModal: boolean
+	onShow: () => void
+}
+
 

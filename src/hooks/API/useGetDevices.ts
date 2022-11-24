@@ -6,7 +6,7 @@ import {
 	FETCH_DEVICES_WHEN_TYPE
 } from "../../query/deviceAPI";
 import {useState} from "react";
-import {FetchDevice, IDevice, INodeDevice} from "../../types/queryTypes";
+import {FetchDevice, IData, IDevice, INodeDevice} from "../../types/queryTypes";
 
 
 export const useGetDevices = () => {
@@ -22,6 +22,18 @@ export const useGetDevices = () => {
 	let loading = loadingAll || loadingType || loadingBrand || loadingBrandAndType
 
 
+	const sendData = (res:IData) => {
+		setCount(res.data?.devices.count)
+		setDevices(res.data?.devices.edges.map(({node}: INodeDevice): IDevice => ({
+			id: node.objectId,
+			name: node.name,
+			brandId: node.brandId.objectId,
+			typeId: node.typeId.objectId,
+			img: node.img,
+			rating: node.rating,
+			price: node.price,
+		})))
+	}
 
 
 	function fetchDevice ({limit, skip, typeId, brandId}:FetchDevice) {
@@ -33,10 +45,7 @@ export const useGetDevices = () => {
 						limit: limit,
 						typeId: typeId,
 					}
-				}).then(res => {
-					setCount(res.data.devices.count)
-					setDevices(res.data.devices.edges)
-				})
+				}).then(res => sendData(res))
 				break
 
 			case (!!brandId && !typeId):
@@ -46,7 +55,7 @@ export const useGetDevices = () => {
 						limit: limit,
 						brandId: brandId,
 					}
-				}).then(res => setDevices(res.data.devices))
+				}).then(res => sendData(res))
 				break
 
 			case (!!typeId && !!brandId):
@@ -57,7 +66,7 @@ export const useGetDevices = () => {
 						brandId: brandId,
 						typeId: typeId,
 					}
-				}).then(res => setDevices(res.data.devices))
+				}).then(res => sendData(res))
 				break
 
 			default:
@@ -67,19 +76,7 @@ export const useGetDevices = () => {
 						skip: skip,
 						limit: limit,
 					}
-				}).then(res => {
-					setCount(res.data?.devices.count)
-					setDevices(res.data?.devices.edges.map(({node}: INodeDevice): IDevice => ({
-						id: node.objectId,
-						name: node.name,
-						brandId: node.brandId.objectId,
-						typeId: node.typeId.objectId,
-						img: node.img,
-						rating: node.rating,
-						price: node.price,
-					})))
-						}
-				)
+				}).then(res => sendData(res))
 				break
 		}
 	}

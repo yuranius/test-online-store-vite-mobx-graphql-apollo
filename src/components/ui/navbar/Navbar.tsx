@@ -41,8 +41,7 @@ const Navbar: FC = () => {
 	if (error) {
 		showMessage({text: error.message, typeIcon: WARNING})
 	}
-	
-	console.log( '📌:',locate,'🌴 🏁')
+
 	
 
 	let user = {user: {username: 'test', role: 'ADMIN'}, isAuth: true,}

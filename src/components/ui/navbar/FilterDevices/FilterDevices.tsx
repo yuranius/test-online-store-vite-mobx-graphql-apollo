@@ -11,13 +11,20 @@ const FilterDevices: FC = () => {
 
 
 	const onShow = () => {
-		setShowModal(!showModal)
+		if (showModal) {
+			setTimeout (() => {
+				setShowModal(!showModal)
+			}, 300)
+		} else {
+			setShowModal(!showModal)
+		}
 		setShowTransition(!showTransition)
 	}
+	
 
 	return (
 
-			<li className='transition-all'>
+			<li>
 				<button type='button' onClick={onShow} className={styled.link}>
 					<span className={styled.icon}>
 						<svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -28,7 +35,7 @@ const FilterDevices: FC = () => {
 					</span>
 				</button>
 				<CSSTransition in={showTransition} classNames='filter' timeout={300}>
-					<Filter/>
+					<Filter showModal={showModal} onShow={onShow}/>
 				</CSSTransition>
 			</li>
 

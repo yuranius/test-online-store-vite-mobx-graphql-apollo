@@ -10,7 +10,7 @@ import {IDevice} from "../../../types/queryTypes";
 
 const Shop: FC = observer(() => {
 
-	const {user} = useContext(Context)
+	const {user, device} = useContext(Context)
 	const limit = 9;
 	const portionSize = 5;
 
@@ -28,6 +28,14 @@ const Shop: FC = observer(() => {
 		user.setCurrentPage(page)
 	}
 
+	useEffect ( () => {
+		fetchDevice({limit: limit, skip: user.currentPage * limit - limit, brandId: device.selectedBrand.id})
+	},[device.selectedBrand])
+
+	
+	console.log( '📌:',devices,'🌴 🏁')
+	
+	
 	
 	return (
 			<Layout>

@@ -1,5 +1,5 @@
 .filter-enter {
-    @apply fixed top-0 left-0 w-full h-full outline-none overflow-x-hidden overflow-y-auto opacity-0 bg-opacity-0 bg-gray-100;
+    @apply fixed top-0 left-0 w-full h-full outline-none overflow-x-hidden overflow-y-auto opacity-0 bg-opacity-20 bg-gray-500;
 }
 
 .filter-enter-active {

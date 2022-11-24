@@ -1,3 +1,5 @@
+import {SetStateAction} from "react";
+
 export interface IDevice {
 	id: string
 	name: string
@@ -30,6 +32,15 @@ export type FetchDevice = {
 	skip: number
 	typeId?: string
 	brandId?: string
+}
+
+export interface IData {
+	data: {
+		devices: {
+			count: number
+			edges: any
+		}
+	}
 }
 
 export interface INodeDevice {
