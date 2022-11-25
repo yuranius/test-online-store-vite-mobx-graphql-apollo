@@ -20,9 +20,6 @@ const Shop: FC = memo(observer(() => {
 		fetchDevice({limit: limit, skip: user.currentPage * limit - limit})
 	}, [])
 
-	// useEffect(() => {
-	// 	fetchDevice({limit: limit, skip: user.currentPage * limit - limit})
-	// }, [user.currentPage])
 
 	let changePage = (page: number) => {
 		user.setCurrentPage(page)
@@ -35,9 +32,9 @@ const Shop: FC = memo(observer(() => {
 			brandId: device.selectedBrand.id,
 			typeId:device.selectedType.id
 		})
-		console.log( '📌:','renderShop','🌴 🏁')
 		
-	},[device.selectedBrand || device.selectedType, user.currentPage])
+	},[device.selectedBrand, device.selectedType, user.currentPage])
+
 	
 	return (
 			<Layout>

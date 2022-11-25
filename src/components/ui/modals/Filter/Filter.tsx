@@ -29,13 +29,15 @@ const Filter: FC<IFilter> = observer(({showModal, onShow}) => {
 
 	const handleSubmit = () => {
 		if (type?.value) {
+
 			device.setSelectedType(types.find((t: Selected) => t.name === type.label)!)
 		}
-		if (brand) {
+		if (brand?.value) {
 			device.setSelectedBrand(brands.find((b: Selected) => b.name === brand.label)!)
 		}
 		user.setCurrentPage(1)
 		onShow()
+
 	}
 	const handleReset = () => {
 		setTimeout(() => {
@@ -46,9 +48,6 @@ const Filter: FC<IFilter> = observer(({showModal, onShow}) => {
 		}, 300)
 		onShow()
 	}
-
-
-	console.log( '📌:type',type,'🌴 🏁')
 
 
 
@@ -62,14 +61,14 @@ const Filter: FC<IFilter> = observer(({showModal, onShow}) => {
 
 	return (
 			<div className={cn(styled.wrapper, !showModal && 'hidden')}>
-				<div className={styled.container}>
-					<SelectField options={selectedOption(types)} value={type.value} className={'bg-rose-300'}
+				<div className={cn(styled.container, 'bg-white dark:bg-gray-500')}>
+					<SelectField options={selectedOption(types)} value={type} className={''}
 					             onChange={changeType}/>
-					<SelectField options={selectedOption(brands)} value={brand} className={'bg-sky-400 mt-3'}
+					<SelectField options={selectedOption(brands)} value={brand} className={'mt-3'}
 					             onChange={changeBrand}/>
 					<div className={styled.button}>
-						<button onClick={handleReset}>Сброс</button>
-						<button onClick={handleSubmit}>Применить</button>
+						<button onClick={handleReset} className='text-gray-500 dark:text-white hover:bg-gray-100'>Сброс/Отмена</button>
+						<button onClick={handleSubmit} className='text-gray-500 dark:text-white hover:bg-gray-100'>Применить</button>
 					</div>
 				</div>
 			</div>

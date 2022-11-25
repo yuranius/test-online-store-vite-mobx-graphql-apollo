@@ -46,17 +46,17 @@ const Form: FC<IFormCreateDevice> = (props) => {
 	const formik = useFormik({
 		initialValues: {
 			name: '',
-			type: '',
-			brand: '',
+			type: {value: '', label: ''},
+			brand: {value: '', label: ''},
 			price: '',
 			file: null
 		},
 		onSubmit: async (values) => {
-			const device = await addDevice({
+		const device = await addDevice({
 				name: values.name,
 				price: +values.price,
-				typeId: values.type,
-				brandId: values.brand,
+				typeId: values.type.value,
+				brandId: values.brand.value,
 				file: values.file,
 				info: info
 			}).then( data => data	)
@@ -70,7 +70,7 @@ const Form: FC<IFormCreateDevice> = (props) => {
 	useEffect(() => {
 		if (!showModal) {
 			formik.resetForm()
-			formik.setErrors({price: '', brand: '', type: '', name: ''})
+			formik.setErrors({price: '', brand: {value: '', label: ''}, type: {value: '', label: ''}, name: ''})
 		}
 	}, [showModal])
 
@@ -131,9 +131,9 @@ const Form: FC<IFormCreateDevice> = (props) => {
 									options={selectedOption(types)}
 									value={formik.values.type}
 									className={formik.errors.type && formik.touched.type && 'rounded-xl border-4 border-red-700'}
-									onChange={(value: any) => formik.setFieldValue('type', value.value)}
+									onChange={(value: any) => formik.setFieldValue('type', value)}
 							/>
-							{formik.errors.type && formik.touched.type && <div className='text-red-300'>{formik.errors.type}</div>}
+							{formik.errors.type && formik.touched.type && <div className='text-red-300'>{formik.errors.type.value}</div>}
 						</div>
 
 						<div className={styled.selected}>
@@ -142,9 +142,9 @@ const Form: FC<IFormCreateDevice> = (props) => {
 									options={selectedOption(brands)}
 									value={formik.values.brand}
 									className={formik.errors.brand && formik.touched.brand && 'rounded-xl border-4 border-red-700'}
-									onChange={(value: any) => formik.setFieldValue('brand', value.value)}
+									onChange={(value: any) => formik.setFieldValue('brand', value)}
 							/>
-							{formik.errors.brand && formik.touched.brand && <div className='text-red-300'>{formik.errors.brand}</div>}
+							{formik.errors.brand && formik.touched.brand && <div className='text-red-300'>{formik.errors.brand.value}</div>}
 						</div>
 
 					</div>
