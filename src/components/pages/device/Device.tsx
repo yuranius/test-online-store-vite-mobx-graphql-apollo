@@ -1,33 +1,61 @@
 import React, {FC, useContext, useEffect} from 'react';
 import styled from './Device.module.scss'
 import {useGetDevice} from "../../../hooks/API/useGetDevice";
-import {useParams} from "react-router-dom";
-import StarRating from "../../ui/StarRating/StarRating";
+import {useNavigate, useParams} from "react-router-dom";
+import StarRating from "../../ui/star-rating/StarRating";
 import Layout from "../../ui/layout/Layout";
 import {format} from "../../../utils/formatter";
 import {Context} from "../../../main";
 import cn from "classnames";
 import {INodeInfo} from "../../../types/queryTypes";
+import {DANGER, SHOP_ROUTE, SUCCESS, WARNING} from "../../../utils/consts";
+import {useAddDeviceBasket} from "../../../hooks/API/useAddDeviceBasket";
+import Loader from "../../ui/loader/Loader";
+import {useMessageContext} from "../../../hooks/useMessageContext";
 
 
 const Device: FC = () => {
 	const {id} = useParams()
+	const navigate = useNavigate()
 	const {device, getDevice} = useGetDevice()
+	const {user} = useContext(Context)
+
+	const {addDeviceBasket, loading, error} = useAddDeviceBasket()
+	const {showMessage} = useMessageContext()
+
 
 	useEffect(() => {
 		getDevice({id})
 	}, [])
 
-	const {user} = useContext(Context)
+
+	const handleAddBasket = async () => {
+		let res = await addDeviceBasket(id!, user.user.objectId).then(t => t)
+		if (res === 0) {
+			showMessage({text: `Товар ${device?.name} добавлен в корзину`, typeIcon: SUCCESS})
+		} else if (res >= 1) {
+			showMessage({text: 'Данный товар уже есть в корзине', typeIcon: WARNING})
+		} else {
+			showMessage({text: 'Что-то пошло не так...', typeIcon: DANGER})
+		}
+	}
 
 
 	const changeRating = (newRate: number) => {
 		console.log('📌:', newRate, '🌴 🏁')
 	}
 
+	const handlerDelete = () => {
+		let check = confirm('Вы уверены что хотите удалить этот товар?')
+		if (check) {
+			setTimeout(() => navigate(SHOP_ROUTE), 2000)
+		}
+	}
+
 
 	return (
 			<Layout>
+				{loading && <Loader/>}
 				<div className={styled.wrapper}>
 					<div className={styled.container}>
 						<div className={styled.image}>
@@ -55,7 +83,15 @@ const Device: FC = () => {
 						</div>
 					</div>
 					<div className={styled.button}>
-						{user.isAuth && <button>Добавить в корзину</button>}
+						{user.isAuth &&
+								<>
+									<button>Оценить</button>
+									<button onClick={handleAddBasket}>Добавить в корзину</button>
+								</>
+						}
+						{user.user.role === 'ADMIN' &&
+								<button className={styled.buttonDelete} onClick={handlerDelete}>Удалить товар из базы</button>
+						}
 					</div>
 				</div>
 			</Layout>

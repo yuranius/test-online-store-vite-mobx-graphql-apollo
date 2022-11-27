@@ -66,3 +66,15 @@ export interface INodeTypeBrand {
 		name: string,
 	}
 }
+
+export interface INodeDeviceBasket {
+	node:{
+		objectId: string
+		deviceId:{
+			img: string
+			price:string
+			name:string
+			objectId: string
+		}
+	}
+}

@@ -13,12 +13,6 @@ const SelectField:FC<ISelectField> = ({onChange, options, value, className  }) =
 		return (options && value?.value) ? options.find ( (option:any) => option.value == value.value) : {label: 'Выберите...', value: ''}
 	}
 
-	//console.log( '📌:value',value,'🌴 🏁')
-	
-
-	//console.log( '📌:defaultValue',defaultValue(options, value),'🌴 🏁')
-	
-	
 	return (
 			<Select
 					value={defaultValue(options, value)}

@@ -3,3 +3,8 @@ export interface IInfoComponent {
 	description: string
 	number: number
 }
+
+export interface IOptions {
+	value: string
+	label: string
+}

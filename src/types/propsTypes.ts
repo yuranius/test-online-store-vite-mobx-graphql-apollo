@@ -1,5 +1,6 @@
 import {DANGER, SUCCESS, WARNING} from "../utils/consts";
 import React, {Dispatch, SetStateAction} from "react";
+import BasketDeviceItem from "../components/ui/basket-device-list/basket-device-item/BasketDeviceItem";
 
 
 export interface IForm {
@@ -71,6 +72,21 @@ export interface ISelectField {
 export interface IFilter {
 	showModal: boolean
 	onShow: () => void
+}
+
+export interface IBasketDeviceItem {
+	device: IBasketDevice
+	totalPrice: number
+	handlerDelete: (objectId: string, deviceId: string) => void
+}
+
+
+export interface IBasketDevice {
+	objectId: string
+	deviceId: string
+	img: string
+	price: number
+	name: string
 }
 
 

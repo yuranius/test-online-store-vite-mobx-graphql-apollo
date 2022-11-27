@@ -45,10 +45,18 @@
     }
   }
   .button{
-    @apply my-3 flex items-center justify-center;
+    @apply my-3 flex items-center justify-center grid grid-cols-3 tablet:grid-cols-4 columns-2 tablet:px-20 px-2 ;
 
     > button{
-      @apply p-2 bg-[#6366f1]  rounded-lg border text-white hover:bg-blue-300;
+      @apply p-2 bg-[#6366f1] rounded-lg border text-white hover:bg-blue-400 mx-1 tablet:mx-2  col-span-2;
+    }
+
+    > button:first-child{
+      @apply hover:bg-teal-400 bg-teal-600 columns-1 col-span-1;
+    }
+
+    .buttonDelete {
+      @apply bg-rose-600 hover:bg-rose-400 tablet:col-span-1 col-span-3 tablet:col-span-1 mt-2 tablet:mt-0;
     }
   }
 

@@ -23,12 +23,12 @@
     }
   }
   .link{
-    @apply hover:font-bold relative;
+    @apply relative;
     .icon{
-      @apply w-10 h-10 bg-indigo-700 block rounded-full shadow-lg cursor-pointer text-white flex items-center justify-center hover:bg-indigo-600 ;
+      @apply w-10 h-10 bg-indigo-700 block rounded-full shadow-lg cursor-pointer text-white flex items-center justify-center hover:bg-indigo-600 hover:font-bold;
     }
     .basket{
-      @apply w-6 h-6 bg-indigo-100 rounded-full absolute text-gray-700 flex items-center justify-center top-0 -left-5;
+      @apply w-6 h-6 top-8 -left-3 bg-indigo-100 rounded-full absolute text-gray-700 flex items-center justify-center transition-all ease-in duration-300;
     }
   }
 }

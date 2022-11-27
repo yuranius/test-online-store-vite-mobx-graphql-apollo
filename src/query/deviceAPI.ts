@@ -23,13 +23,6 @@ export const FETCH_TYPES_BRANDS = gql`
     }
 `
 
-export const FETCH_COUNT = gql`
-    query {
-        devices{
-            count
-        }
-    }
-`
 
 export const FETCH_DEVICES_WHEN_BRAND_AND_TYPE = gql`
     query ( $limit: Int!, $skip: Int! $brandId: ID $typeId: ID) {
@@ -247,4 +240,24 @@ export const GET_DEVICE = gql`
         }
     }
 `
+
+// export const DELETE_DEVICE = gql`
+//     mutation ($id: ID!) {
+//         deleteDevice(input: {
+//             id: $id
+//         }){
+//             device {
+//                 name: 'test'
+//             }
+//         }
+//         deleteRating()
+//     }
+//
+// `
+
+// export const DELETE_INFO = gql`
+//     mutation ( $id:ID! ) {
+//         deleteRating(input:)
+//     }
+// `
 

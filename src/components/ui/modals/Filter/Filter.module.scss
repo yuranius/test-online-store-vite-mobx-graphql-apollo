@@ -6,7 +6,7 @@
   .button{
     @apply flex justify-between mt-3 gap-2;
     > button{
-      @apply px-3 py-1 rounded-lg border w-full hover:border-[#6366f1];
+      @apply px-3 py-1 rounded-lg border w-full active:bg-[#6366f1] active:text-white transition-all;
     }
   }
 }

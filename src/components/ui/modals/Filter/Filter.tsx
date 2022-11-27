@@ -7,12 +7,9 @@ import {Context} from "../../../../main";
 import {observer} from "mobx-react-lite";
 import '../../navbar/FilterDevices/style.css'
 import cn from "classnames";
+import { IOptions } from '../../../../types/overTypes';
 
 
-interface IOptions {
-	value: string
-	label: string
-}
 
 const Filter: FC<IFilter> = observer(({showModal, onShow}) => {
 
@@ -46,10 +43,9 @@ const Filter: FC<IFilter> = observer(({showModal, onShow}) => {
 			device.setSelectedBrand({id: '', name: ''})
 			device.setSelectedType({id: '', name: ''})
 		}, 300)
+		user.setCurrentPage(1)
 		onShow()
 	}
-
-
 
 	let changeType = (value: any) => {
 		setType(value)
@@ -59,16 +55,17 @@ const Filter: FC<IFilter> = observer(({showModal, onShow}) => {
 		setBrand(value)
 	}
 
+	const styleButton = 'text-gray-500 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-400'
+
 	return (
 			<div className={cn(styled.wrapper, !showModal && 'hidden')}>
 				<div className={cn(styled.container, 'bg-white dark:bg-gray-500')}>
-					<SelectField options={selectedOption(types)} value={type} className={''}
-					             onChange={changeType}/>
-					<SelectField options={selectedOption(brands)} value={brand} className={'mt-3'}
+					<SelectField options={selectedOption(types)} value={type} className={''} onChange={changeType}/>
+					<SelectField options={selectedOption(brands)} value={brand} className={'mt-3 text-gray-100'}
 					             onChange={changeBrand}/>
 					<div className={styled.button}>
-						<button onClick={handleReset} className='text-gray-500 dark:text-white hover:bg-gray-100'>Сброс/Отмена</button>
-						<button onClick={handleSubmit} className='text-gray-500 dark:text-white hover:bg-gray-100'>Применить</button>
+						<button onClick={handleReset} className={styleButton}>Сброс/Отмена</button>
+						<button onClick={handleSubmit} className={styleButton}>Применить</button>
 					</div>
 				</div>
 			</div>

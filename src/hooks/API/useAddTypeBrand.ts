@@ -1,5 +1,5 @@
 import {useMutation} from "@apollo/client";
-import {CREATE_BRAND, CREATE_TYPE, FETCH_COUNT, FETCH_DEVICES, FETCH_TYPES_BRANDS} from "../../query/deviceAPI";
+import {CREATE_BRAND, CREATE_TYPE, FETCH_TYPES_BRANDS} from "../../query/deviceAPI";
 
 
 
@@ -15,8 +15,8 @@ export const useAddTypeBrand = () => {
 				query: FETCH_TYPES_BRANDS,
 				data: {
 					brands,
-					types: {...types, ...{edges: [...types.edges, {node: createType.type}]}
-				}}
+					types: {...types, ...{edges: [...types.edges, {node: createType.type}]}}
+				}
 			})
 		}
 		// update cache apollo ----------------------------------------------------
