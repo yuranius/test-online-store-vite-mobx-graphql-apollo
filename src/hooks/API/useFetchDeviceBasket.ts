@@ -1,33 +1,15 @@
-import {useApolloClient, useLazyQuery} from "@apollo/client";
+import {useLazyQuery} from "@apollo/client";
 import {GET_DEVICE_BASKET} from "../../query/basketAPI";
 import {useContext, useState} from "react";
-import {Context} from "../../main";
 import {INodeDeviceBasket} from "../../types/queryTypes";
-
+import {Context} from "../../main";
 
 
 export const useFetchDeviceBasket = () => {
-	const [getDevice,{refetch}] = useLazyQuery(GET_DEVICE_BASKET)
+	const [getDevice] = useLazyQuery(GET_DEVICE_BASKET)
 	const [basketDevice, setBasketDevice] = useState([])
-	const {cache}: any = useApolloClient()
-	const {user} = useContext(Context)
 
-	let deviceCache:any = cache.readQuery({
-		query: GET_DEVICE_BASKET, variables: {
-			userId: user.user.objectId
-		}
-	})
-
-
-	const getCacheDevice = (device:any) => {
-		return device?.basket_Devices.edges.map(({node}: INodeDeviceBasket) => ({
-			objectId: node.objectId,
-			deviceId: node.deviceId.objectId,
-			img: node.deviceId.img,
-			price: node.deviceId.price,
-			name: node.deviceId.name
-		}))
-	}
+	const {basket} = useContext(Context)
 
 	const fetchDeviceBasket = async (userId: string) => {
 		await getDevice({
@@ -35,15 +17,20 @@ export const useFetchDeviceBasket = () => {
 						userId: userId
 					},
 				}
+		).then(device => {
+					setBasketDevice(device.data.basket_Devices.edges.map(({node}: INodeDeviceBasket) => ({
+						objectId: node.objectId,
+						deviceId: node.deviceId.objectId,
+						img: node.deviceId.img,
+						price: node.deviceId.price,
+						name: node.deviceId.name
+					})))
+					basket.setQuantityDevices(device.data.basket_Devices.edges.length)
+				}
 		)
-
-		return deviceCache?.basket_Devices.edges.map(({node}: INodeDeviceBasket) => ({
-			objectId: node.objectId,
-			deviceId: node.deviceId.objectId,
-			img: node.deviceId.img,
-			price: node.deviceId.price,
-			name: node.deviceId.name
-		}))
 	}
-	return {fetchDeviceBasket, basketDevice, deviceCache, getCacheDevice, refetch}
+
+	//надо ретрнить device а не передавать из State
+
+	return {fetchDeviceBasket, basketDevice}
 }

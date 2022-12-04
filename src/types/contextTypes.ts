@@ -18,6 +18,7 @@ export type IContext = {
 	}
 
 	device: IDeviceContext
+	basket: IBasketContext
 }
 
 export interface IShowMessage {
@@ -28,6 +29,18 @@ export interface IShowMessage {
 export interface IDeviceContext {
 	selectedType: Selected
 	selectedBrand: Selected
+
 	setSelectedType(param: Selected): void
+
 	setSelectedBrand(param: Selected): void
+}
+
+export interface IBasketContext {
+	quantityDevices: number
+
+	setQuantityDevices(param: number): void
+
+	addQuantityDevices(): void
+
+	deleteQuantityDevices(): void
 }

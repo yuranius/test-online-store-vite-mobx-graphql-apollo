@@ -26,4 +26,6 @@
 
 #### yarn add formik
 
+#### yarn add apollo-link apollo-link-state ( для управления локальнм состоянием в Apollo-client, удалено)
+
 

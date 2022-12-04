@@ -7,6 +7,7 @@ import {GET_LOGGED_USER} from "./query/authAPI";
 import {Context} from "./main";
 import Loader from "./components/ui/loader/Loader";
 import useDarkMode from "./hooks/useDarkMode";
+import {useFetchDeviceBasket} from "./hooks/API/useFetchDeviceBasket";
 
 
 const App: FC = () => {
@@ -15,6 +16,8 @@ const App: FC = () => {
 	const {data, loading} = useQuery(GET_LOGGED_USER)
 
 	const {user} = useContext(Context)
+
+	const { fetchDeviceBasket } = useFetchDeviceBasket()
 
 	const ref = useRef()
 	user.setRef(ref)
@@ -27,18 +30,15 @@ const App: FC = () => {
 				username: data?.viewer.user?.username,
 				role: data?.viewer.user?.role
 			})
+			fetchDeviceBasket(data?.viewer.user?.objectId).then()
 		}
-
-		console.log( '📌:APP',user.isAuth, user.user.role,'🌴 🏁')
 	}, [data])
-
-
 
 
 	return (
 			<Router>
 				{loading ? <Loader />
-						: <AppRouter />
+						 : <AppRouter user={user}/>
 				}
 				<Toasts ref={ref}/>
 			</Router>

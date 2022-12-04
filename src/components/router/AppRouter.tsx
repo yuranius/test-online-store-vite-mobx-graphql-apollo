@@ -1,14 +1,11 @@
-import React, {FC, useContext} from 'react';
+import React, {FC} from 'react';
 import {adminRoutes, authRoutes, publicRoutes} from "./routes";
 import {Route, Routes} from "react-router-dom";
-import {Context} from "../../main";
-import {observer} from "mobx-react-lite";
 
 
-const AppRouter: FC = observer(() => {
-	//const {user} = useContext(Context)
 
-	const user = {isAuth: true, user: {role: 'ADMIN'}}
+const AppRouter: FC<any> = ({user}) => {
+
 
 	return (
 			<Routes>
@@ -26,6 +23,6 @@ const AppRouter: FC = observer(() => {
 				)}
 			</Routes>
 	);
-});
+};
 
 export default AppRouter;

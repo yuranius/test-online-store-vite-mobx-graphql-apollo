@@ -1,4 +1,4 @@
-import React, {FC, useContext, useEffect, useState} from 'react';
+import React, {FC, useContext} from 'react';
 import styled from './Navbar.module.scss'
 import BurgerMenu from "../burger-menu/BurgerMenu";
 import logo from './../../../image/logo_shop_new.png'
@@ -10,32 +10,15 @@ import {useMessageContext} from "../../../hooks/useMessageContext";
 import IconTheme from "./IconTheme/IconTheme";
 import FilterDevices from "./FilterDevices/FilterDevices";
 import {Context} from "../../../main";
-import {useFetchDeviceBasket} from "../../../hooks/API/useFetchDeviceBasket";
 import cn from "classnames";
 import {observer} from "mobx-react-lite";
 
 
 const Navbar: FC = observer(() => {
 
-	const {user} = useContext(Context)
+	const {user, basket} = useContext(Context)
 	const locate = useLocation()
 	const navigate = useNavigate()
-	const [basketDevice, setBasketDevice] = useState([])
-
-	const {fetchDeviceBasket, deviceCache} = useFetchDeviceBasket()
-	
-
-
-	useEffect(() => {
-		if (user.user.objectId) {
-			fetchDeviceBasket(user.user.objectId).then(res => setBasketDevice(res || []))
-		}
-
-	}, [user.user, deviceCache])
-	
-	console.log( '📌:',deviceCache,'🌴 🏁')
-	
-
 
 	const {showMessage} = useMessageContext()
 	const [logoutUser, {error}] = useMutation(LOGOUT_USER, {
@@ -44,6 +27,9 @@ const Navbar: FC = observer(() => {
 		}
 	})
 
+	console.log( '📌:',basket.quantityDevices,'🌴 🏁')
+	
+	
 	const logout = () => {
 		logoutUser().then(({data}) => {
 			if (data.logOut.ok) {
@@ -68,8 +54,6 @@ const Navbar: FC = observer(() => {
 					<Link to={'/'} className={styled.logo}>
 						<img src={logo} alt=""/>
 					</Link>
-
-
 					<nav className={styled.menu}>
 						<div className={styled.username}>{user.user.username}</div>
 
@@ -102,8 +86,8 @@ const Navbar: FC = observer(() => {
 													      d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
 												</span>
 												<span
-														className={cn(styled.basket, !basketDevice.length ? 'hidden opacity-0 transition-all' : 'opacity-100')}
-												>{basketDevice.length}</span>
+														className={cn(styled.basket, !basket.quantityDevices ? 'hidden opacity-0 transition-all' : 'opacity-100')}
+												>{basket.quantityDevices}</span>
 											</Link>
 										</li>
 										<li>
@@ -121,7 +105,6 @@ const Navbar: FC = observer(() => {
 										</li>
 									</>
 									:
-
 									<li>
 										<Link to={LOGIN_ROUTE} className={styled.link}>
 											<span className={styled.icon}>
@@ -134,7 +117,6 @@ const Navbar: FC = observer(() => {
 										</span>
 										</Link>
 									</li>
-
 							}
 						</ul>
 					</nav>

@@ -1,7 +1,7 @@
 import {makeAutoObservable} from "mobx";
 
 class BasketStore {
-	private _quantity: number
+	private _quantity: number;
 
 	constructor() {
 		this._quantity = 0
@@ -15,6 +15,10 @@ class BasketStore {
 
 	deleteQuantityDevices () {
 		this._quantity --
+	}
+
+	setQuantityDevices (devices: number) {
+		this._quantity = devices
 	}
 
 	get quantityDevices() {

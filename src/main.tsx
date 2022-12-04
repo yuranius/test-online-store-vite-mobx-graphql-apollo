@@ -7,11 +7,11 @@ import {ApolloClient, ApolloProvider, InMemoryCache} from "@apollo/client";
 import UserStore from "./store/UserStore";
 import {IContext} from "./types/contextTypes";
 import DeviceStore from "./store/DeviceStore";
-
+import BasketStore from "./store/BasketStore";
 
 let token = !!localStorage?.token ? localStorage.getItem('token') : ''
 
-const link = createUploadLink({
+let link = createUploadLink({
 	uri: 'https://parseapi.back4app.com/graphql',
 	headers: {
 		"X-Parse-Application-Id": "kkWwjLM6jwGw4cW1VeN7NoLuuAWWCcQOT3nwfcZD",
@@ -25,14 +25,12 @@ const client = new ApolloClient({
 	cache: new InMemoryCache(),
 })
 
-
-
 // @ts-ignore
 export const Context = createContext<IContext>({})
 
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-		<Context.Provider value={{ user: new UserStore(), device: new DeviceStore()	}}>
+		<Context.Provider value={{user: new UserStore(), device: new DeviceStore(), basket: new BasketStore()}}>
 			<ApolloProvider client={client}>
 				<App/>
 			</ApolloProvider>

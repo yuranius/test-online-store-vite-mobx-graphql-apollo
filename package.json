@@ -15,6 +15,7 @@
     "@types/react-burger-menu": "^2.8.3",
     "@types/react-star-ratings": "^2.3.0",
     "@types/react-transition-group": "^4.4.5",
+    "apollo-link-http": "^1.5.17",
     "apollo-upload-client": "^17.0.0",
     "autoprefixer": "^10.4.13",
     "formik": "^2.2.9",

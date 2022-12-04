@@ -7,62 +7,59 @@ import {Context} from "../../../main";
 import BasketDeviceItem from "../../ui/basket-device-list/basket-device-item/BasketDeviceItem";
 import {IBasketDevice} from "../../../types/propsTypes";
 import {useDeleteDeviceBasket} from "../../../hooks/API/useDeleteDeviceBasket";
-import {observer} from "mobx-react-lite";
-import {useApolloClient} from "@apollo/client";
-import {GET_DEVICE_BASKET} from "../../../query/basketAPI";
+import {useGetCacheDeviceBasket} from "../../../hooks/API/useGetCacheDeviceBasket";
 
-const Basket: FC = observer(() => {
+
+const Basket: FC = () => {
 	const [totalPrice, setTotalPrice] = useState(0)
-	const {user} = useContext(Context)
-	const {fetchDeviceBasket, basketDevice, deviceCache, refetch} = useFetchDeviceBasket()
-	//const {basketDevice} = useGetCacheDeviceBasket()
-	const {deleteDeviceBasket} = useDeleteDeviceBasket()
+	const {user, basket} = useContext(Context)
+	//const {fetchDeviceBasket} = useFetchDeviceBasket()
+	//const {deleteDeviceBasket} = useDeleteDeviceBasket()
+	
+	//const {getDeviceCache, basketDevice} = useGetCacheDeviceBasket()
 
-	const {cache}: any = useApolloClient()
 
-	// let deviceCache:any = cache.readQuery({
-	// 	query: GET_DEVICE_BASKET, variables: {
-	// 		userId: user.user.objectId
+	useEffect ( () => {
+		//if (basket.quantityDevices )
+	    //getDeviceCache()
+	},[basket])
+
+	// useEffect(() => {
+	// 	if (basketDevice.length !== 0) {
+	// 		setTotalPrice(basketDevice.map((device: IBasketDevice) => device.price).reduce((p, c) => p + c))
+	// 	} else {
+	// 		setTotalPrice(0)
 	// 	}
-	// })
+	// }, [basketDevice]);
+	//
+	// console.log( '📌:',basketDevice,basket.quantityDevices,'🌴 🏁')
+	//
+	//
+	//
+	// const deleteBasketDevice = (objectId: string, deviceId: string) => {
+	// 	deleteDeviceBasket(objectId, deviceId, user.user.objectId).then(res =>
+	// 			fetchDeviceBasket(user.user.objectId)
+	// 	)
+	// }
 
+	
+	
+	//console.log( '📌:',basketDevice,'🌴 🏁')
+	
 
-
-	useEffect(() => {
-		if (user.user.objectId && !basketDevice.length) {
-			refetch(user.user.objectId).then(res => getDeviceBasket(user.user.objectId))
-		}
-	}, [user.user, basketDevice])
-
-
-	useEffect(() => {
-		if (basketDevice.length !== 0) {
-			setTotalPrice(basketDevice.map((device: IBasketDevice) => device.price).reduce((p, c) => p + c))
-		} else {
-			setTotalPrice(0)
-		}
-	}, [basketDevice]);
-
-
-	const deleteBasketDevice = (objectId: string, deviceId: string) => {
-		deleteDeviceBasket(objectId, deviceId, user.user.objectId).then(res =>
-				fetchDeviceBasket(user.user.objectId)
-		)
-	}
-
-
-
+	
 
 	return (
 			<Layout>
 				<div className={cn(styled.wrapper)}>
-					{basketDevice.map((device: IBasketDevice) => <BasketDeviceItem handlerDelete={deleteBasketDevice}
-					                                                               device={device} key={device.objectId}
-					                                                               totalPrice={totalPrice}/>)}
+					{/*{basketDevice.map((device: IBasketDevice) => <BasketDeviceItem handlerDelete={deleteBasketDevice}*/}
+					{/*                                                               device={device} key={device.objectId}*/}
+					{/*                                                               totalPrice={totalPrice}/>)}*/}
 					<button>Оформить заказ</button>
+					{basket.quantityDevices}
 				</div>
 			</Layout>
 	);
-})
+};
 
 export default Basket;
