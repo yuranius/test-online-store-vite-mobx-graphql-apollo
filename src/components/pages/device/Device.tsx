@@ -18,7 +18,7 @@ const Device: FC = () => {
 	const {id} = useParams()
 	const navigate = useNavigate()
 	const {device, getDevice} = useGetDevice()
-	const {user} = useContext(Context)
+	const {user, basket} = useContext(Context)
 
 	const {addDeviceBasket, loading, error} = useAddDeviceBasket()
 	const {showMessage} = useMessageContext()
@@ -30,14 +30,16 @@ const Device: FC = () => {
 
 
 	const handleAddBasket = async () => {
-		let res = await addDeviceBasket(id!, user.user.objectId).then(t => t)
-		if (res === 0) {
-			showMessage({text: `Товар ${device?.name} добавлен в корзину`, typeIcon: SUCCESS})
-		} else if (res >= 1) {
-			showMessage({text: 'Данный товар уже есть в корзине', typeIcon: WARNING})
-		} else {
-			showMessage({text: 'Что-то пошло не так...', typeIcon: DANGER})
-		}
+		await addDeviceBasket(id!, user.user.objectId).then(res => {
+			if (res === 0) {
+				showMessage({text: `Товар ${device?.name} добавлен в корзину`, typeIcon: SUCCESS})
+				basket.addQuantityDevices()
+			} else if (res >= 1) {
+				showMessage({text: 'Данный товар уже есть в корзине', typeIcon: WARNING})
+			} else {
+				showMessage({text: 'Что-то пошло не так...', typeIcon: DANGER})
+			}
+		})
 	}
 
 

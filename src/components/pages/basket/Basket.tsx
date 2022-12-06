@@ -7,22 +7,25 @@ import {Context} from "../../../main";
 import BasketDeviceItem from "../../ui/basket-device-list/basket-device-item/BasketDeviceItem";
 import {IBasketDevice} from "../../../types/propsTypes";
 import {useDeleteDeviceBasket} from "../../../hooks/API/useDeleteDeviceBasket";
-import {useGetCacheDeviceBasket} from "../../../hooks/API/useGetCacheDeviceBasket";
 
 
 const Basket: FC = () => {
 	const [totalPrice, setTotalPrice] = useState(0)
+	const [basketDevice, setBasketDevice] = useState([])
 	const {user, basket} = useContext(Context)
-	//const {fetchDeviceBasket} = useFetchDeviceBasket()
-	//const {deleteDeviceBasket} = useDeleteDeviceBasket()
-	
-	//const {getDeviceCache, basketDevice} = useGetCacheDeviceBasket()
 
+
+	const {fetchDeviceBasket} = useFetchDeviceBasket()
+	const {deleteDeviceBasket} = useDeleteDeviceBasket()
+
+
+	useEffect(() => {
+		fetchDeviceBasket(user.user.objectId).then(device => setBasketDevice(device))
+	}, [])
 
 	useEffect ( () => {
-		//if (basket.quantityDevices )
-	    //getDeviceCache()
-	},[basket])
+
+	},[basket.quantityDevices])
 
 	// useEffect(() => {
 	// 	if (basketDevice.length !== 0) {
@@ -36,25 +39,22 @@ const Basket: FC = () => {
 	//
 	//
 	//
-	// const deleteBasketDevice = (objectId: string, deviceId: string) => {
-	// 	deleteDeviceBasket(objectId, deviceId, user.user.objectId).then(res =>
-	// 			fetchDeviceBasket(user.user.objectId)
-	// 	)
-	// }
+	const deleteBasketDevice = (objectId: string, deviceId: string) => {
+		deleteDeviceBasket(objectId, deviceId, user.user.objectId).then(res =>
+				fetchDeviceBasket(user.user.objectId).then(device => setBasketDevice(device))
+		)
+	}
 
-	
-	
+
 	//console.log( '📌:',basketDevice,'🌴 🏁')
-	
 
-	
 
 	return (
 			<Layout>
 				<div className={cn(styled.wrapper)}>
-					{/*{basketDevice.map((device: IBasketDevice) => <BasketDeviceItem handlerDelete={deleteBasketDevice}*/}
-					{/*                                                               device={device} key={device.objectId}*/}
-					{/*                                                               totalPrice={totalPrice}/>)}*/}
+					{basketDevice.map((device: IBasketDevice) => <BasketDeviceItem handlerDelete={deleteBasketDevice}
+					                                                               device={device} key={device.objectId}
+					                                                               totalPrice={totalPrice}/>)}
 					<button>Оформить заказ</button>
 					{basket.quantityDevices}
 				</div>

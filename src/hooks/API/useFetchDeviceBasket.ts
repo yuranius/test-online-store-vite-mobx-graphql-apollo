@@ -12,25 +12,25 @@ export const useFetchDeviceBasket = () => {
 	const {basket} = useContext(Context)
 
 	const fetchDeviceBasket = async (userId: string) => {
-		await getDevice({
+		return await getDevice({
 					variables: {
 						userId: userId
 					},
 				}
 		).then(device => {
-					setBasketDevice(device.data.basket_Devices.edges.map(({node}: INodeDeviceBasket) => ({
+					basket.setQuantityDevices(device.data.basket_Devices.edges.length);
+					return device.data.basket_Devices.edges.map(({node}: INodeDeviceBasket) => ({
 						objectId: node.objectId,
 						deviceId: node.deviceId.objectId,
 						img: node.deviceId.img,
 						price: node.deviceId.price,
 						name: node.deviceId.name
-					})))
-					basket.setQuantityDevices(device.data.basket_Devices.edges.length)
+					}))
 				}
 		)
 	}
 
 	//надо ретрнить device а не передавать из State
 
-	return {fetchDeviceBasket, basketDevice}
+	return {fetchDeviceBasket}
 }
