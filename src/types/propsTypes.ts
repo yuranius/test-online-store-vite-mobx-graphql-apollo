@@ -76,8 +76,8 @@ export interface IFilter {
 
 export interface IBasketDeviceItem {
 	device: IBasketDevice
-	totalPrice: number
-	handlerDelete: (objectId: string, deviceId: string) => void
+	handlerDelete: (objectId: string, deviceId: string, deviceName: string) => void
+	loading: boolean
 }
 
 

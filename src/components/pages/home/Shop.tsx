@@ -8,7 +8,7 @@ import {Context} from "../../../main";
 import {observer} from "mobx-react-lite";
 import {IDevice} from "../../../types/queryTypes";
 
-const Shop: FC = () => {
+const Shop: FC = observer(() => {
 
 	const {user, device} = useContext(Context)
 	const limit = 9;
@@ -52,6 +52,6 @@ const Shop: FC = () => {
 				<Pagination total={count} limit={limit} currentPage={user.currentPage} changePage={changePage} portionSize={portionSize} />
 			</Layout>
 	);
-};
+});
 
 export default Shop;

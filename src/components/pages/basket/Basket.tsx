@@ -7,6 +7,11 @@ import {Context} from "../../../main";
 import BasketDeviceItem from "../../ui/basket-device-list/basket-device-item/BasketDeviceItem";
 import {IBasketDevice} from "../../../types/propsTypes";
 import {useDeleteDeviceBasket} from "../../../hooks/API/useDeleteDeviceBasket";
+import {format} from "../../../utils/formatter";
+import Button from "../../ui/button/Button";
+import {useMessageContext} from "../../../hooks/useMessageContext";
+import {DANGER, WARNING} from "../../../utils/consts";
+import device from "../device/Device";
 
 
 const Basket: FC = () => {
@@ -16,47 +21,53 @@ const Basket: FC = () => {
 
 
 	const {fetchDeviceBasket} = useFetchDeviceBasket()
-	const {deleteDeviceBasket} = useDeleteDeviceBasket()
+	const {deleteDeviceBasket, loadingDelete, errorDelete} = useDeleteDeviceBasket()
+	const {showMessage} = useMessageContext()
 
 
 	useEffect(() => {
 		fetchDeviceBasket(user.user.objectId).then(device => setBasketDevice(device))
 	}, [])
 
-	useEffect ( () => {
+	useEffect(() => {
 
-	},[basket.quantityDevices])
+	}, [basket.quantityDevices])
 
-	// useEffect(() => {
-	// 	if (basketDevice.length !== 0) {
-	// 		setTotalPrice(basketDevice.map((device: IBasketDevice) => device.price).reduce((p, c) => p + c))
-	// 	} else {
-	// 		setTotalPrice(0)
-	// 	}
-	// }, [basketDevice]);
-	//
-	// console.log( '📌:',basketDevice,basket.quantityDevices,'🌴 🏁')
-	//
-	//
-	//
-	const deleteBasketDevice = (objectId: string, deviceId: string) => {
-		deleteDeviceBasket(objectId, deviceId, user.user.objectId).then(res =>
-				fetchDeviceBasket(user.user.objectId).then(device => setBasketDevice(device))
-		)
+	useEffect(() => {
+		if (basketDevice.length !== 0) {
+			setTotalPrice(basketDevice.map((device: IBasketDevice) => device.price).reduce((p, c) => p + c))
+		} else {
+			setTotalPrice(0)
+		}
+	}, [basketDevice]);
+
+	const deleteBasketDevice = (objectId: string, deviceId: string, deviceName: string) => {
+		deleteDeviceBasket(objectId, deviceId, user.user.objectId).then(res => {
+			fetchDeviceBasket(user.user.objectId).then(device => setBasketDevice(device))
+			showMessage({text: `Товар ${deviceName} удален из Вашей корзины`, typeIcon: DANGER})
+		})
 	}
 
-
-	//console.log( '📌:',basketDevice,'🌴 🏁')
-
+	if (errorDelete) {
+		showMessage({text: errorDelete.message, typeIcon: DANGER})
+	}
 
 	return (
 			<Layout>
-				<div className={cn(styled.wrapper)}>
-					{basketDevice.map((device: IBasketDevice) => <BasketDeviceItem handlerDelete={deleteBasketDevice}
-					                                                               device={device} key={device.objectId}
-					                                                               totalPrice={totalPrice}/>)}
-					<button>Оформить заказ</button>
-					{basket.quantityDevices}
+				<div className={styled.wrapper}>
+					{!!basketDevice.length ? <>
+								<div className={styled.row}>
+									{basketDevice.map((device: IBasketDevice) =>
+											<BasketDeviceItem handlerDelete={deleteBasketDevice} loading={loadingDelete} device={device}
+											                  key={device.objectId}/>)}
+								</div>
+								<div className={styled.footer}>
+									<Button>Оформить заказ</Button>
+									<div className={cn(styled.price, 'dark:text-gray-100')}>Итого к оплате: {format(totalPrice)}</div>
+								</div>
+							</>
+							: <div className={cn(styled.absence, 'dark:text-gray-100')}>У Вас пока нет товаров в корзине...</div>
+					}
 				</div>
 			</Layout>
 	);

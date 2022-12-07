@@ -1,3 +1,18 @@
 .wrapper{
   @apply mt-5;
+  .row{
+    @apply shadow-red-400;
+  }
+  .footer{
+    @apply mt-5 flex justify-end items-center;
+    > Button{
+      @apply mr-5;
+    }
+    .price{
+      @apply font-medium tracking-widest;
+    }
+  }
+  .absence{
+    @apply font-bold text-xl;
+  }
 }

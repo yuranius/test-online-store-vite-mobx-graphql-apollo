@@ -6,4 +6,15 @@
   .title{
     @apply flex items-center font-bold;
   }
+  .price{
+    @apply flex items-center mr-3 tracking-widest font-medium;
+  }
+  .ended{
+    @apply flex;
+  }
+  .loading{
+    > Button{
+      @apply bg-gray-500;
+    }
+  }
 }

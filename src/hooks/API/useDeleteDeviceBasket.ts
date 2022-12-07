@@ -3,7 +3,7 @@ import {DELETE_DEVICE_BASKET, GET_DEVICE_BASKET} from "../../query/basketAPI";
 import {INodeDeviceBasket} from "../../types/queryTypes";
 
 export const useDeleteDeviceBasket = () => {
-	const [deleteDevice] = useMutation(DELETE_DEVICE_BASKET)
+	const [deleteDevice, {loading: loadingDelete, error: errorDelete}] = useMutation(DELETE_DEVICE_BASKET)
 
 	const deleteDeviceBasket = async (objectId: string, deviceId: string, userId: string) => {
 		await deleteDevice({
@@ -33,5 +33,5 @@ export const useDeleteDeviceBasket = () => {
 
 
 
-	return {deleteDeviceBasket}
+	return {deleteDeviceBasket, loadingDelete, errorDelete}
 }

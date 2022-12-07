@@ -3,8 +3,9 @@ import {IBasketDeviceItem} from "../../../../types/propsTypes";
 import styled from './BasketDeviceItem.module.scss'
 import Button from "../../button/Button";
 import cn from "classnames";
+import {format} from "../../../../utils/formatter";
 
-const BasketDeviceItem:FC<IBasketDeviceItem> = ({device,totalPrice, handlerDelete}) => {
+const BasketDeviceItem:FC<IBasketDeviceItem> = ({device, loading, handlerDelete}) => {
 
 	return (
 			<div className={cn(styled.wrapper, 'dark:bg-slate-600' )}>
@@ -12,9 +13,9 @@ const BasketDeviceItem:FC<IBasketDeviceItem> = ({device,totalPrice, handlerDelet
 					<div className={styled.image}><img src={device.img} alt=""/></div>
 					<div className={cn(styled.title, 'dark:text-gray-100 text-gray-700')}>{device.name}</div>
 				</div>
-				<div className='flex'>
-					<div>{device.price}</div>
-					<Button onClick={() => handlerDelete(device.objectId, device.deviceId)}>
+				<div className={cn(styled.ended, loading && styled.loading) }>
+					<div className={cn(styled.price, 'dark:text-gray-100')}>{format(device.price)}</div>
+					<Button onClick={() => handlerDelete(device.objectId, device.deviceId, device.name)} disabled={loading} >
 						<svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
 						     xmlns="http://www.w3.org/2000/svg">
 							<path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
@@ -22,7 +23,6 @@ const BasketDeviceItem:FC<IBasketDeviceItem> = ({device,totalPrice, handlerDelet
 						</svg>
 					</Button>
 				</div>
-
 			</div>
 	);
 };
