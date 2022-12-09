@@ -12,36 +12,19 @@ import FilterDevices from "./FilterDevices/FilterDevices";
 import {Context} from "../../../main";
 import cn from "classnames";
 import {observer} from "mobx-react-lite";
+import {useLogoutUser} from "../../../hooks/useLogoutUser";
 
 
 const Navbar: FC = observer(() => {
 
 	const {user, basket} = useContext(Context)
 	const locate = useLocation()
-	const navigate = useNavigate()
+
 
 	const {showMessage} = useMessageContext()
-	const [logoutUser, {error}] = useMutation(LOGOUT_USER, {
-		variables: {
-			id: user.user.objectId
-		}
-	})
 
-	console.log( '📌:',basket.quantityDevices,'🌴 🏁')
-	
-	
-	const logout = () => {
-		logoutUser().then(({data}) => {
-			if (data.logOut.ok) {
-				localStorage.clear()
-				user.setIsAuth(false)
-				user.setUser({objectId: '', role: '', username: ''})
-				if (locate.pathname !== '/') {
-					navigate(SHOP_ROUTE)
-				}
-			}
-		})
-	}
+
+	const { logout, error } = useLogoutUser()
 
 	if (error) {
 		showMessage({text: error.message, typeIcon: WARNING})

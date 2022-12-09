@@ -37,7 +37,8 @@ export const styles = {
 	},
 	bmItemList: {
 		color: '#ffffff',
-		padding: '0.8em',
+		paddingLeft: '0.8em',
+		paddingRight: '0.8em'
 	},
 	bmItem: {
 		display: 'flex',
