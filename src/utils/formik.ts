@@ -1,13 +1,6 @@
+import {IError, IValuesError} from "../types/overTypes";
 
-interface IError {
-	name: string
-	type: string
-	brand: string
-	price: string
-	file: string
-}
-
-export const validate = (values: { name: string, type: {}, brand: {}, price: string, file: File | null }) => {
+export const validate = (values:  IValuesError) => {
 	let errors = {} as IError
 	if (!values.name) {
 		errors.name = 'Поле должно быть заполнено'
@@ -21,11 +14,11 @@ export const validate = (values: { name: string, type: {}, brand: {}, price: str
 		errors.price = 'Введите число'
 	}
 
-	if (!values.type) {
+	if (!values.type.value) {
 		errors.type = 'Тип должен быть выбран'
 	}
 
-	if (!values.brand) {
+	if (!values.brand.value) {
 		errors.brand = 'Бренд должен быть выбран'
 	}
 
@@ -37,7 +30,6 @@ export const validate = (values: { name: string, type: {}, brand: {}, price: str
 
 	return errors
 }
-
 
 export const getError = (formik:any) => {
 	return (!!formik.errors.name && !!formik.touched.name) ||

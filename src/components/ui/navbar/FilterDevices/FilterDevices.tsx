@@ -35,7 +35,7 @@ const FilterDevices: FC = () => {
 					</span>
 				</button>
 				<CSSTransition in={showTransition} classNames='filter' timeout={300}>
-					<Filter showModal={showModal} onShow={onShow}/>
+					<Filter showModal={showModal} onShow={onShow} />
 				</CSSTransition>
 			</li>
 

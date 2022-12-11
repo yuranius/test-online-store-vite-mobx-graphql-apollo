@@ -7,7 +7,6 @@ import {Context} from "../../main";
 
 export const useFetchDeviceBasket = () => {
 	const [getDevice] = useLazyQuery(GET_DEVICE_BASKET)
-	const [basketDevice, setBasketDevice] = useState([])
 
 	const {basket} = useContext(Context)
 
@@ -29,8 +28,6 @@ export const useFetchDeviceBasket = () => {
 				}
 		)
 	}
-
-	//надо ретрнить device а не передавать из State
 
 	return {fetchDeviceBasket}
 }

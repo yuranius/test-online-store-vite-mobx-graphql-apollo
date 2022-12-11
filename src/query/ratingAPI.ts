@@ -17,12 +17,6 @@ export const ADD_RATE = gql`
         }){
             rating {
                 objectId
-                userId {
-                    objectId
-                }
-                deviceId {
-                    objectId
-                }
                 rate
             }
         }

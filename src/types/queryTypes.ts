@@ -1,5 +1,3 @@
-import {SetStateAction} from "react";
-
 export interface IDevice {
 	id: string
 	name: string
@@ -64,6 +62,13 @@ export interface INodeTypeBrand {
 	node: {
 		objectId: string,
 		name: string,
+	}
+}
+
+export interface INodeRatingDevice {
+	node: {
+		objectId: string,
+		rate: number,
 	}
 }
 

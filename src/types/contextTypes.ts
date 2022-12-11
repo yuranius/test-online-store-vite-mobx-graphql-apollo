@@ -17,7 +17,7 @@ export type IContext = {
 		setCurrentPage(param: number): void;
 	}
 
-	device: IDeviceContext
+	selected: IDeviceContext
 	basket: IBasketContext
 }
 
@@ -29,10 +29,11 @@ export interface IShowMessage {
 export interface IDeviceContext {
 	selectedType: Selected
 	selectedBrand: Selected
+	selectedRate: number | null
 
 	setSelectedType(param: Selected): void
-
 	setSelectedBrand(param: Selected): void
+	setSelectedRate(param: number | null):void
 }
 
 export interface IBasketContext {

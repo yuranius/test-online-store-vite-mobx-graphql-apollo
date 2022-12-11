@@ -10,7 +10,7 @@ import {IDevice} from "../../../types/queryTypes";
 
 const Shop: FC = observer(() => {
 
-	const {user, device} = useContext(Context)
+	const {user, selected} = useContext(Context)
 	const limit = 9;
 	const portionSize = 5;
 
@@ -29,11 +29,11 @@ const Shop: FC = observer(() => {
 		fetchDevice({
 			limit: limit,
 			skip: user.currentPage * limit - limit,
-			brandId: device.selectedBrand.id,
-			typeId:device.selectedType.id
+			brandId: selected.selectedBrand.id,
+			typeId:selected.selectedType.id
 		})
 		
-	},[device.selectedBrand, device.selectedType, user.currentPage])
+	},[selected.selectedBrand, selected.selectedType, user.currentPage])
 
 	
 	return (

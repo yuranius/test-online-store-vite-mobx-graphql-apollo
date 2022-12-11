@@ -56,7 +56,9 @@
     }
 
     .buttonDelete {
-      @apply bg-rose-600 hover:bg-rose-400 tablet:col-span-1 col-span-3 tablet:col-span-1 mt-2 tablet:mt-0;
+      @apply bg-rose-600 rounded-full w-12 h-12
+      hover:bg-rose-400 tablet:col-span-1 col-span-3 tablet:col-span-1
+      mt-2 tablet:mt-0 flex justify-center items-center;
     }
   }
 

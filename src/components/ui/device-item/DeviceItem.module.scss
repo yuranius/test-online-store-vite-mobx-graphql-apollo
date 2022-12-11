@@ -3,7 +3,7 @@
   @apply border-2 rounded-xl border-indigo-500 mb-2 flex shadow cursor-pointer;
 
   &:hover{
-    @apply drop-shadow-2xl;
+    @apply drop-shadow-2xl translate-x-[2px] -translate-y-[2px] transition-all shadow-card;
   }
 
   .image {

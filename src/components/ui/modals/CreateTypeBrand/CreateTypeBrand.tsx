@@ -1,4 +1,4 @@
-import React, {FC, memo, useState} from 'react';
+import React, {FC, useState} from 'react';
 import styled from './CreateTypeBrand.module.scss'
 import cn from 'classnames'
 import './style.css'
@@ -6,7 +6,6 @@ import {IModal} from "../../../../types/propsTypes";
 import {useAddTypeBrand} from "../../../../hooks/API/useAddTypeBrand";
 import {useMessageContext} from "../../../../hooks/useMessageContext";
 import {DANGER, SUCCESS, WARNING} from "../../../../utils/consts";
-import {useGetTypesBrands} from "../../../../hooks/API/useGetTypesBrands";
 
 
 const CreateTypeBrand: FC<IModal> = (props) => {
@@ -17,11 +16,11 @@ const CreateTypeBrand: FC<IModal> = (props) => {
 	const {showMessage} = useMessageContext()
 
 	const closeModal = () => {
-		setValue('')
+		setTimeout(() => {
+			setValue('')
+		}, 300)
 		onHide()
 	}
-	
-
 
 	const onSave = async () => {
 		if (value) {
@@ -45,7 +44,7 @@ const CreateTypeBrand: FC<IModal> = (props) => {
 					break;
 				}
 				default: {
-					showMessage({text: 'Непредвиденная ошибка...(((', typeIcon: SUCCESS})
+					showMessage({text: 'Непредвиденная ошибка...(((', typeIcon: WARNING})
 				}
 			}
 		} else {

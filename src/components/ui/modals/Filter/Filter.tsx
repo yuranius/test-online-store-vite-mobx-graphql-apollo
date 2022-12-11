@@ -1,7 +1,7 @@
 import React, {FC, useContext, useState} from 'react';
 import styled from './Filter.module.scss'
 import SelectField from "../CreateDevice/Formic/SelectField";
-import {IFilter, Selected} from "../../../../types/propsTypes";
+import {IModalFilterRating, Selected} from "../../../../types/propsTypes";
 import {useGetTypesBrands} from "../../../../hooks/API/useGetTypesBrands";
 import {Context} from "../../../../main";
 import {observer} from "mobx-react-lite";
@@ -11,26 +11,26 @@ import { IOptions } from '../../../../types/overTypes';
 
 
 
-const Filter: FC<IFilter> = observer(({showModal, onShow}) => {
+const Filter: FC<IModalFilterRating> = observer(({showModal, onShow}) => {
 
 	let selectedOption = (option: Selected[]) => {
 		return option?.map(({id, name}) => ({value: id, label: name}))
 	}
 
 	const {types, brands} = useGetTypesBrands()
-	const {device,user} = useContext(Context)
+	const {selected,user} = useContext(Context)
 
-	const [type, setType] = useState<IOptions>({value: device.selectedType.id, label: device.selectedType.name})
+	const [type, setType] = useState<IOptions>({value: selected.selectedType.id, label: selected.selectedType.name})
 	const [brand, setBrand] = useState<{value: string, label: string}>()
 
 
 	const handleSubmit = () => {
 		if (type?.value) {
 
-			device.setSelectedType(types.find((t: Selected) => t.name === type.label)!)
+			selected.setSelectedType(types.find((t: Selected) => t.name === type.label)!)
 		}
 		if (brand?.value) {
-			device.setSelectedBrand(brands.find((b: Selected) => b.name === brand.label)!)
+			selected.setSelectedBrand(brands.find((b: Selected) => b.name === brand.label)!)
 		}
 		user.setCurrentPage(1)
 		onShow()
@@ -40,8 +40,8 @@ const Filter: FC<IFilter> = observer(({showModal, onShow}) => {
 		setTimeout(() => {
 			setType({value: '', label: ''})
 			setBrand({value: '', label: ''})
-			device.setSelectedBrand({id: '', name: ''})
-			device.setSelectedType({id: '', name: ''})
+			selected.setSelectedBrand({id: '', name: ''})
+			selected.setSelectedType({id: '', name: ''})
 		}, 300)
 		user.setCurrentPage(1)
 		onShow()

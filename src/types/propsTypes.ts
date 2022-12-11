@@ -26,7 +26,6 @@ export type TypeIcon = typeof SUCCESS | typeof DANGER | typeof WARNING
 
 export interface IStarRatingComponent {
 	rate: number | undefined
-	changeRating: (newRate: number) => void
 }
 
 
@@ -44,6 +43,11 @@ export interface IModal {
 	showModal: boolean
 	onHide: () => void
 	title: string
+}
+
+export interface IModalCreateRating {
+	showModal: boolean
+	onHide: () => void
 }
 
 
@@ -69,7 +73,7 @@ export interface ISelectField {
 	onChange: (value: () => void) => void
 }
 
-export interface IFilter {
+export interface IModalFilterRating {
 	showModal: boolean
 	onShow: () => void
 }

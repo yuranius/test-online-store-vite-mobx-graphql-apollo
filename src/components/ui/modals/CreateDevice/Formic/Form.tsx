@@ -10,6 +10,7 @@ import {getError, validate} from "../../../../../utils/formik";
 import {IInfoComponent} from "../../../../../types/overTypes";
 import {useGetTypesBrands} from "../../../../../hooks/API/useGetTypesBrands";
 import {useAddDevice} from "../../../../../hooks/API/useAddDevice";
+import {uuid} from "../../../../../utils/uuid";
 
 
 
@@ -24,24 +25,19 @@ const Form: FC<IFormCreateDevice> = (props) => {
 	const {showMessage} = useMessageContext()
 
 	const addInfo = () => {
-		setInfo([...info, {title: '', description: '', number: Date.now()}])
+		setInfo([...info, {title: '', description: '', number: uuid()}])
 	}
-	const deleteInfo = (number: number) => {
+	const deleteInfo = (number: string) => {
 		setInfo(info.filter(i => i.number !== number))
 	}
 
-	const changeInfo = (key: string, value: string, number: number) => {
+	const changeInfo = (key: string, value: string, number: string) => {
 		setInfo(info.map(i => i.number === number ? {...i, [key]: value} : i))
 	}
-
-	// const onSubmit = (value: any) => {
-	// 	device.setSelectedType(types.find((type: Selected) => type.name === value.label)!)
-	// }
 
 	let selectedOption = (option: Selected[]) => {
 		return option?.map(({id, name}) => ({value: id, label: name}))
 	}
-
 
 	const formik = useFormik({
 		initialValues: {
@@ -74,9 +70,7 @@ const Form: FC<IFormCreateDevice> = (props) => {
 		}
 	}, [showModal])
 
-
 	const error = getError(formik)
-
 
 	useEffect(() => {
 		if (error) {
@@ -84,17 +78,11 @@ const Form: FC<IFormCreateDevice> = (props) => {
 		}
 	}, [error])
 
-	// const checkError = (validationField: string) => {
-	// 	return formik.errors
-	// }
 
 
 	return (
 			<div className='w-11/12 m-auto'>
-
 				<form className='flex flex-col my-2' onSubmit={formik.handleSubmit}>
-
-
 					<div className='relative'>
 						<label htmlFor='name' className='text-gray-500 dark:text-indigo-100'>Название устройства</label>
 						<input
@@ -123,7 +111,6 @@ const Form: FC<IFormCreateDevice> = (props) => {
 					</div>
 					{formik.errors.price && formik.touched.price && <div className='text-red-300'>{formik.errors.price}</div>}
 
-
 					<div className={styled.selectedWrapper}>
 						<div className={styled.selected}>
 							<label htmlFor='type' className='text-gray-500 dark:text-indigo-100'>Тип</label>
@@ -146,7 +133,6 @@ const Form: FC<IFormCreateDevice> = (props) => {
 							/>
 							{formik.errors.brand && formik.touched.brand && <div className='text-red-300'>{formik.errors.brand.value}</div>}
 						</div>
-
 					</div>
 
 					<div className='relative mt-4'>

@@ -3,7 +3,7 @@ import StarRating from 'react-star-ratings'
 import {IStarRatingComponent} from "../../../types/propsTypes";
 
 
-const StarRatingComponent:FC<IStarRatingComponent> = ({rate,changeRating}) => {
+const StarRatingComponent:FC<IStarRatingComponent> = ({rate}) => {
 	return (
 			<div>
 				<StarRating

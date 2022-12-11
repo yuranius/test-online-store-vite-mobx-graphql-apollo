@@ -6,7 +6,7 @@ import {createUploadLink} from "apollo-upload-client";
 import {ApolloClient, ApolloProvider, InMemoryCache} from "@apollo/client";
 import UserStore from "./store/UserStore";
 import {IContext} from "./types/contextTypes";
-import DeviceStore from "./store/DeviceStore";
+import SelectedStore from "./store/SelectedStore";
 import BasketStore from "./store/BasketStore";
 
 let token = !!localStorage?.token ? localStorage.getItem('token') : ''
@@ -30,7 +30,7 @@ export const Context = createContext<IContext>({})
 
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-		<Context.Provider value={{user: new UserStore(), device: new DeviceStore(), basket: new BasketStore()}}>
+		<Context.Provider value={{user: new UserStore(), selected: new SelectedStore(), basket: new BasketStore()}}>
 			<ApolloProvider client={client}>
 				<App/>
 			</ApolloProvider>
