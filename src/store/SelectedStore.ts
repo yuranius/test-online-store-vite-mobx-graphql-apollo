@@ -1,17 +1,18 @@
 import {makeAutoObservable} from "mobx";
 import {Selected} from "../types/propsTypes";
+import {ISelectedRate} from "../types/contextTypes";
 
 
 class SelectedStore {
 	private _selectedType: Selected
 	private _selectedBrand: Selected
-	private _selectedRate: number | null
+	private _selectedRate: ISelectedRate
 
 	constructor() {
 
 		this._selectedType = {id: '' , name: ''}
 		this._selectedBrand = {id: '' , name: ''}
-		this._selectedRate = null
+		this._selectedRate = {id: '', rate: null}
 
 		makeAutoObservable(this)
 	}
@@ -24,7 +25,7 @@ class SelectedStore {
 		this._selectedBrand = type
 	}
 
-	setSelectedRate (rate: number | null) {
+	setSelectedRate (rate: ISelectedRate) {
 		this._selectedRate = rate
 	}
 

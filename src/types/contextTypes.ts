@@ -1,4 +1,4 @@
-import {Selected, TypeIcon} from "./propsTypes";
+import {Selected} from "./propsTypes";
 
 
 export type IContext = {
@@ -21,27 +21,25 @@ export type IContext = {
 	basket: IBasketContext
 }
 
-export interface IShowMessage {
-	typeIcon: TypeIcon
-	text: string
-}
 
 export interface IDeviceContext {
 	selectedType: Selected
 	selectedBrand: Selected
-	selectedRate: number | null
+	selectedRate: ISelectedRate
 
 	setSelectedType(param: Selected): void
 	setSelectedBrand(param: Selected): void
-	setSelectedRate(param: number | null):void
+	setSelectedRate(param: ISelectedRate):void
 }
 
 export interface IBasketContext {
 	quantityDevices: number
-
 	setQuantityDevices(param: number): void
-
 	addQuantityDevices(): void
-
 	deleteQuantityDevices(): void
+}
+
+export interface ISelectedRate {
+	id: string
+	rate: number
 }

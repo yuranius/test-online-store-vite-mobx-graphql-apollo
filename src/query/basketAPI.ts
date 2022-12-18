@@ -21,7 +21,7 @@ export const ADD_DEVICE_BASKET = gql`
 `
 
 export const CHECK_DEVICE_BASKET = gql`
-    query ( $userId: ID! $deviceId: ID!) {
+    query checkDeviceBasket( $userId: ID! $deviceId: ID!) {
         basket_Devices ( where: {deviceId: {have: {objectId: {equalTo: $deviceId}}},
             userId: {have: {objectId: {equalTo: $userId}}}
         }){
@@ -35,7 +35,7 @@ export const CHECK_DEVICE_BASKET = gql`
 `
 
 export const GET_DEVICE_BASKET = gql`
-    query ( $userId: ID! ) {
+    query getDeviceBasket( $userId: ID! ) {
         basket_Devices (where: {userId: {have: {objectId: {equalTo: $userId}}}}){
             edges {
                 node {
@@ -53,7 +53,7 @@ export const GET_DEVICE_BASKET = gql`
 `
 
 export const DELETE_DEVICE_BASKET = gql`
-    mutation ( $id: ID! ) {
+    mutation deleteDeviceBasket( $id: ID! ) {
         deleteBasket_Device(input: {id: $id}){
             basket_Device {
                 objectId

@@ -1,7 +1,6 @@
 import {useContext} from "react";
 import { Context } from "../main";
-import {IShowMessage} from "../types/contextTypes";
-
+import {IShowMessage} from "../types/hooksTypes";
 
 export const useMessageContext = () => {
 	const {user} = useContext(Context)

@@ -1,4 +1,4 @@
-import React, {FC, useContext, useEffect, useState} from 'react';
+import React, {FC, memo, useContext, useEffect, useState} from 'react';
 import styled from './Device.module.scss'
 import {useGetDevice} from "../../../hooks/API/useGetDevice";
 import {useNavigate, useParams} from "react-router-dom";
@@ -17,31 +17,36 @@ import {useCheckRatingUserDevice} from "../../../hooks/API/useCheckRatingUserDev
 import CreateRating from "../../ui/modals/CreateRating/CreateRating";
 
 
-const Device: FC = () => {
+const Device: FC = memo(() => {
 	const {id} = useParams()
 	const navigate = useNavigate()
 	const {device, getDevice} = useGetDevice()
-	const {user, basket, selected} = useContext(Context)
+	const {user, basket} = useContext(Context)
 
-
-	const {addDeviceBasket, loading, error} = useAddDeviceBasket()
-	const {checkRatingUserDevice} = useCheckRatingUserDevice()
+	const {addDeviceBasket, loading: loadingAddDevice, error: errorAddDevice} = useAddDeviceBasket()
+	const {checkRatingUserDevice, loading: loadingCheckRating, error: errorCheckRating} = useCheckRatingUserDevice()
 	const {showMessage} = useMessageContext()
 
+	const [rate, setRate] = useState({id: '', rate: 0})
 	const [showModal, setShowModal] = useState(false)
 	const [showTransition, setShowTransition] = useState<boolean>(false)
 
+	let loading = loadingAddDevice || loadingCheckRating
+	let error = errorAddDevice || errorCheckRating
+
 	useEffect(() => {
 		getDevice({id})
-
-		if (user.user) {
-			checkRatingUserDevice({id: id, user: user.user.objectId}).then(res => selected.setSelectedRate(res[0].rate))
+		if(user.user.objectId) {
+			checkRatingUserDevice({id: id, user: user.user.objectId}).then(([{id, rate}]) => {
+				setRate({id: id, rate:rate})
+			})
 		}
-	}, [])
+	}, [user.user.objectId])
 
-	useEffect(() => {
-		checkRatingUserDevice({id: id, user: user.user.objectId}).then(res => selected.setSelectedRate(res[0].rate))
-	}, [user.user])
+	useEffect ( () => {
+		getDevice({id})
+	},[rate])
+
 
 	const onShow = () => {
 		setShowModal(true)
@@ -80,26 +85,25 @@ const Device: FC = () => {
 
 	return (
 			<Layout>
-				{loading && <Loader/>}
 				<div className={styled.wrapper}>
 					<div className={styled.container}>
 						<div className={styled.image}>
-							<img src={device?.img} alt={device?.name}/>
+							{/*<img src={device?.img} alt={device?.name}/>*/}
 						</div>
 						<div className={cn(styled.discription, 'dark:text-blue-100 text-[#6366f1]')}>
 							<div className={styled.title}>
 								<div className={styled.name}>{device?.name}</div>
 								<div className={styled.price}>{format(device?.price!)}</div>
 							</div>
-							<div className={cn(styled.rate, 'dark:text-white')}>
+							<div className={cn(styled.rate, 'dark:text-blue-100 text-[#6366f1]')}>
 								<StarRating rate={device?.rating}/>
 								<div>{device?.rating}</div>
 							</div>
-
-
-							Ваш голос : {selected.selectedRate}
-
-
+							{!!rate.rate &&
+									<div className={cn(styled.rateUser, 'dark:text-blue-100 text-[#6366f1]')}>
+										Ваша оценка: {rate.rate}
+									</div>
+							}
 							<div className={styled.info}>
 								<h1>Характеристики:</h1>
 								{device?.info?.map((info: INodeInfo, index) =>
@@ -115,7 +119,7 @@ const Device: FC = () => {
 						{user.isAuth &&
 								<>
 									<button onClick={onShow}>Оценить</button>
-									<button onClick={handleAddBasket}>Добавить в корзину</button>
+									<button onClick={handleAddBasket} disabled={loadingAddDevice}>Добавить в корзину</button>
 								</>
 						}
 						{user.user.role === 'ADMIN' &&
@@ -130,6 +134,8 @@ const Device: FC = () => {
 					</div>
 					<CSSTransition in={showTransition} classNames='modal' timeout={300}>
 						<CreateRating
+								selectedRate={rate}
+								setSelectedRate={setRate}
 								showModal={showModal}
 								onHide={onHide}
 						/>
@@ -138,6 +144,6 @@ const Device: FC = () => {
 			</Layout>
 
 	);
-};
+});
 
 export default Device;

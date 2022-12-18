@@ -1,22 +1,28 @@
 import {useLazyQuery, useMutation} from "@apollo/client";
 import {ADD_DEVICE_BASKET, CHECK_DEVICE_BASKET, GET_DEVICE_BASKET} from "../../query/basketAPI";
+import {useState} from "react";
 
 
 export const useAddDeviceBasket = () => {
 
-	const [add, {loading: loadingAdd, error: errorAdd}] = useMutation(ADD_DEVICE_BASKET)
-	const [check, {loading: loadingCheck, error: errorCheck}] = useLazyQuery(CHECK_DEVICE_BASKET)
+	const [add, {error: errorAdd}] = useMutation(ADD_DEVICE_BASKET)
+	const [check, {error: errorCheck}] = useLazyQuery(CHECK_DEVICE_BASKET)
+
+	const [loading, setLoading] = useState(false)
 
 	let addDeviceBasket = async (deviceId: string, userId: string) => {
-		let checkBasket = await check({
+
+		setLoading(true)
+
+		let {data} = await check({
 			variables: {
 				userId: userId,
 				deviceId: deviceId
 			}
-		}).then(res => res.data.basket_Devices.edges.length)
+		})
 
-		if (!checkBasket) {
-			return await add({
+		if (!data.basket_Devices.edges.length) {
+			await add({
 						variables: {
 							userId: userId,
 							deviceId: deviceId
@@ -71,13 +77,15 @@ export const useAddDeviceBasket = () => {
 
 						}
 					}
-			).then(res => 0)
+			)
+			setLoading(false)
+			return 0
+		} else {
+			setLoading(false)
+			return data.basket_Devices.edges.length
 		}
-
-		return checkBasket
 	}
 
-	let loading = loadingCheck || loadingAdd
 	let error = errorCheck || errorAdd
 
 	return {addDeviceBasket, loading, error}

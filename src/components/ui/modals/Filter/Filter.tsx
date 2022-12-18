@@ -26,7 +26,6 @@ const Filter: FC<IModalFilterRating> = observer(({showModal, onShow}) => {
 
 	const handleSubmit = () => {
 		if (type?.value) {
-
 			selected.setSelectedType(types.find((t: Selected) => t.name === type.label)!)
 		}
 		if (brand?.value) {

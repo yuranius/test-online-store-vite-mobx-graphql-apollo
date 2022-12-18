@@ -1,7 +1,7 @@
 import {gql} from "@apollo/client";
 
 export const FETCH_TYPES_BRANDS = gql`
-    query {
+    query fetchTypesBrands{
         types{
             count
             edges{
@@ -25,7 +25,7 @@ export const FETCH_TYPES_BRANDS = gql`
 
 
 export const FETCH_DEVICES_WHEN_BRAND_AND_TYPE = gql`
-    query ( $limit: Int!, $skip: Int! $brandId: ID $typeId: ID) {
+    query fetchDevicesBrandType( $limit: Int!, $skip: Int! $brandId: ID $typeId: ID) {
         devices ( first: $limit , skip: $skip, where: {OR: {brandId:{have: {objectId: {
             equalTo: $brandId
         }}}}, AND: {typeId: {have: {objectId: {equalTo: $typeId}}}}}){
@@ -50,7 +50,7 @@ export const FETCH_DEVICES_WHEN_BRAND_AND_TYPE = gql`
 `
 
 export const FETCH_DEVICES_WHEN_BRAND = gql`
-    query ( $limit: Int!, $skip: Int! $brandId: ID) {
+    query fetchDevicesBrand( $limit: Int!, $skip: Int! $brandId: ID) {
         devices ( first: $limit , skip: $skip, where: {brandId:{have: {objectId: {
             equalTo: $brandId
         }}}}){
@@ -75,7 +75,7 @@ export const FETCH_DEVICES_WHEN_BRAND = gql`
 `
 
 export const FETCH_DEVICES_WHEN_TYPE = gql`
-    query ( $limit: Int!, $skip: Int! $typeId: ID) {
+    query fetchDevicesType( $limit: Int!, $skip: Int! $typeId: ID) {
         devices ( first: $limit , skip: $skip, where: {typeId: {have: {objectId: {equalTo: $typeId}}}}){
             count
             edges{
@@ -98,7 +98,7 @@ export const FETCH_DEVICES_WHEN_TYPE = gql`
 `
 
 export const FETCH_DEVICES = gql`
-    query ( $limit: Int!, $skip: Int!) {
+    query fetchDevices( $limit: Int!, $skip: Int!) {
         devices ( first: $limit , skip: $skip ){
             count
             edges{
@@ -121,7 +121,7 @@ export const FETCH_DEVICES = gql`
 `
 
 export const CREATE_TYPE = gql`
-    mutation ( $name: String! ) {
+    mutation createType( $name: String! ) {
         createType (input: {
             fields: {
                 name: $name
@@ -136,7 +136,7 @@ export const CREATE_TYPE = gql`
 `
 
 export const CREATE_BRAND = gql`
-    mutation ( $name: String! ) {
+    mutation createBrand( $name: String! ) {
         createBrand (input: {
             fields: {
                 name: $name
@@ -151,7 +151,7 @@ export const CREATE_BRAND = gql`
 `
 
 export const CREATE_DEVICE = gql`
-    mutation ( $name: String! $price: Float! $rating: Float! $typeId: ID! $brandId: ID! $img: String! ) {
+    mutation createDevice( $name: String! $price: Float! $rating: Float! $typeId: ID! $brandId: ID! $img: String! ) {
         createDevice (input: {
             fields: {
                 name: $name
@@ -177,7 +177,7 @@ export const CREATE_DEVICE = gql`
 `
 
 export const CREATE_FILE = gql`
-    mutation ($file: Upload!) {
+    mutation createFile($file: Upload!) {
         createFile( input: {upload: $file}) {
             fileInfo {
                 url
@@ -187,7 +187,7 @@ export const CREATE_FILE = gql`
 `
 
 export const CREATE_INFO = gql`
-    mutation ( $title: String! $description: String! $deviceId: ID!) {
+    mutation createInfo( $title: String! $description: String! $deviceId: ID!) {
         createDevice_info(input: {
             fields: {
                 description: $description,
@@ -207,7 +207,7 @@ export const CREATE_INFO = gql`
 `
 
 export const GET_DEVICE = gql`
-    query ( $id: ID! ){
+    query getDevice( $id: ID! ){
         device_infos (where: {
             deviceId: {
                 have: {

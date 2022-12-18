@@ -1,6 +1,6 @@
 import {DANGER, SUCCESS, WARNING} from "../utils/consts";
 import React, {Dispatch, SetStateAction} from "react";
-import BasketDeviceItem from "../components/ui/basket-device-list/basket-device-item/BasketDeviceItem";
+import {ISelectedRate} from "./contextTypes";
 
 
 export interface IForm {
@@ -29,7 +29,6 @@ export interface IStarRatingComponent {
 }
 
 
-
 export interface IPagination {
 	total: number
 	limit: number
@@ -48,6 +47,8 @@ export interface IModal {
 export interface IModalCreateRating {
 	showModal: boolean
 	onHide: () => void
+	selectedRate: ISelectedRate
+	setSelectedRate: Dispatch<SetStateAction<ISelectedRate>>
 }
 
 

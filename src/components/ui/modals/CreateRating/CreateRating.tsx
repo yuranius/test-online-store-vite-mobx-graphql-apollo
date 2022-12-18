@@ -1,4 +1,4 @@
-import React, {FC, useContext, useEffect, useState} from 'react';
+import React, {FC, memo, useContext, useEffect, useState} from 'react';
 import styled from './CreateRating.module.scss'
 import cn from 'classnames'
 import './style.css'
@@ -10,17 +10,19 @@ import SelectField from "../CreateDevice/Formic/SelectField";
 import {useHandlerRatingDevice} from "../../../../hooks/API/useHandlerRatingDevice";
 import {Context} from "../../../../main";
 import {useParams} from "react-router-dom";
-import {useCheckRatingUserDevice} from "../../../../hooks/API/useCheckRatingUserDevice";
 
 
-const CreateRating: FC<IModalCreateRating> = (props) => {
-	const {showModal, onHide} = props
+const CreateRating: FC<IModalCreateRating> = memo((props) => {
+	const {showModal, onHide, selectedRate, setSelectedRate} = props
 
-	const {user, selected} = useContext(Context)
+	const {user} = useContext(Context)
 	const {id} = useParams()
 
+	const [rate, setRate] = useState({value: selectedRate.rate, label: selectedRate.rate})
 
-	const [rate, setRate] = useState({value: selected.selectedRate, label: selected.selectedRate})
+	useEffect(() => {
+		setRate({value: selectedRate.rate, label: selectedRate.rate})
+	}, [selectedRate])
 
 
 	const {addRatingDevice, loading, error} = useHandlerRatingDevice()
@@ -29,7 +31,7 @@ const CreateRating: FC<IModalCreateRating> = (props) => {
 
 	const closeModal = () => {
 		setTimeout(() => {
-			setRate({value: null, label: null})
+			setRate({value: selectedRate.rate, label: selectedRate.rate})
 		}, 300)
 		onHide()
 	}
@@ -38,12 +40,18 @@ const CreateRating: FC<IModalCreateRating> = (props) => {
 		setRate(value)
 	}
 
-
 	const onSave = async () => {
-		addRatingDevice({value: rate.value, user: user.user.objectId, id: id})
+		let {id: newId, rate: newRate}:any = await addRatingDevice({
+			value: rate.value,
+			user: user.user.objectId,
+			id,
+			rateId: selectedRate.id
+		})
+
 		onHide()
 		setTimeout(() => {
-			setRate({value: null, label: null})
+			setRate({value: newRate, label: newRate})
+			setSelectedRate({id: newId, rate: newRate})
 		}, 300)
 		showMessage({text: `Ваш голос учтен`, typeIcon: SUCCESS})
 	}
@@ -51,9 +59,6 @@ const CreateRating: FC<IModalCreateRating> = (props) => {
 	if (error) {
 		showMessage({text: error.message, typeIcon: WARNING})
 	}
-
-	console.log(rate)
-
 
 	return (
 			<div className={cn(styled.wrapper, !showModal && 'hidden')}>
@@ -84,13 +89,13 @@ const CreateRating: FC<IModalCreateRating> = (props) => {
 							>Закрыть
 							</button>
 							<button type="button" disabled={loading} className={cn(styled.saveButton, loading && 'opacity-30')}
-							        onClick={onSave}>Сохранить
+							        onClick={onSave}>{selectedRate.rate ? 'Изменить' : 'Сохранить'}
 							</button>
 						</div>
 					</div>
 				</div>
 			</div>
 	);
-};
+});
 
 export default CreateRating;

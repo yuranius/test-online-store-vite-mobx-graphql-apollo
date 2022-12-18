@@ -1,12 +1,5 @@
-import {Dispatch, SetStateAction} from "react";
-import {Selected} from "./propsTypes";
+import {TypeIcon} from "./propsTypes";
 
-export interface IUseToastAutoClose {
-	toasts: Array<ToastElement>
-	setToasts: Dispatch<SetStateAction<Array<ToastElement>>>
-	autoClose: boolean
-	autoCloseTime: number
-}
 
 export type ToastElement = {
 	id: string
@@ -21,7 +14,7 @@ export type GetDevice = {
 }
 
 export interface IUseAddDevice {
-	name:  string
+	name: string
 	price: number
 	file: FormDataEntryValue | null
 	brandId: string
@@ -39,4 +32,16 @@ export type IInfoCreateInfo = {
 	title: string
 	description: string
 	objectid: string
+}
+
+export interface IShowMessage {
+	typeIcon: TypeIcon
+	text: string
+}
+
+export interface IAddRatingDevice {
+	value: number | null
+	user: string
+	id: string | undefined
+	rateId: string
 }
