@@ -21,7 +21,7 @@ export const useHandlerRatingDevice = () => {
 				userId: user,
 				deviceId: id
 			},
-			fetchPolicy: 'cache-and-network'
+			fetchPolicy: 'cache-first'
 		})
 		if (data.ratings.count < 1) {
 			let {data} = await addRating({
@@ -55,7 +55,7 @@ export const useHandlerRatingDevice = () => {
 			// @ ------- Update total rate this device -------------
 			let {data: dataGetRating} = await getRatingDevice({
 				variables: {deviceId: id},
-				fetchPolicy: 'cache-and-network'
+				fetchPolicy: 'cache-first'
 			})
 
 			const quantity = dataGetRating.ratings.count
@@ -122,7 +122,7 @@ export const useHandlerRatingDevice = () => {
 			// @ ------- Update total rate this device -------------
 			let {data: dataGetRating} = await getRatingDevice({
 				variables: {deviceId: id},
-				fetchPolicy: 'cache-and-network'
+				fetchPolicy: 'cache-first'
 			})
 
 			const quantity = dataGetRating.ratings.count

@@ -5,7 +5,7 @@ import SelectField from "./SelectField";
 import cn from "classnames";
 import styled from './Form.module.scss'
 import {useMessageContext} from "../../../../../hooks/useMessageContext";
-import {SUCCESS, WARNING} from "../../../../../utils/consts";
+import {DANGER, SUCCESS, WARNING} from "../../../../../utils/consts";
 import {getError, validate} from "../../../../../utils/formik";
 import {IInfoComponent} from "../../../../../types/overTypes";
 import {useGetTypesBrands} from "../../../../../hooks/API/useGetTypesBrands";
@@ -13,15 +13,18 @@ import {useAddDevice} from "../../../../../hooks/API/useAddDevice";
 import {uuid} from "../../../../../utils/uuid";
 
 
-
-
 const Form: FC<IFormCreateDevice> = (props) => {
 	const {showModal, onHide} = props
 
 	const [info, setInfo] = useState<IInfoComponent[]>([])
+	const [loading, setLoading] = useState(false)
 
 	const {types, brands} = useGetTypesBrands()
-	const {addDevice, loadingAddDevice, errorAddDevice} = useAddDevice()
+
+
+	const {addDevice} = useAddDevice()
+
+
 	const {showMessage} = useMessageContext()
 
 	const addInfo = () => {
@@ -48,17 +51,24 @@ const Form: FC<IFormCreateDevice> = (props) => {
 			file: null
 		},
 		onSubmit: async (values) => {
-		const device = await addDevice({
+			setLoading(true)
+			await addDevice({
 				name: values.name,
 				price: +values.price,
 				typeId: values.type.value,
 				brandId: values.brand.value,
 				file: values.file,
 				info: info
-			}).then( data => data	)
+			}).then(data => {
+				if (data) {
+					showMessage({text: `Устройство ${data.name} добавлено`, typeIcon: SUCCESS})
+				} else {
+					showMessage({text: `Ошибка добавления устройства`, typeIcon: DANGER})
+				}
+			})
 			onHide()
-			showMessage({text: `Устройство ${device.name} добавлено`, typeIcon: SUCCESS})
 			formik.resetForm()
+			setLoading(false)
 		},
 		validate,
 	})
@@ -153,7 +163,7 @@ const Form: FC<IFormCreateDevice> = (props) => {
 						<button
 								onClick={addInfo}
 								type='button'
-								disabled={loadingAddDevice}
+								disabled={loading}
 								className={styled.addButton}
 						>Добавить свойство
 						</button>
@@ -181,7 +191,7 @@ const Form: FC<IFormCreateDevice> = (props) => {
 										onClick={() => deleteInfo(i.number)}
 										type='button'
 										className={styled.deleteButton}
-										disabled={loadingAddDevice}
+										disabled={loading}
 								>
 									<svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
 									     xmlns="http://www.w3.org/2000/svg">
@@ -193,8 +203,8 @@ const Form: FC<IFormCreateDevice> = (props) => {
 					)}
 
 					<div className={styled.footer}>
-						<button type='button' disabled={loadingAddDevice} className={styled.closeButton} onClick={onHide}>Закрыть</button>
-						<button type='submit' disabled={loadingAddDevice} className={styled.saveButton}>Сохранить</button>
+						<button type='button' disabled={loading} className={styled.closeButton} onClick={onHide}>Закрыть</button>
+						<button type='submit' disabled={loading} className={styled.saveButton}>Сохранить</button>
 					</div>
 				</form>
 

@@ -3,7 +3,7 @@ export interface IDevice {
 	name: string
 	brandId: string,
 	typeId: string,
-	img: string,
+	img: {url: string},
 	rating: number,
 	price: number,
 	info?: Array<INodeInfo>
@@ -51,7 +51,7 @@ export interface INodeDevice {
 		typeId: {
 			objectId: string
 		},
-		img: string,
+		img: { url: string },
 		rating: number,
 		price: number,
 	}

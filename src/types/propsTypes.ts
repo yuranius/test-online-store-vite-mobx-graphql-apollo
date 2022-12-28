@@ -89,7 +89,7 @@ export interface IBasketDeviceItem {
 export interface IBasketDevice {
 	objectId: string
 	deviceId: string
-	img: string
+	img: {url: string}
 	price: number
 	name: string
 }

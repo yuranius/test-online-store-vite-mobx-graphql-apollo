@@ -18,7 +18,7 @@ export const useGetDevice = () => {
 			variables: {
 				id
 			},
-			fetchPolicy:'cache-and-network'
+			fetchPolicy:'cache-first'
 		}).then(({data}) => {
 			setDevice({
 				id: data.device.objectId,

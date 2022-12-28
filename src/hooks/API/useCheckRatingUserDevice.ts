@@ -11,7 +11,7 @@ export const useCheckRatingUserDevice = () => {
 				userId: user,
 				deviceId: id,
 			},
-			fetchPolicy:'cache-and-network'
+			fetchPolicy:'cache-first'
 		})
 
 		if (data.ratings.count) {

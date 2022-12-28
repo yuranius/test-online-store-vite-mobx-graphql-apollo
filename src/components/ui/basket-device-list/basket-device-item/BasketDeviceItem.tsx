@@ -10,7 +10,7 @@ const BasketDeviceItem:FC<IBasketDeviceItem> = ({device, loading, handlerDelete}
 	return (
 			<div className={cn(styled.wrapper, 'dark:bg-slate-600' )}>
 				<div className='flex gap-2'>
-					<div className={styled.image}><img src={device.img} alt=""/></div>
+					<div className={styled.image}><img src={device.img.url} alt=""/></div>
 					<div className={cn(styled.title, 'dark:text-gray-100 text-gray-700')}>{device.name}</div>
 				</div>
 				<div className={cn(styled.ended, loading && styled.loading) }>

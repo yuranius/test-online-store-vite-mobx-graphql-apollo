@@ -10,7 +10,7 @@ const DeviceItem:FC<{device: IDevice}> = ({device}) => {
 	return (
 			<Link to={'./device/'+ device.id}  className={cn(styled.item, 'dark:border-indigo-100 ')}>
 				<div className={styled.image}>
-					{/*<img src={device.img} alt={device.name}/>*/}
+					<img src={device.img.url} alt={device.name}/>
 				</div>
 
 				<div className={styled.description}>

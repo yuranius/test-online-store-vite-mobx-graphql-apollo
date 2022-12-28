@@ -88,7 +88,7 @@ const Device: FC = memo(() => {
 				<div className={styled.wrapper}>
 					<div className={styled.container}>
 						<div className={styled.image}>
-							{/*<img src={device?.img} alt={device?.name}/>*/}
+							<img src={device?.img.url} alt={device?.name}/>
 						</div>
 						<div className={cn(styled.discription, 'dark:text-blue-100 text-[#6366f1]')}>
 							<div className={styled.title}>

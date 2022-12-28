@@ -36,7 +36,9 @@ export const FETCH_DEVICES_WHEN_BRAND_AND_TYPE = gql`
                     brandId {
                         objectId
                     }
-                    img
+                    img{
+                        url
+                    }
                     name
                     price
                     rating
@@ -61,7 +63,9 @@ export const FETCH_DEVICES_WHEN_BRAND = gql`
                     brandId {
                         objectId
                     }
-                    img
+                    img{
+                        url
+                    }
                     name
                     price
                     rating
@@ -84,7 +88,9 @@ export const FETCH_DEVICES_WHEN_TYPE = gql`
                     brandId {
                         objectId
                     }
-                    img
+                    img {
+                        url
+                    }
                     name
                     price
                     rating
@@ -107,7 +113,9 @@ export const FETCH_DEVICES = gql`
                     brandId {
                         objectId
                     }
-                    img
+                    img {
+                        url
+                    }
                     name
                     price
                     rating
@@ -151,7 +159,7 @@ export const CREATE_BRAND = gql`
 `
 
 export const CREATE_DEVICE = gql`
-    mutation createDevice( $name: String! $price: Float! $rating: Float! $typeId: ID! $brandId: ID! $img: String! ) {
+    mutation createDevice( $name: String! $price: Float! $rating: Float! $typeId: ID! $brandId: ID! $img: File! ) {
         createDevice (input: {
             fields: {
                 name: $name
@@ -163,14 +171,16 @@ export const CREATE_DEVICE = gql`
                 brandId: {
                     link: $brandId
                 }
-                img: $img
+                img: {file: $img }
             }
         }){
             device{
                 objectId
                 name
                 price
-                img
+                img {
+                    url
+                }
             }
         }
     }
@@ -227,7 +237,9 @@ export const GET_DEVICE = gql`
         }
         device (id: $id) {
             objectId
-            img
+            img {
+                url
+            }
             name
             price
             rating

@@ -11,7 +11,9 @@ export const ADD_DEVICE_BASKET = gql`
                 objectId
                 deviceId {
                     objectId
-                    img
+                    img {
+                        url
+                    }
                     name
                     price
                 }
@@ -42,7 +44,9 @@ export const GET_DEVICE_BASKET = gql`
                     objectId
                     deviceId {
                         objectId
-                        img
+                        img{
+                            url
+                        }
                         name
                         price
                     }

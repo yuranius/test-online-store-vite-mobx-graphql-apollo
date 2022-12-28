@@ -24,6 +24,7 @@
     "mobx-devtools": "^0.9.27",
     "mobx-react-lite": "^3.4.0",
     "package.json": "^2.0.1",
+    "parse": "^3.5.1",
     "postcss": "^8.4.18",
     "react": "^18.2.0",
     "react-burger-menu": "^3.0.8",
