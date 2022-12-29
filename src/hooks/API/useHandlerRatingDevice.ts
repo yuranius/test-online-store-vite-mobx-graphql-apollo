@@ -7,7 +7,7 @@ import {useState} from "react";
 export const useHandlerRatingDevice = () => {
 
 	const [addRating, {error: errorAdd}] = useMutation(ADD_RATE)
-	const [checkRateDiveceUser, {error: errorCheck}] = useLazyQuery(CHECK_RATE_USER)
+	const [checkRateDeviceUser, {error: errorCheck}] = useLazyQuery(CHECK_RATE_USER)
 	const [changeRating, {error: errorChange}] = useMutation(CHANGE_RATE)
 	const [getRatingDevice, {error: errorGet}] = useLazyQuery(GET_RATING_DEVICE)
 	const [updateDevice, {error: errorUpdate}] = useMutation(UPDATE_DEVICE)
@@ -16,7 +16,7 @@ export const useHandlerRatingDevice = () => {
 
 	const addRatingDevice = async ({value, user, id, rateId}: IAddRatingDevice) => {
 		setLoading(true)
-		let {data} = await checkRateDiveceUser({
+		let {data} = await checkRateDeviceUser({
 			variables: {
 				userId: user,
 				deviceId: id
@@ -40,11 +40,17 @@ export const useHandlerRatingDevice = () => {
 							rate: value,
 						}
 					})
-					cache.writeQuery({
-						query: CHECK_RATE_USER,
-						data: {
-							ratings: {
-								...ratings, ...{edges: [...ratings.edges, {node: createRating.rating}]}
+					cache.modify({
+						fields: {
+							ratings() {
+								cache.writeQuery({
+									query: CHECK_RATE_USER,
+									data: {
+										ratings: {
+											...ratings, edges: [{...ratings.edges[0], node: createRating.rating}]
+										}
+									}
+								})
 							}
 						}
 					})
@@ -66,21 +72,29 @@ export const useHandlerRatingDevice = () => {
 					deviceId: id,
 					rate: sumRate / quantity
 				},
-				// * ---------- UPDATE CACHE -----------------------
+				// * ---------- UPDATE CACHE GET_DEVICE -----------------------
 				update(cache, {data: {updateDevice}}) {
 					let {device, device_infos}: any = cache.readQuery({
 						query: GET_DEVICE,
 						variables: {id}
 					})
-					cache.writeQuery({
-						query: GET_DEVICE,
-						data: {
-							device: {...device, rating: updateDevice.device.rating},
-							device_infos: {...device_infos}
+					cache.modify({
+						fields: {
+							device() {
+
+								cache.writeQuery({
+									query: GET_DEVICE,
+									data: {
+										device: {...device, rating: updateDevice.device.rating},
+										device_infos: {...device_infos}
+									}
+								})
+
+							}
 						}
 					})
 				}
-				// * ---------- UPDATE CACHE -----------------------
+				// * ---------- UPDATE CACHE GET_DEVICE-----------------------
 			})
 			// @ ------- Update total rate this device -------------
 
@@ -97,9 +111,9 @@ export const useHandlerRatingDevice = () => {
 					id: rateId,
 					rate: value
 				},
-				// * ---------- UPDATE CACHE -----------------------
+				// * ---------- UPDATE CACHE CHECK_RATE_USER -----------------------
 				update(cache, {data: {updateRating}}) {
-					const {ratings}: any = cache.readQuery({
+					const data: any = cache.readQuery({
 						query: CHECK_RATE_USER,
 						variables: {
 							deviceId: id,
@@ -107,16 +121,22 @@ export const useHandlerRatingDevice = () => {
 							rate: value,
 						}
 					})
-					cache.writeQuery({
-						query: CHECK_RATE_USER,
-						data: {
-							ratings: {
-								...ratings, ...{edges: [{node: updateRating.rating}]}
+					cache.modify({
+						fields: {
+							ratings() {
+								cache.writeQuery({
+									query: CHECK_RATE_USER,
+									data: {
+										ratings: {
+											...data.ratings, edges: [{...data.ratings.edges[0], node: updateRating.rating}]
+										}
+									}
+								})
 							}
 						}
 					})
 				}
-				// * ---------- UPDATE CACHE -----------------------
+				// * ---------- UPDATE CACHE CHECK_RATE_USER -----------------------
 			})
 
 			// @ ------- Update total rate this device -------------
@@ -133,18 +153,26 @@ export const useHandlerRatingDevice = () => {
 					deviceId: id,
 					rate: sumRate / quantity
 				},
-				// * ---------- UPDATE CACHE -----------------------
+				// * -------- UPDATE CACHE GET_DEVICE && GET_RATING_DEVICE------------
 				update(cache, {data: {updateDevice}}) {
 					// ----- update rate device page ---------------
 					let {device, device_infos}: any = cache.readQuery({
 						query: GET_DEVICE,
 						variables: {id}
 					})
-					cache.writeQuery({
-						query: GET_DEVICE,
-						data: {
-							device: {...device, rating: updateDevice.device.rating},
-							device_infos: {...device_infos}
+					cache.modify({
+						fields: {
+							device() {
+
+								cache.writeQuery({
+									query: GET_DEVICE,
+									data: {
+										device: {...device, rating: updateDevice.device.rating},
+										device_infos: {...device_infos}
+									}
+								})
+
+							}
 						}
 					})
 					// ----- update over voice rate ---------------
@@ -167,7 +195,7 @@ export const useHandlerRatingDevice = () => {
 						}
 					})
 				}
-				// * ---------- UPDATE CACHE -----------------------
+				// * -------- UPDATE CACHE GET_DEVICE && GET_RATING_DEVICE------------
 			})
 			// @ ------- Update total rate this device -----------
 

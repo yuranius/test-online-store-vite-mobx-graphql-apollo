@@ -17,6 +17,7 @@ import {useCheckRatingUserDevice} from "../../../hooks/API/useCheckRatingUserDev
 import CreateRating from "../../ui/modals/CreateRating/CreateRating";
 
 
+
 const Device: FC = memo(() => {
 	const {id} = useParams()
 	const navigate = useNavigate()
@@ -37,6 +38,7 @@ const Device: FC = memo(() => {
 	useEffect(() => {
 		getDevice({id})
 		if(user.user.objectId) {
+			console.log('check')
 			checkRatingUserDevice({id: id, user: user.user.objectId}).then(([{id, rate}]) => {
 				setRate({id: id, rate:rate})
 			})
@@ -46,6 +48,7 @@ const Device: FC = memo(() => {
 	useEffect ( () => {
 		getDevice({id})
 	},[rate])
+
 
 
 	const onShow = () => {
@@ -90,7 +93,7 @@ const Device: FC = memo(() => {
 						<div className={styled.image}>
 							<img src={device?.img.url} alt={device?.name}/>
 						</div>
-						<div className={cn(styled.discription, 'dark:text-blue-100 text-[#6366f1]')}>
+						<div className={cn(styled.description, 'dark:text-blue-100 text-[#6366f1]')}>
 							<div className={styled.title}>
 								<div className={styled.name}>{device?.name}</div>
 								<div className={styled.price}>{format(device?.price!)}</div>
