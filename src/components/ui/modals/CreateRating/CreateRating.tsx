@@ -7,7 +7,7 @@ import {useMessageContext} from "../../../../hooks/useMessageContext";
 import {SUCCESS, WARNING} from "../../../../utils/consts";
 import {createArrForRatingOption} from "../../../../utils/createArrForRatingOption";
 import SelectField from "../CreateDevice/Formic/SelectField";
-import {useHandlerRatingDevice} from "../../../../hooks/API/useHandlerRatingDevice";
+import {useHandlerRatingDevice} from "../../../../hooks/API/ratingDevice/useHandlerRatingDevice";
 import {Context} from "../../../../main";
 import {useParams} from "react-router-dom";
 
