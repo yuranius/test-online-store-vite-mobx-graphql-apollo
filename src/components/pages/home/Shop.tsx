@@ -11,15 +11,13 @@ import {IDevice} from "../../../types/queryTypes";
 const Shop: FC = observer(() => {
 
 	const {user, selected} = useContext(Context)
-	const limit = 9;
-	const portionSize = 5;
+	const skip = user.currentPage * selected.limit - selected.limit
 
 	const {fetchDevice, devices, loading, count} = useGetDevices()
 
 	useEffect(() => {
-		fetchDevice({limit: limit, skip: user.currentPage * limit - limit})
+		fetchDevice({limit: selected.limit, skip})
 	}, [])
-
 
 	let changePage = (page: number) => {
 		user.setCurrentPage(page)
@@ -27,8 +25,8 @@ const Shop: FC = observer(() => {
 
 	useEffect ( () => {
 		fetchDevice({
-			limit: limit,
-			skip: user.currentPage * limit - limit,
+			limit: selected.limit,
+			skip,
 			brandId: selected.selectedBrand.id,
 			typeId:selected.selectedType.id
 		})
@@ -49,7 +47,7 @@ const Shop: FC = observer(() => {
 									: <div className='text-red-400'>Товары не найдены!</div>
 					}
 				</div>
-				<Pagination total={count} limit={limit} currentPage={user.currentPage} changePage={changePage} portionSize={portionSize} />
+				<Pagination total={count} limit={selected.limit} currentPage={user.currentPage} changePage={changePage} portionSize={selected.partitionSize} />
 			</Layout>
 	);
 });

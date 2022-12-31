@@ -4,12 +4,13 @@ import cn from 'classnames'
 import './style.css'
 import {IModalCreateRating} from "../../../../types/propsTypes";
 import {useMessageContext} from "../../../../hooks/useMessageContext";
-import {SUCCESS, WARNING} from "../../../../utils/consts";
+import {DANGER, SUCCESS, WARNING} from "../../../../utils/consts";
 import {createArrForRatingOption} from "../../../../utils/createArrForRatingOption";
 import SelectField from "../CreateDevice/Formic/SelectField";
 import {useHandlerRatingDevice} from "../../../../hooks/API/ratingDevice/useHandlerRatingDevice";
 import {Context} from "../../../../main";
 import {useParams} from "react-router-dom";
+import button from "../../button/Button";
 
 
 const CreateRating: FC<IModalCreateRating> = memo((props) => {
@@ -25,7 +26,7 @@ const CreateRating: FC<IModalCreateRating> = memo((props) => {
 	}, [selectedRate])
 
 
-	const {addRatingDevice, loading, error} = useHandlerRatingDevice()
+	const {addRatingDevice, deleteRatingDevice, loading, error} = useHandlerRatingDevice()
 	const {showMessage} = useMessageContext()
 
 
@@ -41,7 +42,7 @@ const CreateRating: FC<IModalCreateRating> = memo((props) => {
 	}
 
 	const onSave = async () => {
-		let {id: newId, rate: newRate}:any = await addRatingDevice({
+		let {id: newId, rate: newRate}: any = await addRatingDevice({
 			value: rate.value,
 			user: user.user.objectId,
 			id,
@@ -54,6 +55,21 @@ const CreateRating: FC<IModalCreateRating> = memo((props) => {
 			setSelectedRate({id: newId, rate: newRate})
 		}, 300)
 		showMessage({text: `Ваш голос учтен`, typeIcon: SUCCESS})
+	}
+
+	const onDelete = async () => {
+		await deleteRatingDevice({
+			value: rate.value,
+			user: user.user.objectId,
+			id,
+			rateId: selectedRate.id
+		})
+		onHide()
+		setTimeout(() => {
+			setRate({value: 0, label: 0})
+			setSelectedRate({id: '', rate: 0})
+		}, 300)
+		showMessage({text: `Ваш голос удален`, typeIcon: DANGER})
 	}
 
 	if (error) {
@@ -82,6 +98,14 @@ const CreateRating: FC<IModalCreateRating> = memo((props) => {
 						</div>
 						<div
 								className={styled.footer}>
+							{selectedRate.rate ?
+									<button type="button"
+									        disabled={loading}
+									        className={cn(styled.deleteButton, loading && 'opacity-30')}
+									        onClick={onDelete}>
+
+										Удалить
+									</button> : null}
 							<button type="button"
 							        disabled={loading}
 							        className={cn(styled.closeButton, loading && 'opacity-30')}

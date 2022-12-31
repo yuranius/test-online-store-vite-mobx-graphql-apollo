@@ -22,7 +22,7 @@ const Device: FC = memo(() => {
 	const {id} = useParams()
 	const navigate = useNavigate()
 	const {device, getDevice} = useGetDevice()
-	const {user, basket} = useContext(Context)
+	const {user, basket, selected} = useContext(Context)
 
 	const {addDeviceBasket, loading: loadingAddDevice, error: errorAddDevice} = useAddDeviceBasket()
 	const {checkRatingUserDevice, loading: loadingCheckRating, error: errorCheckRating} = useCheckRatingUserDevice()
@@ -48,7 +48,6 @@ const Device: FC = memo(() => {
 	useEffect ( () => {
 		getDevice({id})
 	},[rate])
-
 
 
 	const onShow = () => {

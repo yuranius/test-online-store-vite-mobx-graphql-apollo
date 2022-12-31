@@ -25,11 +25,10 @@ export type IContext = {
 export interface IDeviceContext {
 	selectedType: Selected
 	selectedBrand: Selected
-	selectedRate: ISelectedRate
-
+	limit: number
+	partitionSize: number
 	setSelectedType(param: Selected): void
 	setSelectedBrand(param: Selected): void
-	setSelectedRate(param: ISelectedRate):void
 }
 
 export interface IBasketContext {

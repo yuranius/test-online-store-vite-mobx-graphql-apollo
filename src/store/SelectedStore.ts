@@ -6,13 +6,14 @@ import {ISelectedRate} from "../types/contextTypes";
 class SelectedStore {
 	private _selectedType: Selected
 	private _selectedBrand: Selected
-	private _selectedRate: ISelectedRate
+	private readonly _limit: number
+	private readonly _partitionSize: number
 
 	constructor() {
-
 		this._selectedType = {id: '' , name: ''}
 		this._selectedBrand = {id: '' , name: ''}
-		this._selectedRate = {id: '', rate: null}
+		this._limit = 9
+		this._partitionSize = 5
 
 		makeAutoObservable(this)
 	}
@@ -25,10 +26,6 @@ class SelectedStore {
 		this._selectedBrand = type
 	}
 
-	setSelectedRate (rate: ISelectedRate) {
-		this._selectedRate = rate
-	}
-
 	get selectedType () {
 		return this._selectedType
 	}
@@ -37,9 +34,14 @@ class SelectedStore {
 		return this._selectedBrand
 	}
 
-	get selectedRate () {
-		return this._selectedRate
+	get limit () {
+		return this._limit
 	}
+
+	get partitionSize () {
+		return this._partitionSize
+	}
+
 
 }
 

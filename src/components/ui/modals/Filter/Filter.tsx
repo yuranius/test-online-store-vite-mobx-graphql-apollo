@@ -21,7 +21,7 @@ const Filter: FC<IModalFilterRating> = observer(({showModal, onShow}) => {
 	const {selected,user} = useContext(Context)
 
 	const [type, setType] = useState<IOptions>({value: selected.selectedType.id, label: selected.selectedType.name})
-	const [brand, setBrand] = useState<{value: string, label: string}>()
+	const [brand, setBrand] = useState<IOptions>({value: selected.selectedBrand.id, label: selected.selectedBrand.name})
 
 
 	const handleSubmit = () => {
@@ -33,7 +33,6 @@ const Filter: FC<IModalFilterRating> = observer(({showModal, onShow}) => {
 		}
 		user.setCurrentPage(1)
 		onShow()
-
 	}
 	const handleReset = () => {
 		setTimeout(() => {

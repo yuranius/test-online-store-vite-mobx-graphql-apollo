@@ -1,19 +1,22 @@
-import {useLazyQuery} from "@apollo/client";
-import {CHECK_RATE_USER} from "../../../query/ratingAPI";
+import {useLazyQuery, useMutation} from "@apollo/client";
+import {CHECK_RATE_USER, DELETE_RATE} from "../../../query/ratingAPI";
 import {IAddRatingDevice} from "../../../types/hooksTypes";
 import {useState} from "react";
 import {useUpdateDevice} from "./useUpdateDevice";
 import {useAddRating} from "./useAddRating";
 import {useChangeRating} from "./useChangeRating";
+import {useDeleteRating} from "./useDeleteRating";
 
 export const useHandlerRatingDevice = () => {
 
 
 	const [checkRateDeviceUser, {error: errorCheck}] = useLazyQuery(CHECK_RATE_USER)
 
+
 	const { updateDevice, errorUpdate, errorGetRatingDevice } = useUpdateDevice()
 	const { addRating, errorAdd } = useAddRating()
 	const { changeRating, errorChange }  = useChangeRating()
+	const { deleteRating } = useDeleteRating()
 
 	const [loading, setLoading] = useState(false)
 
@@ -29,7 +32,7 @@ export const useHandlerRatingDevice = () => {
 		})
 		if (data.ratings.count < 1) {
 			const data = await addRating({id, user, value})
-			await updateDevice({id})
+			await updateDevice(id)
 			setLoading(false)
 
 			return {
@@ -38,9 +41,8 @@ export const useHandlerRatingDevice = () => {
 			}
 
 		} else {
-
 			const data = await changeRating({rateId, id, user, value})
-			await updateDevice({id, rateId, value})
+			await updateDevice(id)
 			setLoading(false)
 
 			return {
@@ -50,7 +52,14 @@ export const useHandlerRatingDevice = () => {
 		}
 	}
 
+	const deleteRatingDevice = async ({value, user, id, rateId}: IAddRatingDevice ) => {
+		setLoading(true)
+		await deleteRating({id, user, value, rateId})
+		await updateDevice(id)
+		setLoading(false)
+	}
+
 	let error = errorAdd || errorChange || errorCheck || errorGetRatingDevice || errorUpdate
 
-	return {addRatingDevice, loading, error}
+	return {addRatingDevice, deleteRatingDevice, loading, error}
 }

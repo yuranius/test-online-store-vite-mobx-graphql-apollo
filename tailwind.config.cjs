@@ -15,7 +15,8 @@ module.exports = {
       'lg':'1280px',
       'md': '768px',
       'tablet': '640px',
-      'sm': '480px',
+      'sm': '440px',
+      'min': '120px',
     }
   },
   plugins: [],
