@@ -15,6 +15,7 @@ import {useMessageContext} from "../../../hooks/useMessageContext";
 import {CSSTransition} from "react-transition-group";
 import {useCheckRatingUserDevice} from "../../../hooks/API/useCheckRatingUserDevice";
 import CreateRating from "../../ui/modals/CreateRating/CreateRating";
+import {useDeleteDevice} from "../../../hooks/API/useDeleteDevice";
 
 
 
@@ -25,6 +26,7 @@ const Device: FC = memo(() => {
 	const {user, basket, selected} = useContext(Context)
 
 	const {addDeviceBasket, loading: loadingAddDevice, error: errorAddDevice} = useAddDeviceBasket()
+	const { destroyDevice, loading: loadingDestroyDevice } = useDeleteDevice()
 	const {checkRatingUserDevice, loading: loadingCheckRating, error: errorCheckRating} = useCheckRatingUserDevice()
 	const {showMessage} = useMessageContext()
 
@@ -32,7 +34,7 @@ const Device: FC = memo(() => {
 	const [showModal, setShowModal] = useState(false)
 	const [showTransition, setShowTransition] = useState<boolean>(false)
 
-	let loading = loadingAddDevice || loadingCheckRating
+	let loading = loadingAddDevice || loadingCheckRating || loadingDestroyDevice
 	let error = errorAddDevice || errorCheckRating
 
 	useEffect(() => {
@@ -80,10 +82,12 @@ const Device: FC = memo(() => {
 	const handlerDelete = () => {
 		let check = confirm('Вы уверены что хотите удалить этот товар?')
 		if (check) {
-			setTimeout(() => navigate(SHOP_ROUTE), 2000)
+			destroyDevice(id).then(({deleteDevice}) => {
+					showMessage({text:`Товар ${deleteDevice.device.name} удален из списка товаров`, typeIcon: DANGER})
+					navigate(SHOP_ROUTE)
+			})
 		}
 	}
-
 
 	return (
 			<Layout>
@@ -120,12 +124,12 @@ const Device: FC = memo(() => {
 					<div className={styled.button}>
 						{user.isAuth &&
 								<>
-									<button onClick={onShow}>Оценить</button>
-									<button onClick={handleAddBasket} disabled={loadingAddDevice}>Добавить в корзину</button>
+									<button onClick={onShow} disabled={loading}>Оценить</button>
+									<button onClick={handleAddBasket} disabled={loading}>Добавить в корзину</button>
 								</>
 						}
 						{user.user.role === 'ADMIN' &&
-								<button className={styled.buttonDelete} onClick={handlerDelete}>
+								<button className={styled.buttonDelete} onClick={handlerDelete} disabled={loading}>
 									<svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
 									     xmlns="http://www.w3.org/2000/svg">
 										<path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"

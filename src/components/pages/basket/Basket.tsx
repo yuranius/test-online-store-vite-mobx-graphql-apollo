@@ -10,8 +10,7 @@ import {useDeleteDeviceBasket} from "../../../hooks/API/useDeleteDeviceBasket";
 import {format} from "../../../utils/formatter";
 import Button from "../../ui/button/Button";
 import {useMessageContext} from "../../../hooks/useMessageContext";
-import {DANGER, WARNING} from "../../../utils/consts";
-import device from "../device/Device";
+import {DANGER} from "../../../utils/consts";
 
 
 const Basket: FC = () => {

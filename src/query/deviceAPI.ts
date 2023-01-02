@@ -253,23 +253,64 @@ export const GET_DEVICE = gql`
     }
 `
 
-// export const DELETE_DEVICE = gql`
-//     mutation ($id: ID!) {
-//         deleteDevice(input: {
-//             id: $id
-//         }){
-//             device {
-//                 name: 'test'
-//             }
-//         }
-//         deleteRating()
-//     }
-//
-// `
+export const DELETE_DEVICE = gql`
+    mutation deleteDevice($id: ID!) {
+        deleteDevice(input: {
+            id: $id
+        }){
+            device {
+                name
+                objectId
+            }
+        }
 
-// export const DELETE_INFO = gql`
-//     mutation ( $id:ID! ) {
-//         deleteRating(input:)
-//     }
-// `
+    }
+`
+
+export const GET_DEVICE_INFO = gql`
+    query getInfoDevice ($id: ID!){
+        device_infos(where: {
+            deviceId: {
+                have: {
+                    objectId: {
+                        equalTo: $id
+                    }
+                }
+            }
+        }){
+            edges {
+                node {
+                    objectId
+                }
+            }
+        }
+    }
+`
+
+export const DELETE_DEVICE_INFO = gql`
+    mutation deleteInfo ($id: ID!){
+        deleteDevice_info(input: {
+            id: $id
+        }){
+            device_info {
+                objectId
+                id
+            }
+        }
+    }
+`
+
+export const DELETE_RATING = gql`
+    mutation deleteRaing ($id: ID!){
+        deleteRating(input: {
+            id: $id
+        }){
+            rating {
+                objectId
+            }
+        }
+    }
+`
+
+
 

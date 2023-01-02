@@ -9,12 +9,13 @@ import Form from "./Formic/Form";
 
 const CreateDevice: FC<IModal> = memo((props) => {
 	const {showModal, onHide, title} = props
+	const [loading, setLoading] = useState(false)
 		return (
 			<div className={cn(styled.wrapper, !showModal && 'hidden')}>
 				<div className={styled.container}>
 					<div className={cn(styled.cart, 'bg-white dark:bg-gray-600')}>
-						<Title onHide={onHide} title={title}/>
-						<Form showModal={showModal} onHide={onHide}  />
+						<Title onHide={onHide} title={title} loading={loading}/>
+						<Form showModal={showModal} onHide={onHide} setLoading={setLoading} loading={loading} />
 					</div>
 				</div>
 			</div>

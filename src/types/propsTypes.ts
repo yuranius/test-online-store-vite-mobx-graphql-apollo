@@ -55,11 +55,14 @@ export interface IModalCreateRating {
 export interface ITitle {
 	onHide: () => void
 	title: string
+	loading:boolean
 }
 
 export interface IFormCreateDevice {
 	showModal: boolean
 	onHide: () => void
+	setLoading: Dispatch<SetStateAction<boolean>>
+	loading:boolean
 }
 
 export type Selected = {

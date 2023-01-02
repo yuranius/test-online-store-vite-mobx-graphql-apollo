@@ -49,6 +49,7 @@
     @apply flex-auto;
   }
   .deleteButton{
-    @apply bg-rose-400 hover:bg-rose-500 active:bg-rose-300 block w-10 h-10 rounded-full text-white flex-none flex justify-center items-center;
+    @apply bg-rose-400 hover:bg-rose-500 active:bg-rose-300 block w-10 h-10 rounded-full text-white
+    flex-none flex justify-center items-center disabled:bg-rose-400;
   }
 }

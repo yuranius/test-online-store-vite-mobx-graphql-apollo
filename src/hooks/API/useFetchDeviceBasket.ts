@@ -1,6 +1,6 @@
 import {useLazyQuery} from "@apollo/client";
 import {GET_DEVICE_BASKET} from "../../query/basketAPI";
-import {useContext, useState} from "react";
+import {useContext} from "react";
 import {INodeDeviceBasket} from "../../types/queryTypes";
 import {Context} from "../../main";
 

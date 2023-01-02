@@ -17,7 +17,7 @@ const AppRouter: FC<any> = ({user}) => {
 				{user.user.role === 'ADMIN' && adminRoutes.map(({path, Page}) =>
 						<Route key={path} path={path} element={<Page/>}/>
 				)}
-				{/*Роут на компоненты для пользователей*/}
+				{/*Роуты на компоненты для пользователей*/}
 				{publicRoutes.map(({path, Page}) =>
 						<Route key={path} path={path} element={<Page/>}/>
 				)}

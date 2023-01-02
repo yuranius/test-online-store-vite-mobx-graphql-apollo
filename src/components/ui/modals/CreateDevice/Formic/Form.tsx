@@ -14,10 +14,10 @@ import {uuid} from "../../../../../utils/uuid";
 
 
 const Form: FC<IFormCreateDevice> = (props) => {
-	const {showModal, onHide} = props
+	const {showModal, onHide, setLoading, loading} = props
 
 	const [info, setInfo] = useState<IInfoComponent[]>([])
-	const [loading, setLoading] = useState(false)
+
 
 	const {types, brands} = useGetTypesBrands()
 

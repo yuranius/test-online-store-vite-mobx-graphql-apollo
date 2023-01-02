@@ -54,7 +54,7 @@
     }
 
     > button:first-child{
-      @apply hover:bg-teal-500 bg-teal-600 columns-1 col-span-1;
+      @apply hover:bg-teal-500 bg-teal-600 columns-1 col-span-1 disabled:bg-gray-500 disabled:text-gray-300;
     }
 
     .buttonDelete {
