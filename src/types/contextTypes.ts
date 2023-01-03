@@ -27,8 +27,10 @@ export interface IDeviceContext {
 	selectedBrand: Selected
 	limit: number
 	partitionSize: number
+	count: number
 	setSelectedType(param: Selected): void
 	setSelectedBrand(param: Selected): void
+	setCount(param: number):void
 }
 
 export interface IBasketContext {

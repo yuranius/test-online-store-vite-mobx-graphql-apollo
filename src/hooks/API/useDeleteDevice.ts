@@ -23,8 +23,19 @@ export const useDeleteDevice = () => {
 	const [getInfo] = useLazyQuery(GET_DEVICE_INFO)
 	const [getRate] = useLazyQuery(GET_RATING_DEVICE)
 
-	const {user, selected} = useContext(Context)
-	let skip = user.currentPage * selected.limit - selected.limit
+
+	const { selected } = useContext(Context)
+	let skip = (Math.ceil(selected.count /selected.limit )) * selected.limit - selected.limit
+	const [, {refetch}] = useLazyQuery(FETCH_DEVICES, {
+		variables: {
+			skip: skip,
+			limit: selected.limit,
+		}
+	});
+
+
+	// const {user, selected} = useContext(Context)
+	// let skip = user.currentPage * selected.limit - selected.limit
 
 	const destroyDevice = async (id: string | undefined) => {
 		setLoading(true)
@@ -32,61 +43,60 @@ export const useDeleteDevice = () => {
 			variables: {
 				id: id
 			},
-			update(cache, {data}) {
-				let deviceAPI: DocumentNode;
-				let variablesDeviceIP = {}
+			// update(cache, {data}) {
+			// 	let deviceAPI: DocumentNode;
+			// 	let variablesDeviceIP = {}
+			//
+			// 	if (!selected.selectedBrand.id && !!selected.selectedType.id) {
+			// 		deviceAPI = FETCH_DEVICES_WHEN_TYPE
+			// 		variablesDeviceIP = {
+			// 			skip: skip,
+			// 			limit: selected.limit,
+			// 			typeId: selected.selectedType.id
+			// 		}
+			// 	} else if (!!selected.selectedBrand.id && !selected.selectedType.id) {
+			// 		deviceAPI = FETCH_DEVICES_WHEN_BRAND
+			// 		variablesDeviceIP = {
+			// 			skip: skip,
+			// 			limit: selected.limit,
+			// 			brandId: selected.selectedBrand.id
+			// 		}
+			// 	} else if (!!selected.selectedBrand.id && !!selected.selectedType.id) {
+			// 		deviceAPI = FETCH_DEVICES_WHEN_BRAND_AND_TYPE
+			// 		variablesDeviceIP = {
+			// 			skip: skip,
+			// 			limit: selected.limit,
+			// 			brandId: selected.selectedBrand.id,
+			// 			typeId: selected.selectedType.id
+			// 		}
+			// 	} else {
+			// 		deviceAPI = FETCH_DEVICES
+			// 		variablesDeviceIP = {
+			// 			skip: skip,
+			// 			limit: selected.limit,
+			// 		}
+			// 	}
 
-				if (!selected.selectedBrand.id && !!selected.selectedType.id) {
-					deviceAPI = FETCH_DEVICES_WHEN_TYPE
-					variablesDeviceIP = {
-						skip: skip,
-						limit: selected.limit,
-						typeId: selected.selectedType.id
-					}
-				} else if (!!selected.selectedBrand.id && !selected.selectedType.id) {
-					deviceAPI = FETCH_DEVICES_WHEN_BRAND
-					variablesDeviceIP = {
-						skip: skip,
-						limit: selected.limit,
-						brandId: selected.selectedBrand.id
-					}
-				} else if (!!selected.selectedBrand.id && !!selected.selectedType.id) {
-					deviceAPI = FETCH_DEVICES_WHEN_BRAND_AND_TYPE
-					variablesDeviceIP = {
-						skip: skip,
-						limit: selected.limit,
-						brandId: selected.selectedBrand.id,
-						typeId: selected.selectedType.id
-					}
-				} else {
-					deviceAPI = FETCH_DEVICES
-					variablesDeviceIP = {
-						skip: skip,
-						limit: selected.limit,
-					}
-				}
-
-				let {devices}: any = cache.readQuery({
-					query: deviceAPI,
-					variables: variablesDeviceIP
-				})
-
-				console.log('cacheDevices',devices)
-				cache.writeQuery({
-					query: deviceAPI,
-					variables: variablesDeviceIP,
-					data: {
-						devices: {
-							...devices, ...{
-								edges: [
-									...devices.edges.filter(({node}: any) => node.objectId !== id)
-								],
-								count: devices.count - 1
-							}
-						}
-					}
-				})
-			}
+				// let {devices}: any = cache.readQuery({
+				// 	query: deviceAPI,
+				// 	variables: variablesDeviceIP
+				// })
+				//
+				// cache.writeQuery({
+				// 	query: deviceAPI,
+				// 	variables: variablesDeviceIP,
+				// 	data: {
+				// 		devices: {
+				// 			...devices, ...{
+				// 				edges: [
+				// 					...devices.edges.filter(({node}: any) => node.objectId !== id)
+				// 				],
+				// 				count: devices.count - 1
+				// 			}
+				// 		}
+				// 	}
+				// })
+			//}
 		})
 
 		const {data: deviceInfos}= await getInfo({
@@ -114,6 +124,8 @@ export const useDeleteDevice = () => {
 				})
 			})
 		}
+
+		await refetch()
 		setLoading(false)
 		return data
 	}

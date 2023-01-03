@@ -8,12 +8,14 @@ class SelectedStore {
 	private _selectedBrand: Selected
 	private readonly _limit: number
 	private readonly _partitionSize: number
+	private _count: number
 
 	constructor() {
 		this._selectedType = {id: '' , name: ''}
 		this._selectedBrand = {id: '' , name: ''}
 		this._limit = 9
 		this._partitionSize = 5
+		this._count = 0
 
 		makeAutoObservable(this)
 	}
@@ -24,6 +26,10 @@ class SelectedStore {
 
 	setSelectedBrand (type: Selected) {
 		this._selectedBrand = type
+	}
+
+	setCount(count: number){
+		this._count = count
 	}
 
 	get selectedType () {
@@ -40,6 +46,10 @@ class SelectedStore {
 
 	get partitionSize () {
 		return this._partitionSize
+	}
+
+	get count () {
+		return this._count
 	}
 
 

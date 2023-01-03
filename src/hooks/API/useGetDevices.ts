@@ -5,8 +5,9 @@ import {
 	FETCH_DEVICES_WHEN_BRAND_AND_TYPE,
 	FETCH_DEVICES_WHEN_TYPE
 } from "../../query/deviceAPI";
-import {useState} from "react";
+import {useContext, useState} from "react";
 import {FetchDevice, IData, IDevice, INodeDevice} from "../../types/queryTypes";
+import {Context} from "../../main";
 
 
 export const useGetDevices = () => {
@@ -18,12 +19,16 @@ export const useGetDevices = () => {
 
 	const [devices , setDevices] = useState([])
 	const [count, setCount] = useState(0)
+	const [loading, setLoading] = useState(false)
 
-	let loading = loadingAll || loadingType || loadingBrand || loadingBrandAndType
+	const { selected } = useContext(Context)
+
+	//let loading = loadingAll || loadingType || loadingBrand || loadingBrandAndType
 
 
 	const sendData = (res:IData) => {
 		setCount(res.data?.devices.count)
+		selected.setCount(res.data?.devices.count)
 		setDevices(res.data?.devices.edges.map(({node}: INodeDevice): IDevice => ({
 			id: node.objectId,
 			name: node.name,
@@ -36,20 +41,21 @@ export const useGetDevices = () => {
 	}
 
 
-	function fetchDevice ({limit, skip, typeId, brandId}:FetchDevice) {
+	async function fetchDevice ({limit, skip, typeId, brandId}:FetchDevice) {
+		setLoading(true)
 		switch (true) {
 			case (!!typeId && !brandId):
-				getDevicesType({
+				await getDevicesType({
 					variables: {
 						skip: skip,
 						limit: limit,
 						typeId: typeId,
 					}
-				}).then(res => sendData(res))
+				}).then( res => sendData(res))
 				break
 
 			case (!!brandId && !typeId):
-				getDevicesBrand({
+				await getDevicesBrand({
 					variables: {
 						skip: skip,
 						limit: limit,
@@ -59,7 +65,7 @@ export const useGetDevices = () => {
 				break
 
 			case (!!typeId && !!brandId):
-				getDevicesBrandAndType({
+				await getDevicesBrandAndType({
 					variables: {
 						skip: skip,
 						limit: limit,
@@ -71,7 +77,7 @@ export const useGetDevices = () => {
 
 			default:
 			case (!typeId && !brandId):
-				getAllDevices({
+				await getAllDevices({
 					variables: {
 						skip: skip,
 						limit: limit,
@@ -79,6 +85,10 @@ export const useGetDevices = () => {
 				}).then(res => sendData(res))
 				break
 		}
+
+		console.log(devices)
+		setLoading(false)
+		return devices
 	}
 
 
