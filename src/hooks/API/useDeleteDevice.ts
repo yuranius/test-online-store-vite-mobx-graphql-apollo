@@ -24,8 +24,8 @@ export const useDeleteDevice = () => {
 	const [getRate] = useLazyQuery(GET_RATING_DEVICE)
 
 
-	const { selected } = useContext(Context)
-	let skip = (Math.ceil(selected.count /selected.limit )) * selected.limit - selected.limit
+	const { user, selected } = useContext(Context)
+	let skip = user.currentPage * selected.limit - selected.limit
 	const [, {refetch}] = useLazyQuery(FETCH_DEVICES, {
 		variables: {
 			skip: skip,
@@ -33,9 +33,6 @@ export const useDeleteDevice = () => {
 		}
 	});
 
-
-	// const {user, selected} = useContext(Context)
-	// let skip = user.currentPage * selected.limit - selected.limit
 
 	const destroyDevice = async (id: string | undefined) => {
 		setLoading(true)

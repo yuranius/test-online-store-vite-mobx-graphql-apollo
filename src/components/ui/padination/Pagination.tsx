@@ -32,6 +32,7 @@ const Pagination: FC<IPagination> = ({total, limit, changePage, currentPage, por
 		changePage((portionNumber - 1) * portionSize + 1)
 	}
 
+	console.log(pages)
 
 	return (
 			<div className={styled.wrapper}>

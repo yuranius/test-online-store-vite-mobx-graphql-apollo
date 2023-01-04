@@ -6,19 +6,26 @@ import styled from './Shop.module.scss'
 import Pagination from "../../ui/padination/Pagination";
 import {Context} from "../../../main";
 import {observer} from "mobx-react-lite";
-import {IDevice} from "../../../types/queryTypes";
+import {FetchDevice, IDevice} from "../../../types/queryTypes";
 
 const Shop: FC = observer(() => {
 
-	//const [devices, setDevices] = useState([])
+	const [devices, setDevices] = useState([])
+	const [count, setCount] = useState(0)
 
 	const {user, selected} = useContext(Context)
 	const skip = user.currentPage * selected.limit - selected.limit
 
-	const {fetchDevice, loading, devices, count} = useGetDevices()
+	const {fetchDevice, loading} = useGetDevices()
+
+	async function fetchDevicesHandler ({limit, skip, brandId, typeId}:FetchDevice) {
+		const {devices, count} = await fetchDevice({limit, skip , brandId, typeId})
+		setDevices(devices)
+		setCount(count)
+	}
 
 	useEffect(() => {
-		fetchDevice({limit: selected.limit, skip})
+		fetchDevicesHandler({limit: selected.limit, skip})
 	}, [])
 
 	let changePage = (page: number) => {
@@ -26,12 +33,7 @@ const Shop: FC = observer(() => {
 	}
 
 	useEffect ( () => {
-		fetchDevice({
-			limit: selected.limit,
-			skip,
-			brandId: selected.selectedBrand.id,
-			typeId:selected.selectedType.id
-		})
+		fetchDevicesHandler({limit: selected.limit, skip, brandId: selected.selectedBrand.id, typeId: selected.selectedType.id})
 	},[selected.selectedBrand, selected.selectedType, user.currentPage])
 
 	

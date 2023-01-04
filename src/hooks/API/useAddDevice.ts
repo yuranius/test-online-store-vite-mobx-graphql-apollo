@@ -1,4 +1,4 @@
-import {useApolloClient, useLazyQuery, useMutation} from "@apollo/client";
+import {useLazyQuery, useMutation} from "@apollo/client";
 import {CREATE_INFO, FETCH_DEVICES} from "../../query/deviceAPI";
 import {IInfoComponent} from "../../types/overTypes";
 
@@ -15,8 +15,6 @@ export const useAddDevice = () => {
 
 	const [createInfo] = useMutation(CREATE_INFO)
 
-	// const {cache} = useApolloClient()
-	//
 	const {selected} = useContext(Context)
 	let skip = (Math.ceil(selected.count /selected.limit )) * selected.limit - selected.limit
 
@@ -65,7 +63,6 @@ export const useAddDevice = () => {
 			}
 
 			await refetch()
-
 			return {id: createDevice.id, ...props}
 		} catch (error) {
 			return undefined
