@@ -17,8 +17,6 @@ const Form: FC<IForm> = ({isLoginPage, email, setEmail, password, setPassword, h
 							{/*Heading*/}
 							<h1 className={cn(styled.title, 'dark:text-white')}>Добро пожаловать!</h1>
 							<small className="text-gray-400">Введите свои данные для авторизации</small>
-
-
 							{/*Form*/}
 							<form className="mt-4">
 								<div className={styled.inputForm}>
@@ -27,20 +25,16 @@ const Form: FC<IForm> = ({isLoginPage, email, setEmail, password, setPassword, h
 									       value={email} onChange={(e) => setEmail(e.target.value)}
 									/>
 								</div>
-
 								<div className={styled.inputForm}>
 									<label className='dark:text-white'>Password</label>
 									<input disabled={loading} type="password" placeholder="******"
 									       value={password} onChange={(e) => setPassword(e.target.value)}/>
 								</div>
-
-
 								<div className={styled.inputForm}>
 									<button disabled={loading}
 									        onClick={(e) => handleButton(e)}>{isLoginPage ? 'Войти' : 'Регистрация'}</button>
 								</div>
 							</form>
-
 							{/*Footer*/}
 							<div className={styled.footer}>
 								<span>{isLoginPage ? 'Нет аккаунта?' : 'Есть аккаунт?'}</span>
@@ -51,14 +45,11 @@ const Form: FC<IForm> = ({isLoginPage, email, setEmail, password, setPassword, h
 							</div>
 						</div>
 					</div>
-
 					{/*Login banner*/}
 					<div className={styled.banner}>
-						<img src={banner}/>
+						<img src={banner} alt="basket"/>
 					</div>
 				</div>
-
-
 			</div>
 	);
 };
