@@ -4,28 +4,28 @@ export const styles = {
 		width: '36px',
 		height: '30px',
 		right: '36px',
-		top: '16px'
+		top: '16px',
 	},
 	bmBurgerBars: {
 		background: '#ffffff',
-		height: '2px'
+		height: '2px',
 	},
 	bmBurgerBarsHover: {
-		background: '#a90000'
+		background: '#a90000',
 	},
 	bmCrossButton: {
 		height: '34px',
 		width: '34px',
-		right: '36px'
+		right: '36px',
 	},
 	bmCross: {
 		background: '#ffffff',
-		height: '36px'
+		height: '36px',
 	},
 	bmMenuWrap: {
 		position: 'fixed',
 		height: '100%',
-		width:'80%',
+		width: '80%',
 	},
 	bmMenu: {
 		background: '#6366f1',
@@ -38,14 +38,16 @@ export const styles = {
 	bmItemList: {
 		color: '#ffffff',
 		paddingLeft: '0.8em',
-		paddingRight: '0.8em'
+		paddingRight: '0.8em',
+		marginTop: '2em',
+		height: '80%',
 	},
 	bmItem: {
 		display: 'flex',
-		flexDirection:'column',
-		marginTop:'10px',
+		flexDirection: 'column',
+		marginTop: '10px',
 	},
 	bmOverlay: {
 		background: 'rgba(0, 0, 0, 0.3)',
-	}
+	},
 }

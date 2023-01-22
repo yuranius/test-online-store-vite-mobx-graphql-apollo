@@ -1,0 +1,7 @@
+.bg {
+  @apply w-14 h-8 rounded-full bg-indigo-100 flex items-center transition duration-300 focus:outline-none shadow translate-x-2;
+}
+
+.button {
+  @apply w-10 h-10 relative rounded-full transition duration-500 transform bg-yellow-500 p-1 text-white;
+}

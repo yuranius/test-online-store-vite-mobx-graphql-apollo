@@ -1,0 +1,11 @@
+.wrapper {
+  @apply border border-rose-600 flex;
+}
+
+.button {
+  @apply w-10 h-10 relative rounded-full transition duration-500 transform bg-yellow-500 p-1 text-white transition-all border border-green-600;
+}
+
+.filter {
+  @apply w-full flex items-center justify-center transition-all overflow-hidden border border-amber-400;
+}

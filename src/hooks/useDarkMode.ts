@@ -1,9 +1,8 @@
-import {useEffect, useState} from "react";
+import {useEffect, useState} from 'react'
 
 const UseDarkMode = () => {
-
 	const [theme, setTheme] = useState<'dark' | 'light'>(localStorage.theme)
-	const colorTheme = theme === 'dark' ? 'light' : 'dark';
+	const colorTheme: 'dark' | 'light' = theme === 'dark' ? 'light' : 'dark'
 
 	if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches && !localStorage.getItem('theme')) {
 		localStorage.setItem('theme', 'dark')
@@ -17,7 +16,6 @@ const UseDarkMode = () => {
 	}, [theme, colorTheme])
 
 	return {colorTheme, setTheme}
+}
 
-};
-
-export default UseDarkMode;
+export default UseDarkMode

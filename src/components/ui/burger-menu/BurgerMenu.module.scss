@@ -1,3 +1,10 @@
-.item{
+.item {
   @apply mt-5;
+}
+
+.main {
+  @apply mt-28;
+  > li {
+    @apply flex py-1 my-3 border border-amber-300;
+  }
 }
