@@ -4,7 +4,7 @@ import styled from './Basket.module.scss'
 import cn from "classnames";
 import {useFetchDeviceBasket} from "../../../hooks/API/useFetchDeviceBasket";
 import {Context} from "../../../main";
-import BasketDeviceItem from "../../ui/basket-device-list/basket-device-item/BasketDeviceItem";
+import BasketDeviceItem from "../../ui/basket-device-item/BasketDeviceItem";
 import {IBasketDevice} from "../../../types/propsTypes";
 import {useDeleteDeviceBasket} from "../../../hooks/API/useDeleteDeviceBasket";
 import {format} from "../../../utils/formatter";

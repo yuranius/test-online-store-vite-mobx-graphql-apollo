@@ -5,7 +5,7 @@ const UseDarkMode = () => {
 	const [theme, setTheme] = useState<'dark' | 'light'>(localStorage.theme)
 	const colorTheme = theme === 'dark' ? 'light' : 'dark';
 
-	if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+	if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches && !localStorage.getItem('theme')) {
 		localStorage.setItem('theme', 'dark')
 	}
 

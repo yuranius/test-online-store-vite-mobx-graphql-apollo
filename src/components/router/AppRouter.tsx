@@ -2,11 +2,7 @@ import React, {FC} from 'react';
 import {adminRoutes, authRoutes, publicRoutes} from "./routes";
 import {Route, Routes} from "react-router-dom";
 
-
-
 const AppRouter: FC<any> = ({user}) => {
-
-
 	return (
 			<Routes>
 				{/*Роуты на компоненты для авторизированных пользователей*/}

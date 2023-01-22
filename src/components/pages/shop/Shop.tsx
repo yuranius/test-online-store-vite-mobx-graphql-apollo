@@ -1,4 +1,4 @@
-import React, {FC, memo, useContext, useEffect, useState} from 'react';
+import React, {FC, useContext, useEffect, useState} from 'react';
 import Layout from "../../ui/layout/Layout";
 import {useGetDevices} from "../../../hooks/API/useGetDevices";
 import DeviceItem from "../../ui/device-item/DeviceItem";

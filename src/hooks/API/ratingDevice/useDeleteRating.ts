@@ -5,8 +5,6 @@ export function useDeleteRating () {
 	const [del, {error: errorDelete}] = useMutation(DELETE_RATE)
 
 	const deleteRating = async ({rateId, user, value, id}:{id: string | undefined, rateId: string, user: string | null, value: number | null}) => {
-
-
 		const {data} = await del({
 			variables: {id: rateId},
 			update(cache){

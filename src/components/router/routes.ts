@@ -3,7 +3,7 @@ import Admin from "../pages/admin/Admin";
 import Basket from "../pages/basket/Basket";
 import Auth from "../pages/auth/Auth";
 import {IRoute} from "../../types/routerTypes";
-import Shop from "../pages/home/Shop";
+import Shop from "../pages/shop/Shop";
 import Device from "../pages/device/Device";
 
 

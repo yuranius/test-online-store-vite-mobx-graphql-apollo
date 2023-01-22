@@ -1,6 +1,6 @@
 import {IError, IValuesError} from "../types/overTypes";
 
-export const validate = (values:  IValuesError) => {
+export const validate = (values: IValuesError) => {
 	let errors = {} as IError
 	if (!values.name) {
 		errors.name = 'Поле должно быть заполнено'
@@ -22,7 +22,7 @@ export const validate = (values:  IValuesError) => {
 		errors.brand = 'Бренд должен быть выбран'
 	}
 
-	if (!values.file ) {
+	if (!values.file) {
 		errors.file = 'Выберите файл'
 	} else if (values.file?.type.split('/')[0] !== 'image') {
 		errors.file = 'Файл должен быть изображением'
@@ -31,12 +31,12 @@ export const validate = (values:  IValuesError) => {
 	return errors
 }
 
-export const getError = (formik:any) => {
+export const getError = (formik: any) => {
 	return (!!formik.errors.name && !!formik.touched.name) ||
-	(!!formik.errors.price && !!formik.touched.price) ||
-	(!!formik.errors.type && !!formik.touched.type) ||
-	(!!formik.errors.brand && !!formik.touched.brand) ||
-	(!!formik.errors.file && !!formik.touched.file)
+			(!!formik.errors.price && !!formik.touched.price) ||
+			(!!formik.errors.type && !!formik.touched.type) ||
+			(!!formik.errors.brand && !!formik.touched.brand) ||
+			(!!formik.errors.file && !!formik.touched.file)
 }
 
 

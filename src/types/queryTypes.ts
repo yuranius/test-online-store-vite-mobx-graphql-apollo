@@ -32,15 +32,6 @@ export type FetchDevice = {
 	brandId?: string
 }
 
-export interface IData {
-	data: {
-		devices: {
-			count: number
-			edges: any
-		}
-	}
-}
-
 export interface INodeDevice {
 	node:{
 		objectId: string,

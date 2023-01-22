@@ -1,9 +1,9 @@
 import React, {FC} from 'react';
-import {IBasketDeviceItem} from "../../../../types/propsTypes";
+import {IBasketDeviceItem} from "../../../types/propsTypes";
 import styled from './BasketDeviceItem.module.scss'
-import Button from "../../button/Button";
+import Button from "../button/Button";
 import cn from "classnames";
-import {format} from "../../../../utils/formatter";
+import {format} from "../../../utils/formatter";
 
 const BasketDeviceItem:FC<IBasketDeviceItem> = ({device, loading, handlerDelete}) => {
 

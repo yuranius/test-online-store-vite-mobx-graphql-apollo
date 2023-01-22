@@ -17,7 +17,7 @@ const App: FC = () => {
 
 	const {user} = useContext(Context)
 
-	const { fetchDeviceBasket } = useFetchDeviceBasket()
+	const {fetchDeviceBasket} = useFetchDeviceBasket()
 
 	const ref = useRef()
 	user.setRef(ref)
@@ -37,13 +37,11 @@ const App: FC = () => {
 
 	return (
 			<Router>
-				{loading ? <Loader />
-						 : <AppRouter user={user}/>
+				{loading ? <Loader/>
+						: <AppRouter user={user}/>
 				}
 				<Toasts ref={ref}/>
 			</Router>
-
-
 	)
 }
 

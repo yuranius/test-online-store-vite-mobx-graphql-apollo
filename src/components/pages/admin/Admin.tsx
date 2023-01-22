@@ -5,6 +5,7 @@ import styled from './Admin.module.scss'
 import cn from "classnames";
 import CreateDevice from "../../ui/modals/CreateDevice/CreateDevice";
 import CreateTypeBrand from '../../ui/modals/CreateTypeBrand/CreateTypeBrand';
+import Button from '../../ui/button/Button';
 
 
 const Admin: FC = () => {
@@ -30,16 +31,17 @@ const Admin: FC = () => {
 	const buttons = [
 		{id: 1, title: 'Добавить бренд'},
 		{id: 2, title: 'Добавить тип'},
-		{id: 3, title: 'Добавить устройство'}
+		{id: 3, title: 'Добавить устройство'},
 	]
-
 
 	return (
 			<Layout>
 				<div className={cn(styled.wrapper, 'bg-white dark:bg-gray-800')}>
 					{buttons.map(b =>
-							<button key={b.id} className='bg-gray-300 dark:bg-gray-500 text-gray-700 dark:text-gray-200'
-							        onClick={() => onShow(b)}>{b.title}</button>)}
+							// <button key={b.id} className='bg-gray-300 dark:bg-gray-500 text-gray-700 dark:text-gray-200'
+							//         onClick={() => onShow(b)}>{b.title}</button>
+							<Button key={b.id} onClick={() => onShow(b)} className='dark:text-indigo-100'>{b.title}</Button>
+					)}
 				</div>
 
 				{id !== 3 ?

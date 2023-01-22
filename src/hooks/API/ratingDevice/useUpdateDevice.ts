@@ -28,16 +28,19 @@ export function useUpdateDevice() {
 		const quantity = dataGetRating.ratings.count
 		const sumRate = dataGetRating.ratings.edges.map(({node}: { node: { rate: number } }) => node.rate).reduce((sum: number, a: number) => sum + a, 0)
 
+		let rate = quantity ? sumRate / quantity : 0
+
 		let {data: totalRate} = await update({
 			variables: {
 				deviceId: id,
-				rate: sumRate / quantity
+				rate: rate
 			},
 			update(cache, {data: {updateDevice}}) {
 				let {device, device_infos}: any = cache.readQuery({
 					query: GET_DEVICE,
 					variables: {id}
 				})
+
 				cache.modify({
 					fields: {
 						device() {
@@ -116,7 +119,7 @@ export function useUpdateDevice() {
 							devices: {
 								...res[index].value.devices, ...{
 									edges: [
-										{...newDevice[0], node: {...newDevice[0].node, rating: sumRate / quantity}},
+										{...newDevice[0], node: {...newDevice[0].node, rating: rate}},
 										...res[index].value.devices.edges.filter(({node}: any) => node.objectId !== id)
 									]
 								}

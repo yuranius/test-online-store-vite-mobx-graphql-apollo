@@ -28,15 +28,21 @@ export interface IDeviceContext {
 	limit: number
 	partitionSize: number
 	count: number
+
 	setSelectedType(param: Selected): void
+
 	setSelectedBrand(param: Selected): void
-	setCount(param: number):void
+
+	setCount(param: number): void
 }
 
 export interface IBasketContext {
 	quantityDevices: number
+
 	setQuantityDevices(param: number): void
+
 	addQuantityDevices(): void
+
 	deleteQuantityDevices(): void
 }
 

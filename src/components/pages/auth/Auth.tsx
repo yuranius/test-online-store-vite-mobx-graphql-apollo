@@ -33,8 +33,6 @@ const Auth: FC = () => {
 		}
 	}
 
-	//TODO надо проверять на наличие сессии
-
 	useEffect(() => {
 		if (errorRegistration) {
 			showMessage({text: errorRegistration, typeIcon: WARNING})

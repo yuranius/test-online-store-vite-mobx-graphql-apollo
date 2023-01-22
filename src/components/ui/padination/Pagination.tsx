@@ -22,8 +22,7 @@ const Pagination: FC<IPagination> = ({total, limit, changePage, currentPage, por
 	let rightPortionPageNamber = portionNumber * portionSize;
 
 	const changePortionNamber = (e: React.MouseEvent<HTMLButtonElement>) => {
-		// @ts-ignore
-		const id = e.target.id
+		const id = e.currentTarget.id
 		if(id === 'down'){
 			setPortionNumber(--portionNumber)
 		} else {
@@ -31,8 +30,6 @@ const Pagination: FC<IPagination> = ({total, limit, changePage, currentPage, por
 		}
 		changePage((portionNumber - 1) * portionSize + 1)
 	}
-
-	console.log(pages)
 
 	return (
 			<div className={styled.wrapper}>

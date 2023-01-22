@@ -10,7 +10,6 @@ import cn from "classnames";
 import {INodeInfo} from "../../../types/queryTypes";
 import {DANGER, SHOP_ROUTE, SUCCESS, WARNING} from "../../../utils/consts";
 import {useAddDeviceBasket} from "../../../hooks/API/useAddDeviceBasket";
-import Loader from "../../ui/loader/Loader";
 import {useMessageContext} from "../../../hooks/useMessageContext";
 import {CSSTransition} from "react-transition-group";
 import {useCheckRatingUserDevice} from "../../../hooks/API/useCheckRatingUserDevice";
@@ -18,15 +17,14 @@ import CreateRating from "../../ui/modals/CreateRating/CreateRating";
 import {useDeleteDevice} from "../../../hooks/API/useDeleteDevice";
 
 
-
 const Device: FC = memo(() => {
 	const {id} = useParams()
 	const navigate = useNavigate()
 	const {device, getDevice} = useGetDevice()
-	const {user, basket, selected} = useContext(Context)
+	const {user, basket} = useContext(Context)
 
 	const {addDeviceBasket, loading: loadingAddDevice, error: errorAddDevice} = useAddDeviceBasket()
-	const { destroyDevice, loading: loadingDestroyDevice } = useDeleteDevice()
+	const {destroyDevice, loading: loadingDestroyDevice} = useDeleteDevice()
 	const {checkRatingUserDevice, loading: loadingCheckRating, error: errorCheckRating} = useCheckRatingUserDevice()
 	const {showMessage} = useMessageContext()
 
@@ -37,19 +35,23 @@ const Device: FC = memo(() => {
 	let loading = loadingAddDevice || loadingCheckRating || loadingDestroyDevice
 	let error = errorAddDevice || errorCheckRating
 
+	if (error) {
+		showMessage({text: error.message, typeIcon: DANGER})
+	}
+
 	useEffect(() => {
 		getDevice({id})
-		if(user.user.objectId) {
+		if (user.user.objectId) {
 			console.log('check')
 			checkRatingUserDevice({id: id, user: user.user.objectId}).then(([{id, rate}]) => {
-				setRate({id: id, rate:rate})
+				setRate({id: id, rate: rate})
 			})
 		}
 	}, [user.user.objectId])
 
-	useEffect ( () => {
+	useEffect(() => {
 		getDevice({id})
-	},[rate])
+	}, [rate])
 
 
 	const onShow = () => {
@@ -83,8 +85,8 @@ const Device: FC = memo(() => {
 		let check = confirm('Вы уверены что хотите удалить этот товар?')
 		if (check) {
 			destroyDevice(id).then(({deleteDevice}) => {
-					showMessage({text:`Товар ${deleteDevice.device.name} удален из списка товаров`, typeIcon: DANGER})
-					navigate(SHOP_ROUTE)
+				showMessage({text: `Товар ${deleteDevice.device.name} удален из списка товаров`, typeIcon: DANGER})
+				navigate(SHOP_ROUTE)
 			})
 		}
 	}
