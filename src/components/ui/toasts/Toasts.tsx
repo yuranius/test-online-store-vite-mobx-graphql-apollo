@@ -3,8 +3,8 @@ import {IToasts} from "../../../types/propsTypes";
 import {SUCCESS, WARNING} from "../../../utils/consts";
 import styled from './Toasts.module.scss'
 import {CSSTransition} from "react-transition-group";
-import { IShowMessage } from '../../../types/contextTypes';
 import './alert.css'
+import {IShowMessage} from "../../../types/hooksTypes";
 
 
 

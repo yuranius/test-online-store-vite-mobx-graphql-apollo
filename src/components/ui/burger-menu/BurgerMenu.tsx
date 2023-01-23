@@ -1,4 +1,4 @@
-import React, {FC, useContext, useState} from 'react'
+import React, {createRef, FC, useContext, useRef, useState} from 'react'
 import {slide as Menu} from 'react-burger-menu'
 import {Link, useLocation} from 'react-router-dom'
 
@@ -9,7 +9,7 @@ import {ADMIN_ROUTE, BASKET_ROUTE, LOGIN_ROUTE, SHOP_ROUTE, WARNING} from '../..
 import SwitchTheme from '../navbar/switchTheme/SwitchTheme'
 import styled from './BurgerMenu.module.scss'
 import {styles} from './BurgerMenuStyles'
-import Filter from './filter/Filter'
+import FilterBurgerMenu from './filter/FilterBurgerMenu'
 
 
 const BurgerMenu: FC = () => {
@@ -19,6 +19,11 @@ const BurgerMenu: FC = () => {
 	let isMenuOpen = function (state: {isOpen: boolean}) {
 		setIsOpen(state.isOpen)
 	}
+
+
+	const ref = createRef()
+
+	console.log(ref)
 
 	if (isOpen) {
 		document.getElementById('root')?.classList.add('burger-menu-active')
@@ -46,7 +51,7 @@ const BurgerMenu: FC = () => {
 					<li>
 						<SwitchTheme />
 					</li>
-					{locate.pathname === SHOP_ROUTE && <Filter />}
+					{locate.pathname === SHOP_ROUTE && <FilterBurgerMenu ref={ref}/>}
 					{user.isAuth ? (
 						<>
 							{user.user.role === 'ADMIN' && (
